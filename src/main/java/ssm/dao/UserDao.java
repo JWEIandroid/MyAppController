@@ -1,4 +1,10 @@
 package ssm.dao;
 
-public class UserDao {
+import ssm.model.User;
+
+public interface UserDao extends BaseDao<User>{
+
+
+    public  User login(User user);
+
 }
