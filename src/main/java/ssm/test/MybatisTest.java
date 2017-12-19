@@ -4,29 +4,48 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ssm.mapper.UserMapper;
 import ssm.model.User;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:spring-mybatis.xml")
 public class MybatisTest {
 
-    public static  void main() throws IOException{
+    @Autowired
+    public UserMapper userMapper;
 
-//        String resource = "spring-mybatis.xml";
-//        InputStream inputStream = Resources.getResourceAsStream(resource);
-//        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-//        SqlSession sqlSession = sqlSessionFactory.openSession();
-//
-//        List<User> list = sqlSession.selectList("listuser");
-//        for (User user:list){
-//            System.out.println(user.getName());
-//        }
-        System.out.println("Hello");
+    @Test
+    public void testAdd(){
+        User user = new User();
+        user.setId(0);
+        user.setName("java");
+        user.setPhone("123456");
+        userMapper.add(user);
+    }
 
+    @Test
+    public void testList(){
+
+        System.out.println(userMapper);
+        List<User> userMappers = userMapper.list();
+        for (User user:userMappers){
+            System.out.println(user.getId());
+            System.out.println(user.getPhone());
+        }
 
     }
+
 
 
 }

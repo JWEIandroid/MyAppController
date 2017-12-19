@@ -11,26 +11,26 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 
-@Entity
-@Table(name = "user")
+//@Entity
+//@Table(name = "user")
 public class User implements Serializable{
 
-    @Min(value = 1)
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Min(value = 1)
+//    @Id
+//    @Column(name = "id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotNull
-    @Pattern(regexp = "^[\\u4e00-\\u9fa5]{3,5}$|^[\\dA-Za-z_]{3,10}$")//匹配3-5个汉字，或3-10个字节（中文，英文，数字及下划线(_)）
-    @Column(name = "username", length = 50)
+//
+//    @NotNull
+//    @Pattern(regexp = "^[\\u4e00-\\u9fa5]{3,5}$|^[\\dA-Za-z_]{3,10}$")//匹配3-5个汉字，或3-10个字节（中文，英文，数字及下划线(_)）
+//    @Column(name = "username", length = 50)
     private String name;
 
-
-    @NotNull
-    @Pattern(regexp = "^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$")
-    @Column(name = "phone", length = 11 , unique = true)
-    private String tel;
+//
+//    @NotNull
+//    @Pattern(regexp = "^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$")
+//    @Column(name = "phone", length = 11 , unique = true)
+    private String phone;
 
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class User implements Serializable{
         this.name = name;
     }
 
-    public String getTel() {
-        return tel;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
