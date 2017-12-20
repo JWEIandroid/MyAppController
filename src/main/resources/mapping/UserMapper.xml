@@ -10,21 +10,21 @@
                 insert into user ( username ) values (#{name})
         </insert>
 
-        <delete id="delete" parameterType="User" >
+        <delete id="delete" parameterType="ssm.model.User" >
                 delete from user where id= #{id}
         </delete>
 
-        <select id="get" parameterType="_int" resultType="User">
+        <select id="get" parameterType="_int" resultType="ssm.model.User">
                 select * from   user  where id= #{id}
         </select>
 
-        <update id="update" parameterType="User" >
+        <update id="update" parameterType="ssm.model.User" >
                 update user set name=#{name} where id=#{id}
         </update>
 
 
 
-        <select id="list" resultType="User">
+        <select id="list" resultType="ssm.model.User">
                 select * from   user
         </select>
 

@@ -12,7 +12,9 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
     <!-- 自动扫描  @Controller-->
-    <context:component-scan base-package="ssm.controller"/>
+    <context:component-scan base-package="ssm.*"/>
+
+    <mvc:annotation-driven />
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJacksonHttpMessageConverter"

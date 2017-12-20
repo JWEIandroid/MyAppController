@@ -40,7 +40,8 @@ public class MybatisTest {
         System.out.println(userMapper);
         List<User> userMappers = userMapper.list();
         for (User user:userMappers){
-            System.out.println(user.getId());
+            System.out.print("用户：");
+            System.out.print(user.getId()+"电话：");
             System.out.println(user.getPhone());
         }
 

@@ -1,28 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
+         pageEncoding="UTF-8" import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" import="java.util.*"%>
 
 <html>
 <head>
-    <title>List</title>
+    <title>UserList</title>
 </head>
 <body>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script>
 
-<table align='center' border='1' cellspacing='0'>
-    <tr>
-        <td>id</td>
-        <td>name</td>
-    </tr>
-    <c:forEach items="${cs}" var="c" varStatus="st">
-        <tr>
-            <td>${c.id}</td>
-            <td>${c.phone}</td>
+    $('#sender').click(function () {
+        var url = "";
+        $.post(
+            url,
+            function (data) {
+                console.log(data);
+                var users = $.parseJSON(data);
+                console.log(users.length);
 
-        </tr>
-    </c:forEach>
-</table>
+                for (i in users) {
+                    var user = users[i];
+                    $("#messageDiv").html("<br>" + user.id + "   -----   " + user.phone);
+                }
+            });
+    });
+
+</script>
+
+
+<%--<table align='center' border='1' cellspacing='0'>--%>
+<%--<tr>--%>
+<%--<td>id</td>--%>
+<%--<td>phone</td>--%>
+<%--</tr>--%>
+<%--<c:forEach items="${cs}" var="c" varStatus="st">--%>
+<%--<tr>--%>
+<%--<td>${c.code}</td>--%>
+<%--<td>${c.phone}</td>--%>
+<%--</tr>--%>
+<%--</c:forEach>--%>
+<%--</table>--%>
 
 
 </body>
