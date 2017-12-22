@@ -7,13 +7,30 @@ import ssm.model.User;
 import ssm.service.UserService;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     @Autowired
-private UserMapper userMapper;
+    private UserMapper userMapper;
 
     public List<User> list() {
         return userMapper.list();
     }
+
+    public void login(String name, String password) {
+        userMapper.findUserByNameAndPwd(name, password);
+    }
+
+    public User getUser(String name, String password) {
+
+        User user = userMapper.getUser(name, password);
+        if (user!=null){
+            return  user;
+        }else {
+            return  null;
+        }
+    }
+
 }

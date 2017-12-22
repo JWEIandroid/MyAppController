@@ -25,12 +25,20 @@ public class User implements Serializable{
 //    @Pattern(regexp = "^[\\u4e00-\\u9fa5]{3,5}$|^[\\dA-Za-z_]{3,10}$")//匹配3-5个汉字，或3-10个字节（中文，英文，数字及下划线(_)）
 //    @Column(name = "username", length = 50)
     private String name;
-
 //
 //    @NotNull
 //    @Pattern(regexp = "^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$")
 //    @Column(name = "phone", length = 11 , unique = true)
     private String phone;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getId() {
         return id;

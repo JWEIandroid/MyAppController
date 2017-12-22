@@ -22,10 +22,16 @@
                 update user set name=#{name} where id=#{id}
         </update>
 
-
-
         <select id="list" resultType="ssm.model.User">
                 select * from   user
+        </select>
+
+        <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
+                select name,password from user where name = #{name} and password = #{password}
+        </select>
+
+        <select id="getUser" parameterType="map" resultType="ssm.model.User">
+                select name,password from user where name = #{name} and password = #{password}
         </select>
 
 
