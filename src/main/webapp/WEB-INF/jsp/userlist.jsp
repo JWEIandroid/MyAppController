@@ -22,26 +22,13 @@
 
                 for (i in users) {
                     var user = users[i];
-                    $("#messageDiv").html("<br>" + user.id + "   -----   " + user.phone);
+                    $("#messageDiv").html("<br>" + user.id + "   -----   " + user.tel);
                 }
             });
     });
 
 </script>
 
-
-<%--<table align='center' border='1' cellspacing='0'>--%>
-<%--<tr>--%>
-<%--<td>id</td>--%>
-<%--<td>phone</td>--%>
-<%--</tr>--%>
-<%--<c:forEach items="${cs}" var="c" varStatus="st">--%>
-<%--<tr>--%>
-<%--<td>${c.code}</td>--%>
-<%--<td>${c.phone}</td>--%>
-<%--</tr>--%>
-<%--</c:forEach>--%>
-<%--</table>--%>
 
 
 </body>

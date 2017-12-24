@@ -23,7 +23,7 @@
         </update>
 
         <select id="list" resultType="ssm.model.User">
-                select * from   user
+                select * from  user
         </select>
 
         <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
@@ -32,6 +32,12 @@
 
         <select id="getUser" parameterType="map" resultType="ssm.model.User">
                 select name,password from user where name = #{name} and password = #{password}
+        </select>
+
+
+        <select id="addUser" parameterType="ssm.model.User" resultType="ssm.model.User">
+                insert into user(name,password,adress,tel,token,sex,description)
+                values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description})
         </select>
 
 

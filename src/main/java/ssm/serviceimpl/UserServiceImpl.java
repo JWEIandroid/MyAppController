@@ -2,6 +2,7 @@ package ssm.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import ssm.mapper.UserMapper;
 import ssm.model.User;
 import ssm.service.UserService;
@@ -26,11 +27,27 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     public User getUser(String name, String password) {
 
         User user = userMapper.getUser(name, password);
-        if (user!=null){
-            return  user;
-        }else {
-            return  null;
+        if (user != null) {
+            return user;
+        } else {
+            return null;
         }
     }
+
+    public User register(User user) {
+
+        System.out.println("userImpl:"+user.getName());
+        userMapper.addUser(
+                user.getName(),
+                user.getPassword(),
+                user.getAdress(),
+                user.getTel(),
+                user.getSex(),
+                user.getDescription(),
+                user.getToken()
+        );
+        return user;
+    }
+
 
 }

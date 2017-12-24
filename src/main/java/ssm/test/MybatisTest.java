@@ -27,10 +27,7 @@ public class MybatisTest {
 
     @Test
     public void testAdd(){
-        User user = new User();
-        user.setId(0);
-        user.setName("java");
-        user.setPhone("123456");
+        User user = new User.Builder().build();
         userMapper.add(user);
     }
 
@@ -42,7 +39,7 @@ public class MybatisTest {
         for (User user:userMappers){
             System.out.print("用户：");
             System.out.print(user.getId()+"电话：");
-            System.out.println(user.getPhone());
+            System.out.println(user.getTel());
         }
 
     }

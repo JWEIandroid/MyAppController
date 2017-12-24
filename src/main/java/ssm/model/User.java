@@ -13,54 +13,119 @@ import java.io.Serializable;
 
 //@Entity
 //@Table(name = "user")
-public class User implements Serializable{
 
-//    @Min(value = 1)
-//    @Id
-//    @Column(name = "id")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class User implements Serializable {
+
     private int id;
-//
-//    @NotNull
-//    @Pattern(regexp = "^[\\u4e00-\\u9fa5]{3,5}$|^[\\dA-Za-z_]{3,10}$")//匹配3-5个汉字，或3-10个字节（中文，英文，数字及下划线(_)）
-//    @Column(name = "username", length = 50)
     private String name;
-//
-//    @NotNull
-//    @Pattern(regexp = "^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$")
-//    @Column(name = "phone", length = 11 , unique = true)
-    private String phone;
+    private String tel;
     private String password;
+    private String token;
+    private String adress;
+    private String description;
+    private String sex;
 
-    public String getPassword() {
-        return password;
+    public User() {
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    private User(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        tel = builder.tel;
+        password = builder.password;
+        token = builder.token;
+        adress = builder.adress;
+        description = builder.description;
+        sex = builder.sex;
+    }
+
+    public String getSex() {
+        return sex;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTel() {
+        return tel;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getToken() {
+        return token;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public static final class Builder {
+        private int id;
+        private String name;
+        private String tel;
+        private String password;
+        private String token;
+        private String adress;
+        private String description;
+        private String sex;
+
+        public Builder() {
+        }
+
+        public Builder id(int val) {
+            id = val;
+            return this;
+        }
+
+        public Builder name(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder tel(String val) {
+            tel = val;
+            return this;
+        }
+
+        public Builder password(String val) {
+            password = val;
+            return this;
+        }
+
+        public Builder token(String val) {
+            token = val;
+            return this;
+        }
+
+        public Builder adress(String val) {
+            adress = val;
+            return this;
+        }
+
+        public Builder description(String val) {
+            description = val;
+            return this;
+        }
+
+        public Builder sex(String val) {
+            sex = val;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }
