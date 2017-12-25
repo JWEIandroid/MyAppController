@@ -11,7 +11,7 @@ public interface BaseService<T> {
 
     public void delete(int id) ;
 
-    public T getUser(String name,String password) ;
+    public T get(int id) ;
 
     public List<T> list();
 

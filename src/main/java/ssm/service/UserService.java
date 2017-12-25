@@ -6,16 +6,19 @@ import java.util.List;
 public interface UserService extends BaseService<User>{
 
     List<User> list();
-    //用户登录
-    void login(String name,String password);
 
-    User getUser(String name,String password);
+    User get(int id);
+
+    void login(String name,String password);
 
     void save(User user);
 
     void delete(int id);
 
     void update(User user);
+
+    User getUser(String name,String password);
+
 
 
 }

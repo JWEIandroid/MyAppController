@@ -26,10 +26,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         baseMapper.delete(id);
     }
 
-
-
-    public T getUser(String name,String password) {
-        return baseMapper.getUser(name,password);
+    public T get(int id) {
+        return baseMapper.get(id);
     }
 
     public List<T> list() {
