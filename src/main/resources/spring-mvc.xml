@@ -14,6 +14,7 @@
     <!-- 自动扫描  @Controller-->
     <context:component-scan base-package="ssm.*"/>
 
+
     <mvc:annotation-driven />
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->

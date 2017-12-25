@@ -11,9 +11,9 @@ public interface BaseService<T> {
 
     public void delete(int id) ;
 
-    public T get(int id) ;
+    public T getUser(String name,String password) ;
 
-    public List<T> query();
+    public List<T> list();
 
     /**
      * 统一返回成功格式

@@ -1,6 +1,5 @@
 package ssm.service;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
 import ssm.model.User;
 import java.util.List;
 
@@ -12,5 +11,11 @@ public interface UserService extends BaseService<User>{
 
     User getUser(String name,String password);
 
-    User register(User user);
+    void save(User user);
+
+    void delete(int id);
+
+    void update(User user);
+
+
 }

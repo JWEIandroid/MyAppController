@@ -15,41 +15,43 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     BaseMapper<T> baseMapper;
 
     public void save(T t) {
-      baseMapper.save(t);
+        baseMapper.save(t);
     }
 
     public void update(T t) {
-      baseMapper.update(t);
+        baseMapper.update(t);
     }
 
     public void delete(int id) {
-       baseMapper.delete(id);
+        baseMapper.delete(id);
     }
 
-    public T get(int id) {
-        return baseMapper.get(id);
+
+
+    public T getUser(String name,String password) {
+        return baseMapper.getUser(name,password);
     }
 
-    public List<T> query() {
-        return baseMapper.query();
+    public List<T> list() {
+        return baseMapper.list();
     }
 
     public Map<String, Object> successRespMap(Map<String, Object> map, String message, Object data) {
-        if (map == null){
+        if (map == null) {
             map = new HashMap<String, Object>();
         }
-        map.put("error_code" , "0");
-        map.put("message" , message);
+        map.put("error_code", "0");
+        map.put("message", message);
         map.put("data", data);
         return map;
     }
 
     public Map<String, Object> errorRespMap(Map<String, Object> map, String message) {
-        if (map == null){
+        if (map == null) {
             map = new HashMap<String, Object>();
         }
-        map.put("error_code" , "-1");
-        map.put("message" , message);
+        map.put("error_code", "-1");
+        map.put("message", message);
         map.put("data", "");
         return map;
     }

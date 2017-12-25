@@ -5,11 +5,6 @@
 
 <mapper namespace="ssm.mapper.UserMapper">
 
-
-        <insert id="add" parameterType="ssm.model.User" >
-                insert into user ( username ) values (#{name})
-        </insert>
-
         <delete id="delete" parameterType="ssm.model.User" >
                 delete from user where id= #{id}
         </delete>
@@ -35,10 +30,10 @@
         </select>
 
 
-        <select id="addUser" parameterType="ssm.model.User" resultType="ssm.model.User">
+        <insert id="save" parameterType="ssm.model.User" >
                 insert into user(name,password,adress,tel,token,sex,description)
                 values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description})
-        </select>
+        </insert>
 
 
 </mapper>

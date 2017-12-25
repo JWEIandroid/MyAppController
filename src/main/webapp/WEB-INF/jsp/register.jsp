@@ -18,15 +18,15 @@
     $('#sender').click(function () {
         var url = "";
         $.post(url, function (data) {
-                console.log(data);
-                var users = $.parseJSON(data);
-                console.log(users.length);
+            console.log(data);
+            var users = $.parseJSON(data);
+            console.log(users.length);
 
-                for (i in users) {
-                    var user = users[i];
-                    $("#messageDiv").html("<br>" + user.name + "   -----   " + user.password);
-                }
-            });
+            for (i in users) {
+                var user = users[i];
+                $("#messageDiv").html("<br>" + user.name + "   -----   " + user.password);
+            }
+        });
     });
 
 </script>

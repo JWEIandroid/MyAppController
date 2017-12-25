@@ -2,13 +2,11 @@ package ssm.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import ssm.mapper.UserMapper;
 import ssm.model.User;
 import ssm.service.UserService;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
@@ -34,20 +32,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         }
     }
 
-    public User register(User user) {
 
-        System.out.println("userImpl:"+user.getName());
-        userMapper.addUser(
-                user.getName(),
-                user.getPassword(),
-                user.getAdress(),
-                user.getTel(),
-                user.getSex(),
-                user.getDescription(),
-                user.getToken()
-        );
-        return user;
+    public void save(User user) {
+        userMapper.save(user);
     }
 
 
+    public void delete(int id) {
+        userMapper.delete(id);
+    }
+
+    @Override
+    public void update(User user) {
+        userMapper.update(user);
+    }
 }

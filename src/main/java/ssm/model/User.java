@@ -25,18 +25,39 @@ public class User implements Serializable {
     private String description;
     private String sex;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public User() {
     }
 
-    private User(Builder builder) {
-        id = builder.id;
-        name = builder.name;
-        tel = builder.tel;
-        password = builder.password;
-        token = builder.token;
-        adress = builder.adress;
-        description = builder.description;
-        sex = builder.sex;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getSex() {
@@ -71,61 +92,5 @@ public class User implements Serializable {
         return description;
     }
 
-    public static final class Builder {
-        private int id;
-        private String name;
-        private String tel;
-        private String password;
-        private String token;
-        private String adress;
-        private String description;
-        private String sex;
 
-        public Builder() {
-        }
-
-        public Builder id(int val) {
-            id = val;
-            return this;
-        }
-
-        public Builder name(String val) {
-            name = val;
-            return this;
-        }
-
-        public Builder tel(String val) {
-            tel = val;
-            return this;
-        }
-
-        public Builder password(String val) {
-            password = val;
-            return this;
-        }
-
-        public Builder token(String val) {
-            token = val;
-            return this;
-        }
-
-        public Builder adress(String val) {
-            adress = val;
-            return this;
-        }
-
-        public Builder description(String val) {
-            description = val;
-            return this;
-        }
-
-        public Builder sex(String val) {
-            sex = val;
-            return this;
-        }
-
-        public User build() {
-            return new User(this);
-        }
-    }
 }

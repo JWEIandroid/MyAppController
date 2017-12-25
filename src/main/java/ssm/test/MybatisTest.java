@@ -27,8 +27,7 @@ public class MybatisTest {
 
     @Test
     public void testAdd(){
-        User user = new User.Builder().build();
-        userMapper.add(user);
+//        userMapper.save(user);
     }
 
     @Test

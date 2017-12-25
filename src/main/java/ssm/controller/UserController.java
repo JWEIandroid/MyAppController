@@ -20,17 +20,16 @@ public class UserController extends BaseController<User> {
 
     @Autowired
     UserService userService;
-//
 
-
+    //获取全部用户
     @ResponseBody
     @RequestMapping("userlist")
     public Map getAllUser() {
         List<User> cs = userService.list();
         if (cs == null) {
-            return userService.errorRespMap(respMap,"error");
-        }else{
-            return userService.successRespMap(respMap,"success",cs);
+            return userService.errorRespMap(respMap, "error");
+        } else {
+            return userService.successRespMap(respMap, "success", cs);
         }
     }
 
@@ -51,18 +50,62 @@ public class UserController extends BaseController<User> {
         }
     }
 
-    //根据用户名密码登录
-    @ResponseBody
-    @RequestMapping("register")
-    public Map addUser(User user) {
+//    @ResponseBody
+//    @RequestMapping("/register")
+//    public Map addUser(@ModelAttribute  User user) {
+//
+//        userService.register(user);
+//
+//        if (user == null) {
+//            System.out.println("controller:null");
+//            return userService.errorRespMap(respMap, "100");
+//        } else {
+//            return userService.successRespMap(respMap, "200", "success");
+//        }
+//    }
 
-        if (user == null) {
-            System.out.println("controller:null");
-            return userService.errorRespMap(respMap, "100");
+
+    @ResponseBody
+    @RequestMapping("/register")
+    public Map save(User user) {
+        System.out.println(user.getName());
+        System.out.println(user.getPassword());
+        System.out.println("插入结果为...");
+        User user1 = userService.getUser(user.getName(), user.getPassword());
+        if (user1 == null) {
+            userService.save(user);
+            User user2 = userService.getUser(user.getName(), user.getPassword());
+
+            if (user2 != null) {
+                System.out.println("success");
+                return userService.successRespMap(respMap, "添加用户成功", user.getName());
+            } else {
+                System.out.println("添加失败--fail");
+                return userService.errorRespMap(respMap, "添加用户失败");
+            }
+
         } else {
-            userService.register(user);
-            return userService.successRespMap(respMap, "200", "success");
+            System.out.println("用户存在--fail");
+            return userService.errorRespMap(respMap, "用户已经存在");
         }
+    }
+
+    @ResponseBody
+    @RequestMapping("deleteuser")
+    public void delete(int id) {
+        System.out.println("删除结果为...");
+        userService.delete(id);
+        System.out.println("删除用户id为..." + id);
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateuser")
+    public void update(@ModelAttribute User user) {
+        System.out.println("更新结果为...");
+        userService.update(user);
+        System.out.println("更新用户id为..." + user.getId());
+
     }
 
 

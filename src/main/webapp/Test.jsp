@@ -13,12 +13,12 @@
 <body>
 
 
-<form action="/user/register" method="post">
+<form action="/user/addone" method="get">
     Username:<input type="text" name="name"><br/>
     Password:<input type="text" name="password"><br/><br/>
     adress:<input type="text" name="adress"><br/><br/>
     tel:<input type="text" name="tel"><br/><br/>
-    <input type="button" value="submit">
+    <input type="submit" value="submit">
 </form>
 
 
