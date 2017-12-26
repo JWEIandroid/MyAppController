@@ -17,6 +17,10 @@ public interface GoodsService extends BaseService<goods>{
 
     goods get(int id);
 
+    goods getbyname(String name);
+
+
+
 
 
 

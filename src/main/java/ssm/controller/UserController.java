@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.User;
+import ssm.model.goods;
 import ssm.service.UserService;
 
 import java.util.List;
@@ -42,32 +43,14 @@ public class UserController extends BaseController<User> {
             return userService.errorRespMap(respMap, "100");
         } else {
             return userService.successRespMap(respMap, "200", "success");
-//            User user = userService.getUser(name, password);
-//            return JSONObject.toJSON(user).toString();
         }
     }
-
-//    @ResponseBody
-//    @RequestMapping("/register")
-//    public Map addUser(@ModelAttribute  User user) {
-//
-//        userService.register(user);
-//
-//        if (user == null) {
-//            System.out.println("controller:null");
-//            return userService.errorRespMap(respMap, "100");
-//        } else {
-//            return userService.successRespMap(respMap, "200", "success");
-//        }
-//    }
 
 
     @ResponseBody
     @RequestMapping("/register")
     public Map save(User user) {
-        System.out.println(user.getName());
-        System.out.println(user.getPassword());
-        System.out.println("插入结果为...");
+
         User user1 = userService.getUser(user.getName(), user.getPassword());
         if (user1 == null) {
             userService.save(user);
@@ -80,7 +63,6 @@ public class UserController extends BaseController<User> {
                 System.out.println("添加失败--fail");
                 return userService.errorRespMap(respMap, "添加用户失败");
             }
-
         } else {
             System.out.println("用户存在--fail");
             return userService.errorRespMap(respMap, "用户已经存在");
@@ -89,19 +71,51 @@ public class UserController extends BaseController<User> {
 
     @ResponseBody
     @RequestMapping("deleteuser")
-    public void delete(int id) {
+    public Map delete(int id) {
         System.out.println("删除结果为...");
         userService.delete(id);
-        System.out.println("删除用户id为..." + id);
+        User user1 = userService.get(id);
+        if (user1==null){
+            return userService.successRespMap(respMap, "删除成功", id);
+        }else{
+            return userService.errorRespMap(respMap, "删除失败");
+        }
 
     }
 
     @ResponseBody
     @RequestMapping("/updateuser")
-    public void update(@ModelAttribute User user) {
-        System.out.println("更新结果为...");
+    public Map update(@ModelAttribute User user) {
+
+        User user1 = userService.get(user.getId());
+        if (user1==null){
+            return userService.errorRespMap(respMap, "user not exist in db");
+        }
+        if (!checkParams(user)) {
+            return userService.errorRespMap(respMap, "params not illegal");
+        }
         userService.update(user);
-        System.out.println("更新用户id为..." + user.getId());
+        return userService.successRespMap(respMap, "success", user);
+
+    }
+
+
+    private boolean checkParams(User user) {
+
+        boolean res = true;
+        String name = user.getName();
+        String tel = user.getTel();
+        String password = user.getPassword();
+        String token = user.getToken();
+        String adress = user.getAdress();
+        String description = user.getDescription();
+        String sex = user.getSex();
+
+
+        if (name==null || name.equals("")){
+            return  res =false;
+        }
+        return res;
 
     }
 

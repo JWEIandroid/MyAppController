@@ -10,31 +10,36 @@ import java.util.List;
 
 
 @Service
-public class GoodsServiceImpl extends  BaseServiceImpl<goods> implements GoodsService{
+public class GoodsServiceImpl extends BaseServiceImpl<goods> implements GoodsService {
 
     @Autowired
     GoodMapper goodMapper;
 
     public void save(goods goods) {
-
+        goodMapper.save(goods);
     }
 
     public void update(goods goods) {
-
+        goodMapper.update(goods);
     }
 
     @Override
     public void delete(int id) {
-        super.delete(id);
+        goodMapper.delete(id);
     }
 
     @Override
     public goods get(int id) {
-        return super.get(id);
+        return goodMapper.get(id);
     }
 
     @Override
     public List<goods> list() {
         return goodMapper.list();
+    }
+
+
+    public goods getbyname(String name) {
+        return goodMapper.getbyname(name);
     }
 }

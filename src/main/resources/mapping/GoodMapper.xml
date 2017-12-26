@@ -5,34 +5,30 @@
 
 <mapper namespace="ssm.mapper.GoodMapper">
 
-    <delete id="delete" parameterType="ssm.model.goods">
+    <delete id="delete" parameterType="ssm.model.goodimgs">
         delete from goods where id= #{id}
     </delete>
 
-    <select id="get" parameterType="_int" resultType="ssm.model.goods">
+    <select id="get" parameterType="_int" resultType="ssm.model.goodimgs">
         select * from  goods  where id= #{id}
     </select>
 
-    <update id="update" parameterType="ssm.model.goods" >
+    <select id="getbyname" parameterType="String" resultType="ssm.model.goodimgs">
+        select * from  goods  where name= #{name}
+    </select>
+
+    <update id="update" parameterType="ssm.model.goodimgs" >
         update goods set name=#{name} where id=#{id}
     </update>
 
-    <select id="list" resultType="ssm.model.goods">
+    <select id="list" resultType="ssm.model.goodimgs">
         select * from  goods
     </select>
 
-    <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.goods">
-        select name,password from goods where name = #{name} and password = #{password}
-    </select>
 
-    <select id="getUser" parameterType="map" resultType="ssm.model.goods">
-        select name,password from goods where name = #{name} and password = #{password}
-    </select>
-
-
-    <insert id="save" parameterType="ssm.model.goods" >
-        insert into goods(name,password,adress,tel,token,sex,description)
-        values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description})
+    <insert id="save" parameterType="ssm.model.goodimgs" >
+        insert into goods(name,price_before,price_sale,express,type,status,description)
+        values (#{name},#{price_before},#{price_sale},#{express},#{type},#{status},#{description})
     </insert>
 
 

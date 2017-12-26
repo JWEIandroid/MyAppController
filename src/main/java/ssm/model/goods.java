@@ -57,7 +57,7 @@ public class goods implements Serializable{
         this.price_sale = price_sale;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: weij
-  Date: 2017/12/24
-  Time: 16:40
+  User: Administrator
+  Date: 2017/12/26
+  Time: 17:36
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,7 +10,9 @@
 <head>
     <title>Title</title>
 </head>
-<body><script>
+<body>
+<script>
+
 
     $('#sender').click(function () {
         var url = "";
@@ -27,10 +29,6 @@
     });
 
 </script>
-
-
-
-
 
 </body>
 </html>

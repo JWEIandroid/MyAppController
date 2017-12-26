@@ -7,6 +7,18 @@ public class goodimgs {
     private String url;
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setGoodid(int goodid) {
+        this.goodid = goodid;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public int getId() {
         return id;
     }
@@ -19,37 +31,6 @@ public class goodimgs {
         return url;
     }
 
-    private goodimgs(Builder builder) {
-        id = builder.id;
-        goodid = builder.goodid;
-        url = builder.url;
-    }
 
-    public static final class Builder {
-        private int id;
-        private int goodid;
-        private String url;
 
-        public Builder() {
-        }
-
-        public Builder id(int val) {
-            id = val;
-            return this;
-        }
-
-        public Builder goodid(int val) {
-            goodid = val;
-            return this;
-        }
-
-        public Builder url(String val) {
-            url = val;
-            return this;
-        }
-
-        public goodimgs build() {
-            return new goodimgs(this);
-        }
-    }
 }

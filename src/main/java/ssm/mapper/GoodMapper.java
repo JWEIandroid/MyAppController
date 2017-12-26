@@ -10,10 +10,12 @@ public interface GoodMapper extends BaseMapper<goods> {
 
     void delete(int id);
 
-    goods getUser(String name, String password);
-
     void save(goods goods);
 
     void update(goods goods);
+
+    goods get(int id);
+
+    goods getbyname(String name);
 }
 

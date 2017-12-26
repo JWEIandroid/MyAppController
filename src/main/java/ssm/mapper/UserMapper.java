@@ -24,10 +24,5 @@ public interface UserMapper extends BaseMapper<User> {
 
     public User getUser(@Param("name") String name, @Param("password") String password);
 
-//    public User addUser(@Param("name") String name, @Param("password") String password,
-//                        @Param("adress") String adress, @Param("tel") String tel, @Param("sex") String sex,
-//                        @Param("description") String description, @Param("token") String token);
-
-//    public User addUser(User user);
 
 }
