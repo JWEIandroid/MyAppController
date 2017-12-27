@@ -1,6 +1,8 @@
 package ssm.model;
 
-public class goodimgs {
+import java.io.Serializable;
+
+public class goodimgs implements Serializable {
 
     private int id;
     private int goodid;

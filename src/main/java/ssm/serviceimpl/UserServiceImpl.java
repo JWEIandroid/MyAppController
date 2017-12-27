@@ -18,6 +18,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return userMapper.list();
     }
 
+    public User getuser_id(int id) {
+        User user = userMapper.getuser_id(id);
+        if (user != null) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
     public void login(String name, String password) {
         userMapper.findUserByNameAndPwd(name, password);
     }
@@ -31,6 +40,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
             return null;
         }
     }
+
+
 
 
     public void save(User user) {

@@ -7,7 +7,7 @@ public interface UserService extends BaseService<User>{
 
     List<User> list();
 
-    User get(int id);
+    User getuser_id(int id);
 
     void login(String name,String password);
 
