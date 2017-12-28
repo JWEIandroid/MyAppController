@@ -3,6 +3,7 @@ package ssm.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.goodimgs;
 import ssm.service.GoodsImgService;
@@ -18,7 +19,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
     GoodsImgService goodsImgService;
 
     @ResponseBody
-    @RequestMapping("getimgs")
+    @RequestMapping(value = "getimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map getImgsWithID(int goodid) {
         System.out.println("return...");
         List<String> list = goodsImgService.getimgs(goodid);
@@ -31,7 +32,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
     }
 
     @ResponseBody
-    @RequestMapping("getone")
+    @RequestMapping(value = "getone",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map getOne(int goodid) {
         goodimgs goodimgs = goodsImgService.get(goodid);
         if (goodimgs != null) {
@@ -43,7 +44,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
 
 
     @ResponseBody
-    @RequestMapping("addimgs")
+    @RequestMapping(value = "addimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map addimgs(goodimgs goodimg) {
 
         if (goodimg.getGoodid() == 0 || ("" + goodimg.getGoodid()).equals("")) {
@@ -55,7 +56,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
     }
 
     @ResponseBody
-    @RequestMapping("updateimgs")
+    @RequestMapping(value = "updateimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map updateimgs(goodimgs goodimg) {
 
         if (goodimg.getGoodid() == 0 || ("" + goodimg.getGoodid()).equals("")) {
@@ -67,7 +68,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
     }
 
     @ResponseBody
-    @RequestMapping("deleteimgs")
+    @RequestMapping(value = "deleteimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map deleteimgs(int goodid) {
 
         if (goodid == 0 || ("" + goodid).equals("")) {

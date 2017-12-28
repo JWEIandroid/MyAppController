@@ -17,5 +17,8 @@ public interface GoodMapper extends BaseMapper<goods> {
     goods get(int id);
 
     goods getbyname(String name);
+
+    List<goods> getgoodlikename(String name);
+
 }
 

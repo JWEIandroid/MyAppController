@@ -19,6 +19,8 @@ public interface GoodsService extends BaseService<goods>{
 
     goods getbyname(String name);
 
+    List<goods> getgoodlikename(String name);
+
 
 
 

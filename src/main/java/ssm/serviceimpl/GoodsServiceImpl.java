@@ -33,13 +33,18 @@ public class GoodsServiceImpl extends BaseServiceImpl<goods> implements GoodsSer
         return goodMapper.get(id);
     }
 
+    public goods getbyname(String name) {
+        return goodMapper.getbyname(name);
+    }
+
+
     @Override
     public List<goods> list() {
         return goodMapper.list();
     }
 
 
-    public goods getbyname(String name) {
-        return goodMapper.getbyname(name);
+    public  List<goods> getgoodlikename(String name) {
+        return goodMapper.getgoodlikename(name);
     }
 }

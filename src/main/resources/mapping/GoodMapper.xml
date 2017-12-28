@@ -5,31 +5,34 @@
 
 <mapper namespace="ssm.mapper.GoodMapper">
 
-    <delete id="delete" parameterType="ssm.model.goodimgs">
-        delete from goods where id= #{id}
-    </delete>
-
-    <select id="get" parameterType="_int" resultType="ssm.model.goodimgs">
-        select * from  goods  where id= #{id}
-    </select>
-
-    <select id="getbyname" parameterType="String" resultType="ssm.model.goodimgs">
-        select * from  goods  where name= #{name}
-    </select>
-
-    <update id="update" parameterType="ssm.model.goodimgs" >
-        update goods set name=#{name} where id=#{id}
-    </update>
-
-    <select id="list" resultType="ssm.model.goodimgs">
-        select * from  goods
-    </select>
-
-
-    <insert id="save" parameterType="ssm.model.goodimgs" >
+    <insert id="save" parameterType="ssm.model.goods">
         insert into goods(name,price_before,price_sale,express,type,status,description)
         values (#{name},#{price_before},#{price_sale},#{express},#{type},#{status},#{description})
     </insert>
+
+    <delete id="delete" parameterType="ssm.model.goods">
+        delete from goods where id= #{id}
+    </delete>
+
+    <update id="update" parameterType="ssm.model.goods">
+        update goods set name=#{name} where id=#{id}
+    </update>
+
+    <select id="list" resultType="ssm.model.goods">
+        select * from  goods
+    </select>
+
+    <select id="get" parameterType="_int" resultType="ssm.model.goods">
+        select * from  goods  where id= #{id}
+    </select>
+
+    <select id="getbyname" parameterType="String" resultType="ssm.model.goods">
+        select * from  goods  where name= #{name}
+    </select>
+
+    <select id="getgoodlikename" parameterType="java.lang.String" resultType="ssm.model.goods">
+        SELECT * FROM goods WHERE name LIKE CONCAT(CONCAT('%', #{name}), '%');
+    </select>
 
 
 </mapper>

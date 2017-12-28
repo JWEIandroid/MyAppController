@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.ImgMapper">
+
+    <insert id="save" parameterType="ssm.model.imgs">
+        insert into imgs(userid,img,type)
+        values (#{userid},#{img},#{type})
+    </insert>
+
+    <delete id="delete" parameterType="ssm.model.imgs">
+        delete from imgs where userid= #{userid}
+    </delete>
+
+    <update id="update" parameterType="ssm.model.imgs">
+        update imgs set img=#{img} where userid=#{userid}
+    </update>
+
+    <select id="list" resultType="ssm.model.imgs">
+        select * from  imgs
+    </select>
+
+    <select id="get" parameterType="_int" resultType="ssm.model.imgs">
+        select * from  imgs  where userid= #{userid}
+    </select>
+
+
+
+</mapper>

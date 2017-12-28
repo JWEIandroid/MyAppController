@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.goods;
 import ssm.service.GoodsService;
@@ -20,7 +21,7 @@ public class GoodController extends BaseController<goods> {
     GoodsService goodsService;
 
     @ResponseBody
-    @RequestMapping("result_goods")
+    @RequestMapping(value = "result_goods",method = RequestMethod.GET,produces="application/json;charset=UTF-8")
     public Map getAllUser() {
         List<goods> cs = goodsService.list();
         if (cs == null) {
@@ -31,7 +32,7 @@ public class GoodController extends BaseController<goods> {
     }
 
     @ResponseBody
-    @RequestMapping("getwithid")
+    @RequestMapping(value = "getwithid",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map getGoodsWithID(int id) {
         goods goods = goodsService.get(id);
         if (goods == null) {
@@ -42,7 +43,7 @@ public class GoodController extends BaseController<goods> {
     }
 
     @ResponseBody
-    @RequestMapping("delwithid")
+    @RequestMapping(value = "delwithid",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map deleteWithID(int id) {
         goodsService.delete(id);
         goods goods = goodsService.get(id);
@@ -54,7 +55,7 @@ public class GoodController extends BaseController<goods> {
     }
 
     @ResponseBody
-    @RequestMapping("updategood")
+    @RequestMapping(value = "updategood",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map updategoods(goods good) {
 
         if (!checkParams(good)) {
@@ -66,7 +67,7 @@ public class GoodController extends BaseController<goods> {
 
 
     @ResponseBody
-    @RequestMapping("addgoods")
+    @RequestMapping(value = "addgoods",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map save(goods good) {
         if (!checkParams(good)) {
             return goodsService.errorRespMap(respMap, "params not illegal");
@@ -80,6 +81,21 @@ public class GoodController extends BaseController<goods> {
         if (good_save == null) {
             return goodsService.errorRespMap(respMap, "error");
         } else {
+            return goodsService.successRespMap(respMap, "success", goods);
+        }
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "getgoodbyname",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public Map getgoodByname(goods good) {
+        if (!checkParams(good)) {
+            return goodsService.errorRespMap(respMap, "params not illegal");
+        }
+        List<goods> goods = goodsService.getgoodlikename(good.getName());
+        if (goods.size()<=0) {
+            return goodsService.errorRespMap(respMap, "this good isn't exist in db");
+        }else {
             return goodsService.successRespMap(respMap, "success", goods);
         }
     }
