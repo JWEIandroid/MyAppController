@@ -29,6 +29,7 @@
                 select name,password from user where name = #{name} and password = #{password}
         </select>
 
+
         <insert id="save" parameterType="ssm.model.User" >
                 insert into user(name,password,adress,tel,token,sex,description)
                 values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description})
