@@ -5,34 +5,49 @@
 
 <mapper namespace="ssm.mapper.UserMapper">
 
-        <delete id="delete" parameterType="ssm.model.User" >
+    <delete id="delete" parameterType="ssm.model.User">
                 delete from user where id= #{id}
         </delete>
 
-        <select id="getuser_id" parameterType="_int" resultType="ssm.model.User">
+    <select id="getuser_id" parameterType="_int" resultType="ssm.model.User">
                 select * from   user  where id= #{id}
         </select>
 
-        <update id="update" parameterType="ssm.model.User" >
-                update user set name=#{name} where id=#{id}
+    <update id="update" parameterType="ssm.model.User">
+                update user set name=#{name},password = #{password},
+                 adress = #{adress} , tel = #{tel},
+                 token = #{token}, sex  = #{sex},description = #{description},
+                 create_time=#{create_time},update_time = #{update_time},
+                 headimg = #{headimg}
+                 where id=#{id}
         </update>
 
-        <select id="list" resultType="ssm.model.User">
+    <select id="list" resultType="ssm.model.User">
                 select * from  user
         </select>
 
-        <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
+    <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
                 select name,password from user where name = #{name} and password = #{password}
         </select>
 
-        <select id="getUser" parameterType="map" resultType="ssm.model.User">
-                select name,password from user where name = #{name} and password = #{password}
+    <select id="getUser" parameterType="map" resultType="ssm.model.User">
+                select * from user where name = #{name} and password = #{password}
         </select>
 
-        <insert id="save" parameterType="ssm.model.User" >
-                insert into user(name,password,adress,tel,token,sex,description)
-                values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description})
+
+
+
+    <select id="getUser_token" parameterType="map" resultType="ssm.model.User">
+        select * from user where token = #{token} and id = #{id}
+    </select>
+
+
+    <insert id="save" parameterType="ssm.model.User">
+                insert into user(name,password,adress,tel,token,sex,description,create_time,update_time,headimg)
+                values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description},#{create_time},#{update_time},#{headimg})
         </insert>
+
+
 
 
 </mapper>

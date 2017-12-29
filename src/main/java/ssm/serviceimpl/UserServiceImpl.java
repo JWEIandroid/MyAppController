@@ -14,10 +14,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Autowired
     private UserMapper userMapper;
 
+    //获取全部用户
     public List<User> list() {
         return userMapper.list();
     }
 
+    //根据id获取用户
     public User getuser_id(int id) {
         User user = userMapper.getuser_id(id);
         if (user != null) {
@@ -27,10 +29,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         }
     }
 
+    //根据账号密码查询用户
     public void login(String name, String password) {
         userMapper.findUserByNameAndPwd(name, password);
     }
 
+    //根据账号密码查询用户，返回user
     public User getUser(String name, String password) {
 
         User user = userMapper.getUser(name, password);
@@ -41,20 +45,25 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         }
     }
 
-
-
-
+    //增加用户
     public void save(User user) {
         userMapper.save(user);
     }
 
-
+    //删除用户
     public void delete(int id) {
         userMapper.delete(id);
     }
 
+    //更新用户
     @Override
     public void update(User user) {
         userMapper.update(user);
     }
+
+    //根据token和id获取一个用户
+    public User getUser_token(String token, int id) {
+        return userMapper.getUser_token(token, id);
+    }
+
 }

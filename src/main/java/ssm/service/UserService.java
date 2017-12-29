@@ -1,15 +1,16 @@
 package ssm.service;
 
 import ssm.model.User;
+
 import java.util.List;
 
-public interface UserService extends BaseService<User>{
+public interface UserService extends BaseService<User> {
 
     List<User> list();
 
     User getuser_id(int id);
 
-    void login(String name,String password);
+    void login(String name, String password);
 
     void save(User user);
 
@@ -17,8 +18,9 @@ public interface UserService extends BaseService<User>{
 
     void update(User user);
 
-    User getUser(String name,String password);
+    User getUser(String name, String password);
 
+    User getUser_token(String token, int id);
 
 
 }
