@@ -36,10 +36,7 @@ public class UserController extends BaseController<User> {
         User user = userService.getUser(name, password);
 
         if (user == null) {
-            result.put("token",null);
-            result.put("id",null);
-            System.out.println("登录--用户不存在");
-            return userService.successRespMap(respMap,"200",result);
+            return userService.errorRespMap(respMap,"用户不存在");
         } else {
             StringBuilder sb = new StringBuilder("");
             //生成token
@@ -51,7 +48,7 @@ public class UserController extends BaseController<User> {
             //返回token和userid
             result.put("token",user.getToken());
             result.put("id",user.getId()+"");
-            return userService.successRespMap(respMap, "200", result);
+            return userService.successRespMap(respMap, "登陆成功", result);
         }
     }
 

@@ -6,7 +6,9 @@ import ssm.mapper.UserMapper;
 import ssm.model.User;
 import ssm.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
@@ -66,4 +68,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return userMapper.getUser_token(token, id);
     }
 
+
+    @Override
+    public Map<String, Object> errorRespMap(Map<String, Object> map, String message) {
+        if (map == null) {
+            map = new HashMap<String, Object>();
+        }
+        map.put("error_code", "-1");
+        map.put("message", message);
+        map.put("data", new User());
+        return map;
+    }
 }

@@ -31,5 +31,5 @@ public interface BaseService<T> {
      * @return
      */
     public Map<String, Object> errorRespMap(Map<String,Object> map , String message);
-
+//    public Map<String, Object> errorRespMap(Map<String,T> map , String message);
 }

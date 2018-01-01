@@ -3,10 +3,13 @@ package ssm.serviceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssm.mapper.GoodImgMapper;
+import ssm.model.User;
 import ssm.model.goodimgs;
 import ssm.service.GoodsImgService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -48,4 +51,15 @@ public class GoodImgsServiceImpl extends BaseServiceImpl<goodimgs> implements Go
         return list;
     }
 
+
+    @Override
+    public Map<String, Object> errorRespMap(Map<String, Object> map, String message) {
+            if (map == null) {
+                map = new HashMap<String, Object>();
+            }
+            map.put("error_code", "-1");
+            map.put("message", message);
+            map.put("data", new goodimgs());
+            return map;
+    }
 }
