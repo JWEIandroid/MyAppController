@@ -2,10 +2,11 @@ package ssm.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServlet;
 import java.util.List;
 import java.util.Map;
 
-public class BaseController <T>{
+public class BaseController <T> extends HttpServlet{
 
     protected List<T> jsonList;
     protected Map<String,Object> respMap;

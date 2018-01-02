@@ -1,5 +1,6 @@
 package ssm.controller;
 
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,12 @@ import ssm.model.goods;
 import ssm.service.UserService;
 import utils.FileUploadUtil;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +37,7 @@ public class UserController extends BaseController<User> {
      */
     @ResponseBody
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map login(String name, String password) {
+    public Map login(String name, String password, HttpServletResponse response) {
 
         Map<String,String> result = new HashMap<String, String>();
         User user = userService.getUser(name, password);
@@ -170,16 +177,47 @@ public class UserController extends BaseController<User> {
     }
 
     @ResponseBody
-    @RequestMapping(value = "imgs",method = RequestMethod.POST)
-    public ModelAndView getImg(@RequestParam("path")String path){
+    @RequestMapping("imgss")
+    public void getImg(HttpServletResponse response){
 
-        String data = path;
-        System.out.println("controller path data "+data);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("img",data);
-        modelAndView.setViewName("getimg");
-        return modelAndView;
+        FileInputStream fis = null;
+        OutputStream os = null;
+        try {
+            fis = new FileInputStream("E:\\imgs\\"+"5.JPEG");
+            os = response.getOutputStream();
+            int count = 0;
+            byte[] buffer = new byte[1024 * 8];
+            while ((count = fis.read(buffer)) != -1) {
+                os.write(buffer, 0, count);
+                os.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            fis.close();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        FileInputStream in;
+//        response.setContentType("application/octet-stream;charset=UTF-8");
+//        try {
+//            //图片读取路径
+//            in=new FileInputStream("E:\\imgs\\"+"1.jpg");
+//            int i=in.available();
+//            byte[]data=new byte[i];
+//            in.read(data);
+//            in.close();
+//
+//            //写图片
+//            OutputStream outputStream=new BufferedOutputStream(response.getOutputStream());
+//            outputStream.write(data);
+//            outputStream.flush();
+//            outputStream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 

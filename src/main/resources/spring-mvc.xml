@@ -51,4 +51,8 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="4096"/>
     </bean>
+
+    <!--读取静态资源-->
+    <mvc:resources location="/imgs/" mapping="/images/**"/>
+
 </beans>
