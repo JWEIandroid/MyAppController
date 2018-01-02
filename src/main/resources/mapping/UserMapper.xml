@@ -35,8 +35,6 @@
         </select>
 
 
-
-
     <select id="getUser_token" parameterType="map" resultType="ssm.model.User">
         select * from user where token = #{token} and id = #{id}
     </select>

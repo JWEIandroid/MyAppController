@@ -2,13 +2,13 @@ package ssm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import ssm.model.User;
 import ssm.model.goods;
 import ssm.service.UserService;
+import utils.FileUploadUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -168,6 +168,48 @@ public class UserController extends BaseController<User> {
             return userService.successRespMap(respMap, "success", cs);
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "imgs",method = RequestMethod.POST)
+    public ModelAndView getImg(@RequestParam("path")String path){
+
+        String data = path;
+        System.out.println("controller path data "+data);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("img",data);
+        modelAndView.setViewName("getimg");
+        return modelAndView;
+
+    }
+
+
+    /**
+     * 用户上传头像
+     * @param id 用户id
+     * @return
+     */
+    @RequestMapping(value = "upload/{id}" , method = RequestMethod.POST , produces = "application/json;charset=UTF-8")
+    public Map<String, Object> updateHeadImg(@RequestParam("file") MultipartFile[] file , @PathVariable("id") int id) {
+        //判断file数组不能为空并且长度大于0
+        if(file != null && file.length > 0){
+            //循环获取file数组中得文件
+            for(int i = 0;i < file.length;i++){
+                MultipartFile f = file[i];
+                //保存文件
+                FileUploadUtil fileUploadUtil = new FileUploadUtil();
+                fileUploadUtil.saveHeadFile(f,id);
+            }
+            //上传成功
+            return userService.successRespMap(respMap ,"200" ,"");
+        }
+        //参数为空则返回错误
+        return userService.errorRespMap(respMap,"100");
+
+    }
+
+
+
 
     //检查参数是否正确
     private boolean checkParams(User user) {
