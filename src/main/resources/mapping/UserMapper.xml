@@ -9,6 +9,12 @@
     <delete id="delete" parameterType="ssm.model.User">
                 delete from user where id= #{id}
         </delete>
+
+    <!--根据id获取用户-->
+    <select id="get" parameterType="_int" resultType="ssm.model.User">
+        select * from   user  where id= #{id}
+    </select>
+
 <!--根据id获取用户-->
     <select id="getuser_id" parameterType="_int" resultType="ssm.model.User">
                 select * from   user  where id= #{id}

@@ -232,16 +232,16 @@ public class UserController extends BaseController<User> {
      */
     @ResponseBody
     @RequestMapping(value = "resetpsd", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map resetpsd(String oldpsd, String newpsd,int id) {
+    public Map resetpsd(@Param("oldpsd") String oldpsd, @Param("newpsd") String newpsd, @Param("id") int id) {
 
         User user1 = userService.getuserById(id);
-        if (user1!=null&user1.getPassword()==oldpsd){
+        if (user1 != null & user1.getPassword() == oldpsd) {
             user1.setPassword(newpsd);
             userService.save(user1);
             user1 = userService.getuserById(id);
-            return  userService.successRespMap(respMap,"修改成功",user1);
-        }else {
-            return userService.errorRespMap(respMap,"修改失败");
+            return userService.successRespMap(respMap, "修改成功", user1);
+        } else {
+            return userService.errorRespMap(respMap, "修改失败");
         }
     }
 
@@ -258,10 +258,10 @@ public class UserController extends BaseController<User> {
         String description = user.getDescription();
         String sex = user.getSex();
 
+        res &= (name != null || !name.equals(""));
+        res &= (sex.equals("男") || sex.equals("女") || sex.equals("") || sex == null);
 
-        if (name == null || name.equals("")) {
-            return res = false;
-        }
+
         return res;
 
     }

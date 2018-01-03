@@ -46,6 +46,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         userMapper.delete(id);
     }
 
+    public User get(int id){
+         return userMapper.get(id);
+    }
+
     //更新用户
     @Override
     public void update(User user) {
