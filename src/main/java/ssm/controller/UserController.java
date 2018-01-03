@@ -94,7 +94,7 @@ public class UserController extends BaseController<User> {
         if (userService.getUserByPhone(user.getTel(), user.getPassword()) == null) {
             user.setCreate_time(System.currentTimeMillis() + "");
             user.setUpdate_time(System.currentTimeMillis() + "");
-            user.setHeadimg("http://"+ Constant.IP+":8080/user/imgss?filename="+"1.jpg");
+            user.setHeadimg("http://" + Constant.IP + ":8080/user/imgss?filename=" + "1.jpg");
             userService.save(user);
             return userService.successRespMap(respMap, "添加用户成功", user);
         } else {
@@ -221,6 +221,28 @@ public class UserController extends BaseController<User> {
         //参数为空则返回错误
         return userService.errorRespMap(respMap, "100");
 
+    }
+
+
+    /***
+     * 重新设置密码
+     * @param oldpsd
+     * @param newpsd
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "resetpsd", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map resetpsd(String oldpsd, String newpsd,int id) {
+
+        User user1 = userService.getuserById(id);
+        if (user1!=null&user1.getPassword()==oldpsd){
+            user1.setPassword(newpsd);
+            userService.save(user1);
+            user1 = userService.getuserById(id);
+            return  userService.successRespMap(respMap,"修改成功",user1);
+        }else {
+            return userService.errorRespMap(respMap,"修改失败");
+        }
     }
 
 
