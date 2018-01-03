@@ -5,41 +5,42 @@
 
 <mapper namespace="ssm.mapper.UserMapper">
 
+<!--根据id删除用户-->
     <delete id="delete" parameterType="ssm.model.User">
                 delete from user where id= #{id}
         </delete>
-
+<!--根据id获取用户-->
     <select id="getuser_id" parameterType="_int" resultType="ssm.model.User">
                 select * from   user  where id= #{id}
         </select>
-
+<!--更新用户-->
     <update id="update" parameterType="ssm.model.User">
                 update user set name=#{name},password = #{password},
                  adress = #{adress} , tel = #{tel},
                  token = #{token}, sex  = #{sex},description = #{description},
-                 create_time=#{create_time},update_time = #{update_time},
+                 create_time= #{create_time},update_time = #{update_time},
                  headimg = #{headimg}
-                 where id=#{id}
+                 where id= #{id}
         </update>
-
+<!--查询全部用户-->
     <select id="list" resultType="ssm.model.User">
                 select * from  user
         </select>
-
+<!--根据用户名密码查询用户-->
     <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
                 select name,password from user where name = #{name} and password = #{password}
         </select>
-
-    <select id="getUser" parameterType="map" resultType="ssm.model.User">
-                select * from user where name = #{name} and password = #{password}
+<!--根据手机号码和密码查询用户-->
+    <select id="getUserByPhone" parameterType="map" resultType="ssm.model.User">
+                select * from user where tel = #{tel} and password = #{password}
         </select>
 
-
+<!--根据token，id查询用户-->
     <select id="getUser_token" parameterType="map" resultType="ssm.model.User">
         select * from user where token = #{token} and id = #{id}
     </select>
 
-
+<!--新增用户-->
     <insert id="save" parameterType="ssm.model.User">
                 insert into user(name,password,adress,tel,token,sex,description,create_time,update_time,headimg)
                 values (#{name},#{password},#{adress},#{tel},#{token},#{sex},#{description},#{create_time},#{update_time},#{headimg})

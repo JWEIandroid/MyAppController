@@ -60,7 +60,7 @@ public class ImgController extends BaseController<imgs> {
             return imgsService.errorRespMap(respMap, "params not illegal");
         }
 
-        User user = userService.getuser_id(img.getUserid());
+        User user = userService.getuserById(img.getUserid());
         if (user != null) {
             return userService.errorRespMap(respMap, "this user has existed in db");
         }
@@ -79,7 +79,7 @@ public class ImgController extends BaseController<imgs> {
         if (!checkParams(img)) {
             return userService.errorRespMap(respMap, "params not illegal");
         }
-        User user = userService.getuser_id(img.getUserid());
+        User user = userService.getuserById(img.getUserid());
         if (user == null) {
             return userService.errorRespMap(respMap, "this user doed not has exist in db");
         }
@@ -96,7 +96,7 @@ public class ImgController extends BaseController<imgs> {
         if (!checkParams(img)) {
             return imgsService.errorRespMap(respMap, "params not illegal");
         }
-        User user = userService.getuser_id(img.getUserid());
+        User user = userService.getuserById(img.getUserid());
         if (user == null) {
             return userService.errorRespMap(respMap, "this user doed not has exist in db");
         }
