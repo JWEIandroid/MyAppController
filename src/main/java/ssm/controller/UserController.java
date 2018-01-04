@@ -265,8 +265,15 @@ public class UserController extends BaseController<User> {
 
     }
 
+    /**
+     * 多文件上传
+     * @param request
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     @ResponseBody
-    @RequestMapping("/upload2"  )
+    @RequestMapping("/upload2")
     public Map<String,Object> upload2(HttpServletRequest request) throws IllegalStateException, IOException {
         //创建一个通用的多部分解析器
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());

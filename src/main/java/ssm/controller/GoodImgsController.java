@@ -18,6 +18,11 @@ public class GoodImgsController extends BaseController<goodimgs> {
     @Autowired
     GoodsImgService goodsImgService;
 
+    /**
+     * 根据用户id返回商品图片
+     * @param goodid
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "getimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map getImgsWithID(int goodid) {
@@ -31,6 +36,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
         }
     }
 
+
     @ResponseBody
     @RequestMapping(value = "getone",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map getOne(int goodid) {
@@ -43,6 +49,11 @@ public class GoodImgsController extends BaseController<goodimgs> {
     }
 
 
+    /**
+     * 添加商品
+     * @param goodimg
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "addimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map addimgs(goodimgs goodimg) {
@@ -55,6 +66,12 @@ public class GoodImgsController extends BaseController<goodimgs> {
         }
     }
 
+
+    /**
+     * 更新商品
+     * @param goodimg
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "updateimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map updateimgs(goodimgs goodimg) {
@@ -67,6 +84,12 @@ public class GoodImgsController extends BaseController<goodimgs> {
         }
     }
 
+
+    /**
+     * 删除商品
+     * @param goodid
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "deleteimgs",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map deleteimgs(int goodid) {

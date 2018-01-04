@@ -20,6 +20,11 @@ public class GoodController extends BaseController<goods> {
     @Autowired
     GoodsService goodsService;
 
+
+    /**
+     * 查询所有商品
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "result_goods",method = RequestMethod.GET,produces="application/json;charset=UTF-8")
     public Map getAllUser() {
@@ -31,6 +36,12 @@ public class GoodController extends BaseController<goods> {
         }
     }
 
+
+    /**
+     * 根据id获取商品
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "getwithid",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map getGoodsWithID(int id) {
@@ -42,6 +53,12 @@ public class GoodController extends BaseController<goods> {
         }
     }
 
+
+    /**
+     * 根据ID删除商品
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "delwithid",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map deleteWithID(int id) {
@@ -54,6 +71,11 @@ public class GoodController extends BaseController<goods> {
         }
     }
 
+    /**
+     * 更新商品
+     * @param good
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "updategood",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map updategoods(goods good) {
@@ -66,6 +88,11 @@ public class GoodController extends BaseController<goods> {
     }
 
 
+    /**
+     * 添加商品
+     * @param good
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "addgoods",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
     public Map save(goods good) {
@@ -85,6 +112,11 @@ public class GoodController extends BaseController<goods> {
         }
     }
 
+    /**
+     * 根据商品名字获取商品
+     * @param good
+     * @return
+     */
 
     @ResponseBody
     @RequestMapping(value = "getgoodbyname",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
