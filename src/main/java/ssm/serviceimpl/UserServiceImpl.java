@@ -23,7 +23,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     //根据id获取用户
     public User getuserById(int id) {
-        return userMapper.get(id);
+        return userMapper.getuser_id(id);
     }
 
     //根据账号密码查询用户
@@ -46,9 +46,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         userMapper.delete(id);
     }
 
-    public User get(int id){
-         return userMapper.get(id);
-    }
 
     //更新用户
     @Override
@@ -70,6 +67,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         map.put("error_code", "-1");
         map.put("message", message);
         map.put("data", new User());
+        return map;
+    }
+
+    public Map<String, Object> merrorRespMap(Map<String, Object> map, String message) {
+        if (map == null) {
+            map = new HashMap<String, Object>();
+        }
+        map.put("error_code", "-1");
+        map.put("message", message);
+        map.put("data", "null");
         return map;
     }
 }

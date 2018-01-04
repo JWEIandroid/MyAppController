@@ -53,4 +53,9 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         map.put("data", "");
         return map;
     }
+
+
+
+
+
 }

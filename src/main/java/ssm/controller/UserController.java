@@ -3,18 +3,24 @@ package ssm.controller;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import constant.Constant;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import ssm.model.User;
 import ssm.service.UserService;
 import utils.FileUploadUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -169,7 +175,8 @@ public class UserController extends BaseController<User> {
 
 
     /**
-     * //查询图片
+     * 查询图片
+     * 文件下载功能
      *
      * @param filename
      * @param response
@@ -198,31 +205,6 @@ public class UserController extends BaseController<User> {
         }
     }
 
-    /**
-     * 用户上传头像
-     *
-     * @param id 用户id
-     * @return
-     */
-    @RequestMapping(value = "upload/{id}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map<String, Object> updateHeadImg(@RequestParam("file") MultipartFile[] file, @PathVariable("id") int id) {
-        //判断file数组不能为空并且长度大于0
-        if (file != null && file.length > 0) {
-            //循环获取file数组中得文件
-            for (int i = 0; i < file.length; i++) {
-                MultipartFile f = file[i];
-                //保存文件
-                FileUploadUtil fileUploadUtil = new FileUploadUtil();
-                fileUploadUtil.saveHeadFile(f, id);
-            }
-            //上传成功
-            return userService.successRespMap(respMap, "200", "");
-        }
-        //参数为空则返回错误
-        return userService.errorRespMap(respMap, "100");
-
-    }
-
 
     /***
      * 重新设置密码
@@ -235,15 +217,100 @@ public class UserController extends BaseController<User> {
     public Map resetpsd(@Param("oldpsd") String oldpsd, @Param("newpsd") String newpsd, @Param("id") int id) {
 
         User user1 = userService.getuserById(id);
-        if (user1 != null & user1.getPassword() == oldpsd) {
+        if (user1 != null & user1.getPassword().equals(oldpsd)) {
             user1.setPassword(newpsd);
-            userService.save(user1);
+            userService.update(user1);
             user1 = userService.getuserById(id);
             return userService.successRespMap(respMap, "修改成功", user1);
         } else {
             return userService.errorRespMap(respMap, "修改失败");
         }
     }
+
+    /**
+     * 文件上传功能
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request, @RequestParam("id") int id) throws IOException {
+//        String path = request.getSession().getServletContext().getRealPath("upload");
+        String path = Constant.IMG_HOME;
+        String fileName = file.getOriginalFilename();
+        StringBuilder sb = new StringBuilder(fileName);
+        long now = System.currentTimeMillis();
+        String deal_name = now + sb.substring(sb.indexOf("."), sb.length());
+        System.out.println("name:" + deal_name);
+
+        File dir = new File(path, deal_name);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        //MultipartFile自带的解析方法
+        file.transferTo(dir);
+
+        User user = userService.getuserById(id);
+        if (user != null) {
+            user.setHeadimg(Constant.STORE_HOME + "user/imgss/?filename=" + deal_name);
+            user.setUpdate_time(now+"");
+            userService.update(user);
+            return userService.successRespMap(respMap, "success", deal_name);
+        } else {
+            return userService.merrorRespMap(respMap, "");
+
+        }
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/upload2"  )
+    public Map<String,Object> upload2(HttpServletRequest request) throws IllegalStateException, IOException {
+        //创建一个通用的多部分解析器
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //判断 request 是否有文件上传,即多部分请求
+        if(multipartResolver.isMultipart(request)){
+            //转换成多部分request
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            //取得request中的所有文件名
+            Iterator<String> iter = multiRequest.getFileNames();
+            while(iter.hasNext()){
+                //记录上传过程起始时的时间，用来计算上传时间
+                int pre = (int) System.currentTimeMillis();
+                //取得上传文件
+                MultipartFile file = multiRequest.getFile(iter.next());
+                if(file != null){
+                    //取得当前上传文件的文件名称
+                    String myFileName = file.getOriginalFilename();
+                    //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                    if(myFileName.trim() !=""){
+                        System.out.println(myFileName);
+                        //重命名上传后的文件名
+                        String fileName = "demoUpload" + file.getOriginalFilename();
+                        StringBuilder sb = new StringBuilder(fileName);
+                        long now = System.currentTimeMillis();
+                        String deal_name = now + sb.substring(sb.indexOf("."), sb.length());
+                        //定义上传路径
+                        String path = Constant.IMG_HOME;
+                        File dir = new File(path,deal_name);
+                        if (!dir.exists()){
+                            dir.mkdirs();
+                        }
+                        file.transferTo(dir);
+                    }
+                }
+                //记录上传该文件后的时间
+                int finaltime = (int) System.currentTimeMillis();
+                System.out.println(finaltime - pre);
+            }
+
+        }
+        return userService.successRespMap(respMap,"success","ok");
+    }
+
+
 
 
     //检查参数是否正确
@@ -261,8 +328,9 @@ public class UserController extends BaseController<User> {
         res &= (name != null || !name.equals(""));
         res &= (sex.equals("男") || sex.equals("女") || sex.equals("") || sex == null);
 
-
         return res;
 
     }
+
+
 }

@@ -3,6 +3,7 @@ package ssm.service;
 import ssm.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService extends BaseService<User> {
 
@@ -26,7 +27,10 @@ public interface UserService extends BaseService<User> {
     //根据token和id查找用户信息
     User getUser_token(String token, int id);
 
-    User get(int id);
+
+    public Map<String, Object> merrorRespMap(Map<String, Object> map, String message);
+
+
 
 
 }

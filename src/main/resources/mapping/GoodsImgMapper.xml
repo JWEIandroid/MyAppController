@@ -5,29 +5,30 @@
 
 <mapper namespace="ssm.mapper.GoodImgMapper">
 
+
+    <!--根据商品id删除图片-->
     <delete id="delete" parameterType="_int">
         delete from goodsimg where goodid= #{goodid}
     </delete>
 
+    <!--根据商品id获取商品图片-->
     <select id="get" parameterType="_int" resultType="ssm.model.goodimgs">
         select * from  goodsimg  where goodid= #{goodid}
     </select>
 
 
-    <select id="getimgs" parameterType="_int" resultType="String">
-        select url from  goodsimg  where goodid= #{goodid}
-    </select>
-
-
-    <update id="update" parameterType="ssm.model.goodimgs" >
+    <!--根据商品id更新图片-->
+    <update id="update" parameterType="ssm.model.goodimgs">
         update goodsimg set url=#{url} where goodid=#{goodid}
     </update>
 
-    <select id="list" resultType="ssm.model.goodimgs" parameterType="_int">
+    <!--查询所有商品图片-->
+    <select id="list" resultType="ssm.model.goodimgs" parameterType="ssm.model.goodimgs">
         select * from  goodsimg where goodid= #{goodid}
     </select>
 
-    <insert id="save" parameterType="ssm.model.goodimgs" >
+    <!--添加新商品图片-->
+    <insert id="save" parameterType="ssm.model.goodimgs">
         insert into goodsimg(url,goodid)values (#{url},#{goodid})
     </insert>
 
