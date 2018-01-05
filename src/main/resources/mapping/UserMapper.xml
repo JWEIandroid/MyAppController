@@ -39,6 +39,12 @@
         </select>
 
 
+    <!--根据手机号码查询用户-->
+    <select id="getUserByPhoneNum" parameterType="map" resultType="ssm.model.User">
+        select * from user where tel = #{tel}
+    </select>
+
+
     <!--根据手机号码和密码查询用户-->
     <select id="getUserByPhone" parameterType="map" resultType="ssm.model.User">
                 select * from user where tel = #{tel} and password = #{password}

@@ -12,9 +12,19 @@ public class goods implements Serializable{
     private boolean status;
     private String description;
     private int express;
+    private int userid;
 
 
     public goods() {
+    }
+
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public int getId() {

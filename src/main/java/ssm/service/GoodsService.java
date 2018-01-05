@@ -15,11 +15,17 @@ public interface GoodsService extends BaseService<goods>{
 
     void delete(int id);
 
-    goods get(int id);
+    goods get(int userid);
 
     goods getbyname(String name);
 
+    goods getgoodsByGoodId(int goodid);
+
     List<goods> getgoodlikename(String name);
+
+
+    List<goods> getgoodsByUserid(int userid);
+
 
 
 

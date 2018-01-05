@@ -5,31 +5,55 @@
 
 <mapper namespace="ssm.mapper.GoodMapper">
 
+
+    <!--添加商品-->
     <insert id="save" parameterType="ssm.model.goods">
-        insert into goods(name,price_before,price_sale,express,type,status,description)
-        values (#{name},#{price_before},#{price_sale},#{express},#{type},#{status},#{description})
+        insert into goods(name,userid,price_before,price_sale,express,type,status,description)
+        values (#{name},#{userid},#{price_before},#{price_sale},#{express},#{type},#{status},#{description})
     </insert>
 
+    <!--删除商品-->
     <delete id="delete" parameterType="ssm.model.goods">
         delete from goods where id= #{id}
     </delete>
 
+
+    <!--更新商品信息-->
     <update id="update" parameterType="ssm.model.goods">
-        update goods set name=#{name} where id=#{id}
+        update goods set name=#{name},
+        userid=#{userid},
+        price_before=#{price_before},
+        price_sale=#{price_sale},
+        express=#{express},
+        type=#{type},
+        status=#{status},
+        description=#{description} where id=#{id}
     </update>
 
+    <!--查询全部商品-->
     <select id="list" resultType="ssm.model.goods">
         select * from  goods
     </select>
 
-    <select id="get" parameterType="_int" resultType="ssm.model.goods">
+
+    <!--查询一个用户全部商品-->
+    <select id="getgoodsByUserid" parameterType="_int" resultType="ssm.model.goods">
+        select * from  goods  where userid= #{userid}
+    </select>
+
+    <!--根据id查询一个商品-->
+    <select id="getgoodsByGoodId" parameterType="map" resultType="ssm.model.goods">
         select * from  goods  where id= #{id}
     </select>
 
-    <select id="getbyname" parameterType="String" resultType="ssm.model.goods">
+
+
+    <!--根据商品名字查询-->
+    <select id="getbyname" parameterType="map" resultType="ssm.model.goods">
         select * from  goods  where name= #{name}
     </select>
 
+    <!--根据关键字查询商品-->
     <select id="getgoodlikename" parameterType="java.lang.String" resultType="ssm.model.goods">
         SELECT * FROM goods WHERE name LIKE CONCAT(CONCAT('%', #{name}), '%');
     </select>

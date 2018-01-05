@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ssm.model.User;
 import ssm.model.goods;
 import ssm.service.GoodsService;
 
@@ -23,10 +24,11 @@ public class GoodController extends BaseController<goods> {
 
     /**
      * 查询所有商品
+     *
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "result_goods",method = RequestMethod.GET,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "/result_goods", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public Map getAllUser() {
         List<goods> cs = goodsService.list();
         if (cs == null) {
@@ -38,12 +40,31 @@ public class GoodController extends BaseController<goods> {
 
 
     /**
-     * 根据id获取商品
+     * 根据用户id获取商品
+     *
+     * @param userid
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getwithUserid", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getGoodsWithUserID(int userid) {
+        List<goods> goods = goodsService.getgoodsByUserid(userid);
+        if (goods == null || goods.size() <= 0) {
+            return goodsService.errorRespMap(respMap, "null");
+        } else {
+            return goodsService.successRespMap(respMap, "success", goods);
+        }
+    }
+
+
+    /**
+     * 根据商品id获取商品
+     *
      * @param id
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "getwithid",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "getwithgoodid", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map getGoodsWithID(int id) {
         goods goods = goodsService.get(id);
         if (goods == null) {
@@ -56,46 +77,52 @@ public class GoodController extends BaseController<goods> {
 
     /**
      * 根据ID删除商品
+     *
      * @param id
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "delwithid",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "delwithid", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map deleteWithID(int id) {
-        goodsService.delete(id);
-        goods goods = goodsService.get(id);
-        if (goods != null) {
-            return goodsService.errorRespMap(respMap, "error");
-        } else {
-            return goodsService.successRespMap(respMap, "success", goods);
+
+        goods good1 = goodsService.getgoodsByGoodId(id);
+        if (good1 == null) {
+            return goodsService.errorRespMap(respMap, "goods not exist in db");
         }
+        goodsService.delete(id);
+        return goodsService.successRespMap(respMap, "success", good1);
     }
 
     /**
      * 更新商品
+     *
      * @param good
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "updategood",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "updategood", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map updategoods(goods good) {
 
-        if (!checkParams(good)) {
-            return goodsService.errorRespMap(respMap, "params not illegal");
+        goods good1 = goodsService.getgoodsByGoodId(good.getId());
+        if (good1 == null) {
+            return goodsService.errorRespMap(respMap, "goods not exist in db");
         }
         goodsService.update(good);
         return goodsService.successRespMap(respMap, "success", good);
+
     }
 
 
     /**
      * 添加商品
+     *
      * @param good
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "addgoods",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "addgoods", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map save(goods good) {
+
         if (!checkParams(good)) {
             return goodsService.errorRespMap(respMap, "params not illegal");
         }
@@ -114,20 +141,21 @@ public class GoodController extends BaseController<goods> {
 
     /**
      * 根据商品名字获取商品
+     *
      * @param good
      * @return
      */
 
     @ResponseBody
-    @RequestMapping(value = "getgoodbyname",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "getgoodbyname", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map getgoodByname(goods good) {
         if (!checkParams(good)) {
             return goodsService.errorRespMap(respMap, "params not illegal");
         }
         List<goods> goods = goodsService.getgoodlikename(good.getName());
-        if (goods.size()<=0) {
+        if (goods.size() <= 0) {
             return goodsService.errorRespMap(respMap, "this good isn't exist in db");
-        }else {
+        } else {
             return goodsService.successRespMap(respMap, "success", goods);
         }
     }
@@ -144,8 +172,8 @@ public class GoodController extends BaseController<goods> {
         String description = good.getDescription();
         int express = good.getExpress();
 
-        if (name==null || name.equals("")){
-            return  res =false;
+        if (name == null || name.equals("")) {
+            return res = false;
         }
         return res;
 

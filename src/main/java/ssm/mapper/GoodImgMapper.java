@@ -13,10 +13,10 @@ public interface GoodImgMapper extends BaseMapper<goodimgs> {
 
     void delete(int id);
 
-    goodimgs get(int id);
+    goodimgs get(int goodiid);
 
-    List<goodimgs> list();
+    List<String> getImgByGoodid(int goodid);
 
-    List<String> getimgs(int id);
+
 
 }

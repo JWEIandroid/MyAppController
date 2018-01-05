@@ -15,9 +15,7 @@ public interface GoodsImgService extends BaseService<goodimgs>{
 
     goodimgs get(int id);
 
-    List<goodimgs> list();
-
-    List<String> getimgs(int goodid);
+    List<String> getImgByGoodid(int goodid);
 
 
 }

@@ -28,12 +28,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     //根据账号密码查询用户
     public void login(String name, String password) {
+
+
+
         userMapper.findUserByNameAndPwd(name, password);
     }
 
     //根据账号密码查询用户，返回user
     public User getUserByPhone(String tel, String password) {
+
        return userMapper.getUserByPhone(tel, password);
+
+
     }
 
     //增加用户
@@ -56,6 +62,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     //根据token和id获取一个用户
     public User getUser_token(String token, int id) {
         return userMapper.getUser_token(token, id);
+    }
+
+    public User getUserByPhoneNum(String phone) {
+        return userMapper.getUserByPhoneNum(phone);
     }
 
 

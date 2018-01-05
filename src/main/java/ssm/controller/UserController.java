@@ -97,16 +97,16 @@ public class UserController extends BaseController<User> {
     @RequestMapping(value = "register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map save(User user) {
 
-        if (userService.getUserByPhone(user.getTel(), user.getPassword()) == null) {
-            user.setCreate_time(System.currentTimeMillis() + "");
-            user.setUpdate_time(System.currentTimeMillis() + "");
-            user.setHeadimg("http://" + Constant.IP + ":8080/user/imgss?filename=" + "1.jpg");
-            userService.save(user);
-            return userService.successRespMap(respMap, "添加用户成功", user);
-        } else {
+        if (userService.getUserByPhoneNum(user.getTel()) != null) {
             System.out.println("用户存在--注册失败");
-            return userService.errorRespMap(respMap, "用户已经存在");
+            return userService.errorRespMap(respMap, "用户已存在");
         }
+        user.setCreate_time(System.currentTimeMillis() + "");
+        user.setUpdate_time(System.currentTimeMillis() + "");
+        user.setHeadimg("http://" + Constant.IP + ":8080/user/download?filename=" + "normal.png");
+        userService.save(user);
+        return userService.successRespMap(respMap,"注册成功",user);
+
     }
 
     /**
@@ -182,13 +182,13 @@ public class UserController extends BaseController<User> {
      * @param response
      */
     @ResponseBody
-    @RequestMapping(value = "imgss", method = RequestMethod.GET)
+    @RequestMapping(value = "download", method = RequestMethod.GET)
     public void getImg(@Param("filename") String filename, HttpServletResponse response) {
 
         FileInputStream fis = null;
         OutputStream os = null;
         try {
-            fis = new FileInputStream(Constant.IMG_HOME + filename);
+            fis = new FileInputStream(Constant.IMG_USER_HOME + filename);
             os = response.getOutputStream();
             int count = 0;
             byte[] buffer = new byte[1024 * 8];
@@ -225,96 +225,6 @@ public class UserController extends BaseController<User> {
         } else {
             return userService.errorRespMap(respMap, "修改失败");
         }
-    }
-
-    /**
-     * 文件上传功能
-     *
-     * @param file
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request, @RequestParam("id") int id) throws IOException {
-//        String path = request.getSession().getServletContext().getRealPath("upload");
-        String path = Constant.IMG_HOME;
-        String fileName = file.getOriginalFilename();
-        StringBuilder sb = new StringBuilder(fileName);
-        long now = System.currentTimeMillis();
-        String deal_name = now + sb.substring(sb.indexOf("."), sb.length());
-        System.out.println("name:" + deal_name);
-
-        File dir = new File(path, deal_name);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        //MultipartFile自带的解析方法
-        file.transferTo(dir);
-
-        User user = userService.getuserById(id);
-        if (user != null) {
-            user.setHeadimg(Constant.STORE_HOME + "user/imgss/?filename=" + deal_name);
-            user.setUpdate_time(now+"");
-            userService.update(user);
-            return userService.successRespMap(respMap, "success", deal_name);
-        } else {
-            return userService.merrorRespMap(respMap, "");
-
-        }
-
-    }
-
-    /**
-     * 多文件上传
-     * @param request
-     * @return
-     * @throws IllegalStateException
-     * @throws IOException
-     */
-    @ResponseBody
-    @RequestMapping("/upload2")
-    public Map<String,Object> upload2(HttpServletRequest request) throws IllegalStateException, IOException {
-        //创建一个通用的多部分解析器
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-        //判断 request 是否有文件上传,即多部分请求
-        if(multipartResolver.isMultipart(request)){
-            //转换成多部分request
-            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
-            //取得request中的所有文件名
-            Iterator<String> iter = multiRequest.getFileNames();
-            while(iter.hasNext()){
-                //记录上传过程起始时的时间，用来计算上传时间
-                int pre = (int) System.currentTimeMillis();
-                //取得上传文件
-                MultipartFile file = multiRequest.getFile(iter.next());
-                if(file != null){
-                    //取得当前上传文件的文件名称
-                    String myFileName = file.getOriginalFilename();
-                    //如果名称不为“”,说明该文件存在，否则说明该文件不存在
-                    if(myFileName.trim() !=""){
-                        System.out.println(myFileName);
-                        //重命名上传后的文件名
-                        String fileName = "demoUpload" + file.getOriginalFilename();
-                        StringBuilder sb = new StringBuilder(fileName);
-                        long now = System.currentTimeMillis();
-                        String deal_name = now + sb.substring(sb.indexOf("."), sb.length());
-                        //定义上传路径
-                        String path = Constant.IMG_HOME;
-                        File dir = new File(path,deal_name);
-                        if (!dir.exists()){
-                            dir.mkdirs();
-                        }
-                        file.transferTo(dir);
-                    }
-                }
-                //记录上传该文件后的时间
-                int finaltime = (int) System.currentTimeMillis();
-                System.out.println(finaltime - pre);
-            }
-
-        }
-        return userService.successRespMap(respMap,"success","ok");
     }
 
 

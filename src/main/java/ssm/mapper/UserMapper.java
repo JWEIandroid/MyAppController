@@ -26,4 +26,8 @@ public interface UserMapper extends BaseMapper<User> {
     //根据token和id获取一个用户
     public User getUser_token(@Param("token") String token, @Param("id") int id);
 
+    public User getUserByPhoneNum(@Param("tel") String tel);
+
+
+
 }

@@ -16,11 +16,17 @@
         select * from  goodsimg  where goodid= #{goodid}
     </select>
 
+    <!--根据商品id获取商品图片-->
+    <select id="getImgByGoodid" parameterType="_int" resultType="ssm.model.goodimgs">
+        select * from  goodsimg  where goodid= #{goodid}
+    </select>
+
 
     <!--根据商品id更新图片-->
     <update id="update" parameterType="ssm.model.goodimgs">
         update goodsimg set url=#{url} where goodid=#{goodid}
     </update>
+
 
     <!--查询所有商品图片-->
     <select id="list" resultType="ssm.model.goodimgs" parameterType="ssm.model.goodimgs">

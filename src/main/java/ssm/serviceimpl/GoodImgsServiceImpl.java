@@ -39,27 +39,16 @@ public class GoodImgsServiceImpl extends BaseServiceImpl<goodimgs> implements Go
         return goodImgMapper.get(id);
     }
 
-    @Override
-    public List<goodimgs> list() {
-        return goodImgMapper.list();
+
+    public List<String> getImgByGoodid(int goodid) {
+
+        List<String> list = goodImgMapper.getImgByGoodid(goodid);
+        if (list.size() > 0) {
+            System.out.println("serviceImpl list :");
+            System.out.println(list.size());
+            return list;
+        }
+        return null;
     }
 
-    public List<String> getimgs(int goodid) {
-        List<String> list = goodImgMapper.getimgs(goodid);
-        System.out.println("serviceImpl list :");
-        System.out.println(list.size());
-        return list;
-    }
-
-
-    @Override
-    public Map<String, Object> errorRespMap(Map<String, Object> map, String message) {
-            if (map == null) {
-                map = new HashMap<String, Object>();
-            }
-            map.put("error_code", "-1");
-            map.put("message", message);
-            map.put("data", new goodimgs());
-            return map;
-    }
 }

@@ -27,6 +27,7 @@ public interface UserService extends BaseService<User> {
     //根据token和id查找用户信息
     User getUser_token(String token, int id);
 
+    User getUserByPhoneNum(String phone);
 
     public Map<String, Object> merrorRespMap(Map<String, Object> map, String message);
 
