@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.User;
 import ssm.model.goods;
+import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class GoodController extends BaseController<goods> {
 
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    GoodsImgService goodsImgService;
 
 
     /**

@@ -42,6 +42,7 @@ public class FileController extends BaseController<Object> {
     @Autowired
     GoodsService goodsService;
 
+    //指定文件下载路径
     String IMG_DOWNLOADHOME = null;
 
     /**

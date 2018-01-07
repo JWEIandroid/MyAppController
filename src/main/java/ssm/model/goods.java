@@ -1,6 +1,7 @@
 package ssm.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class goods implements Serializable{
 
@@ -13,6 +14,16 @@ public class goods implements Serializable{
     private String description;
     private int express;
     private int userid;
+
+    public List<String> getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(List<String> imgurl) {
+        this.imgurl = imgurl;
+    }
+
+    private List<String> imgurl;
 
 
     public goods() {

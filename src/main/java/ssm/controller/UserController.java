@@ -227,6 +227,16 @@ public class UserController extends BaseController<User> {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "QueryUser",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public Map getUserById(@Param("userid")int userid){
+        User user = userService.getuserById(userid);
+        if (user ==null){
+            return userService.errorRespMap(respMap,"用户不存在");
+        }
+        return userService.successRespMap(respMap,"success",user);
+    }
+
 
 
 
