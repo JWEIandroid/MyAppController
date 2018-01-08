@@ -11,6 +11,7 @@ import ssm.model.goods;
 import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,12 @@ public class GoodController extends BaseController<goods> {
     @RequestMapping(value = "/result_goods", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public Map getAllUser() {
         List<goods> cs = goodsService.list();
+
+        for (goods good:cs){
+            good.setImgurl(goodsImgService.getImgByGoodid(good.getId()));
+        }
+
+
         if (cs == null) {
             return goodsService.errorRespMap(respMap, "error");
         } else {

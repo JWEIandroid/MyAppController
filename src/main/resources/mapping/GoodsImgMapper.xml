@@ -13,13 +13,15 @@
 
     <!--根据商品id获取商品图片-->
     <select id="get" parameterType="_int" resultType="ssm.model.goodimgs">
-        select * from  goodsimg  where goodid= #{goodid}
+        select url from  goodsimg  where goodid= #{goodid}
     </select>
 
     <!--根据商品id获取商品图片-->
-    <select id="getImgByGoodid" parameterType="_int" resultType="ssm.model.goodimgs">
-        select * from  goodsimg  where goodid= #{goodid}
+    <select id="getImgByGoodid" parameterType="_int" resultType="java.lang.String">
+        select url from  goodsimg  where goodid= #{goodid}
     </select>
+
+
 
 
     <!--根据商品id更新图片-->
@@ -30,7 +32,7 @@
 
     <!--查询所有商品图片-->
     <select id="list" resultType="ssm.model.goodimgs" parameterType="ssm.model.goodimgs">
-        select * from  goodsimg where goodid= #{goodid}
+        select url from  goodsimg where goodid= #{goodid}
     </select>
 
     <!--添加新商品图片-->

@@ -27,6 +27,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
     @ResponseBody
     @RequestMapping(value = "getImgByGoodid", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map getImgsWithID(int goodid) {
+
         List<String> list = goodsImgService.getImgByGoodid(goodid);
         System.out.println("返回结果条数：" + list.size());
         if (list.size() > 0) {

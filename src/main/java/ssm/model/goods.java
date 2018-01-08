@@ -14,6 +14,8 @@ public class goods implements Serializable{
     private String description;
     private int express;
     private int userid;
+    private List<String> imgurl;
+
 
     public List<String> getImgurl() {
         return imgurl;
@@ -22,8 +24,6 @@ public class goods implements Serializable{
     public void setImgurl(List<String> imgurl) {
         this.imgurl = imgurl;
     }
-
-    private List<String> imgurl;
 
 
     public goods() {
