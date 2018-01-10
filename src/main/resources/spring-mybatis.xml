@@ -42,6 +42,18 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath:/mapping/*.xml"></property>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
         <!--<property name="mapperLocations" value="classpath:ssm/mapper/*.xml"></property>-->
     </bean>
 
@@ -58,4 +70,8 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+
+
 </beans>
+
+

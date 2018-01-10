@@ -1,17 +1,18 @@
 package ssm.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ssm.model.User;
 import ssm.model.goods;
 import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +33,12 @@ public class GoodController extends BaseController<goods> {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/result_goods", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-    public Map getAllUser() {
+    @RequestMapping(value = "/result_goods", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getAllUser(@Param("pagenum")int pagenum) {
+
+        PageHelper.startPage(pagenum,10);
         List<goods> cs = goodsService.list();
+        PageInfo<goods> pageInfo = new PageInfo<goods>(cs);
 
         for (goods good:cs){
             good.setImgurl(goodsImgService.getImgByGoodid(good.getId()));
