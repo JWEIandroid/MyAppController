@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.goods;
 import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
+import ssm.service.UserService;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,8 @@ public class GoodController extends BaseController<goods> {
     GoodsService goodsService;
     @Autowired
     GoodsImgService goodsImgService;
+    @Autowired
+    UserService userService;
 
 
     /**
@@ -34,14 +38,16 @@ public class GoodController extends BaseController<goods> {
      */
     @ResponseBody
     @RequestMapping(value = "/result_goods", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map getAllUser(@Param("pagenum")int pagenum) {
+    public Map getAllUser(@Param("pagenum") int pagenum) {
 
-        PageHelper.startPage(pagenum,10);
+        PageHelper.startPage(pagenum, 10);
         List<goods> cs = goodsService.list();
         PageInfo<goods> pageInfo = new PageInfo<goods>(cs);
+        System.out.println("总页数："+pageInfo.getTotal());
 
-        for (goods good:cs){
+        for (goods good : cs) {
             good.setImgurl(goodsImgService.getImgByGoodid(good.getId()));
+            good.setUser(userService.getuserById(good.getUserid()));
         }
 
 

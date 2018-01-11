@@ -14,8 +14,17 @@ public class goods implements Serializable{
     private String description;
     private int express;
     private int userid;
+    private User user;
     private List<String> imgurl;
 
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     public List<String> getImgurl() {
         return imgurl;
@@ -30,12 +39,12 @@ public class goods implements Serializable{
     }
 
 
-    public int getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

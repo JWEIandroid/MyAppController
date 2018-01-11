@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.goodimgs;
 import ssm.service.GoodsImgService;
+import ssm.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ public class GoodImgsController extends BaseController<goodimgs> {
 
     @Autowired
     GoodsImgService goodsImgService;
+
 
     /**
      * 根据商品id返回商品图片
