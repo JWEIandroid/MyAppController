@@ -32,7 +32,7 @@
 
     <!--查询全部商品-->
     <select id="list" resultType="ssm.model.goods">
-        select * from  goods
+        select * from  goods order by update_time desc
     </select>
 
 
