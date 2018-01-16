@@ -10,7 +10,7 @@ public class goods implements Serializable{
     private String type;
     private float price_before;
     private float price_sale;
-    private boolean status;
+    private String status;
     private String description;
     private int express;
     private int userid;
@@ -104,11 +104,11 @@ public class goods implements Serializable{
         this.price_sale = price_sale;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

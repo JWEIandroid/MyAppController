@@ -172,7 +172,7 @@ public class FileController extends BaseController<Object> {
             default:
         }
 
-        return userService.errorRespMap(respMap, "多文件上传失败");
+        return goodsImgService.errorRespMap(respMap, "多文件上传失败");
     }
 
 

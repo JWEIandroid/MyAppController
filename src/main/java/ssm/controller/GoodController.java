@@ -43,7 +43,7 @@ public class GoodController extends BaseController<goods> {
         PageHelper.startPage(pagenum, 10);
         List<goods> cs = goodsService.list();
         PageInfo<goods> pageInfo = new PageInfo<goods>(cs);
-        System.out.println("总页数："+pageInfo.getTotal());
+        System.out.println("总页数：" + pageInfo.getTotal());
 
         for (goods good : cs) {
             good.setImgurl(goodsImgService.getImgByGoodid(good.getId()));
@@ -155,7 +155,18 @@ public class GoodController extends BaseController<goods> {
         if (good_save == null) {
             return goodsService.errorRespMap(respMap, "error");
         } else {
-            return goodsService.successRespMap(respMap, "success", goods);
+
+            //更新商品时间
+            good_save.setCreate_time(System.currentTimeMillis()+"");
+            good_save.setUpdate_time(System.currentTimeMillis() + "");
+            goodsService.update(good_save);
+
+
+            //更新用户发布记录
+
+
+
+            return goodsService.successRespMap(respMap, "success", good_save);
         }
     }
 
@@ -188,7 +199,7 @@ public class GoodController extends BaseController<goods> {
         String type = good.getType();
         float price_before = good.getPrice_before();
         float price_sale = good.getPrice_sale();
-        boolean status = good.getStatus();
+        String status = good.getStatus();
         String description = good.getDescription();
         int express = good.getExpress();
 
