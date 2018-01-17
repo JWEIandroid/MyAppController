@@ -3,9 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ssm.mapper.BuyRecordMapper"/>
+<mapper namespace="ssm.mapper.BuyRecordMapper">
 
-<!--插入一条购买记录-->
-<!--删除一条购买记录-->
-<!--查询一条购买记录-->
-<!--查询用户全部购买记录-->
+    <!--插入一条购买记录-->
+    <insert id="save" parameterType="ssm.model.Buyrecord">
+
+    INSERT into buyrecord (id,userid,goodid,shuohuomsg,date) values
+    (#{id},#{userid},#{goodid},#{shuohuomsg},#{date})
+
+</insert>
+
+    <!--删除一条购买记录-->
+
+    <delete id="delete" parameterType="ssm.model.Buyrecord">
+
+        DELETE FROM buyrecord WHERE userid = #{userid}
+
+    </delete>
+
+
+    <!--查询一条购买记录-->
+    <select id="selectone" parameterType="map" resultType="ssm.model.Buyrecord">
+
+        select * FROM buyrecord WHERE userid = #{userid} and date = #{date}
+
+    </select>
+
+    <!--查询用户全部购买记录-->
+    <select id="list_user" resultType="ssm.model.Buyrecord">
+
+        SELECT  * FROM buyrecord WHERE userid = #{userid}
+
+    </select>
+
+
+</mapper>

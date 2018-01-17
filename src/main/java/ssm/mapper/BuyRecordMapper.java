@@ -1,9 +1,26 @@
 package ssm.mapper;
 
-import ssm.model.buyrecord;
+import org.apache.ibatis.annotations.Param;
+import ssm.model.Buyrecord;
 
 import java.util.List;
 
-public interface BuyRecordMapper extends BaseMapper<buyrecord>{
+public interface BuyRecordMapper extends BaseMapper<Buyrecord>{
+
+
+    void save(Buyrecord buyrecord);
+
+    void update(Buyrecord buyrecord);
+
+    void delete(int id);
+
+    Buyrecord get(int id);
+
+    List<Buyrecord> list();
+
+    List<Buyrecord> list_user(int userid);
+
+    Buyrecord selectone(@Param("userid") int userid, @Param("date") String date);
+
 
 }

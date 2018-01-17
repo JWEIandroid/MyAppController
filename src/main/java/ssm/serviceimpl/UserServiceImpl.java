@@ -29,8 +29,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     //根据账号密码查询用户
     public void login(String name, String password) {
 
-
-
         userMapper.findUserByNameAndPwd(name, password);
     }
 

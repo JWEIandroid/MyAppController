@@ -18,7 +18,7 @@
 
     <!--更新用户-->
     <update id="update" parameterType="ssm.model.User">
-                update user set name=#{name},password = #{password},
+                update user set name=#{name},password =#{password},
                  adress = #{adress} , tel = #{tel},
                  token = #{token}, sex  = #{sex},description = #{description},
                  create_time= #{create_time},update_time = #{update_time},
@@ -35,8 +35,8 @@
 
     <!--根据用户名密码查询用户-->
     <select id="findUserByNameAndPwd" parameterType="map" resultType="ssm.model.User">
-                select name,password from user where name = #{name} and password = #{password}
-        </select>
+         select name,password from user where name = #{name} and password = #{password}
+    </select>
 
 
     <!--根据手机号码查询用户-->

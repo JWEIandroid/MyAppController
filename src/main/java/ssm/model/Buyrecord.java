@@ -3,13 +3,13 @@ package ssm.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class buyrecord implements Serializable {
+public class Buyrecord implements Serializable {
 
     private int id;
     private int userid;
     private int goodid;
     private int shuohuomsg;
-    private Date date;
+    private String date;
 
     public int getId() {
         return id;
@@ -43,11 +43,11 @@ public class buyrecord implements Serializable {
         this.shuohuomsg = shuohuomsg;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
