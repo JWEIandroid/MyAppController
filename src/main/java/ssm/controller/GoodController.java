@@ -1,6 +1,5 @@
 package ssm.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +14,7 @@ import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
 import ssm.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -157,13 +157,12 @@ public class GoodController extends BaseController<goods> {
         } else {
 
             //更新商品时间
-            good_save.setCreate_time(System.currentTimeMillis()+"");
+            good_save.setCreate_time(System.currentTimeMillis() + "");
             good_save.setUpdate_time(System.currentTimeMillis() + "");
             goodsService.update(good_save);
 
 
             //更新用户发布记录
-
 
 
             return goodsService.successRespMap(respMap, "success", good_save);
@@ -189,6 +188,23 @@ public class GoodController extends BaseController<goods> {
         } else {
             return goodsService.successRespMap(respMap, "success", goods);
         }
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/searchbytype", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map GetGoodWithType(@Param("pagenum") int pagenum, @Param("type") String type) {
+
+        PageHelper.startPage(pagenum, 10);
+        List<goods> list = new ArrayList<goods>();
+        if (type != null && !type.equals("")) {
+            list = goodsService.getgoodwithtype(type);
+        }
+        if (list == null & list.size() <= 0) {
+            return goodsService.errorRespMap(respMap, "数据不存在");
+        }
+        return goodsService.successRespMap(respMap, "存在" + list.size() + "条数据", list);
+
     }
 
 

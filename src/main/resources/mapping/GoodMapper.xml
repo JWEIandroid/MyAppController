@@ -51,7 +51,6 @@
     </select>
 
 
-
     <!--根据商品名字查询-->
     <select id="getbyname" parameterType="map" resultType="ssm.model.goods">
         select * from  goods  where name= #{name}
@@ -62,5 +61,9 @@
         SELECT * FROM goods WHERE name LIKE CONCAT(CONCAT('%', #{name}), '%');
     </select>
 
+    <select id="getgoodwithtype" parameterType="java.lang.String" resultType="ssm.model.goods">
+
+               select * from  goods  where type= #{type}
+</select>
 
 </mapper>

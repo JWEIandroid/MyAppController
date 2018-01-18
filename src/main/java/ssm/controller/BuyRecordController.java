@@ -100,6 +100,7 @@ public class BuyRecordController extends BaseController<Buyrecord> {
 
     /**
      * 添加一条购买记录
+     *
      * @param buyrecord
      * @return
      */
@@ -116,9 +117,6 @@ public class BuyRecordController extends BaseController<Buyrecord> {
         return buyRecordService.successRespMap(respMap, "success", buyrecord);
 
     }
-
-
-
 
 
 }

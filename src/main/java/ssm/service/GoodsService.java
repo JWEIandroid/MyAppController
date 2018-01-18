@@ -23,6 +23,8 @@ public interface GoodsService extends BaseService<goods>{
 
     List<goods> getgoodlikename(String name);
 
+    List<goods> getgoodwithtype(String type);
+
 
     List<goods> getgoodsByUserid(int userid);
 

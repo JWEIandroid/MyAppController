@@ -22,6 +22,8 @@ public interface GoodMapper extends BaseMapper<goods> {
 
     List<goods> getgoodsByUserid(int id);
 
+    List<goods> getgoodwithtype(String type);
+
     goods  getgoodsByGoodId(int id);
 
 }

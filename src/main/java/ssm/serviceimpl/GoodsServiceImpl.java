@@ -48,6 +48,10 @@ public class GoodsServiceImpl extends BaseServiceImpl<goods> implements GoodsSer
         return goodMapper.getgoodlikename(name);
     }
 
+    public List<goods> getgoodwithtype(String type) {
+        return goodMapper.getgoodwithtype(type);
+    }
+
     public List<goods> getgoodsByUserid(int userid) {
         return goodMapper.getgoodsByUserid(userid);
     }
