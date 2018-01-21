@@ -178,19 +178,32 @@ public class GoodController extends BaseController<goods> {
 
     @ResponseBody
     @RequestMapping(value = "getgoodbyname", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map getgoodByname(goods good) {
+    public Map getgoodByname(@Param("pagenum")int pagenum, goods good) {
         if (!checkParams(good)) {
             return goodsService.errorRespMap(respMap, "params not illegal");
         }
+        PageHelper.startPage(pagenum,2);
         List<goods> goods = goodsService.getgoodlikename(good.getName());
-        if (goods.size() <= 0) {
-            return goodsService.errorRespMap(respMap, "this good isn't exist in db");
+//        if (goods.size() <= 0) {
+//            return goodsService.errorRespMap(respMap, "this good isn't exist in db");
+//        } else {
+//            return goodsService.successRespMap(respMap, "success", goods);
+//        }
+        if (goods == null) {
+            return goodsService.errorRespMap(respMap, "error");
         } else {
             return goodsService.successRespMap(respMap, "success", goods);
         }
+
     }
 
 
+    /***
+     * 查询商品(分类查询)
+     * @param pagenum
+     * @param type
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/searchbytype", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map GetGoodWithType(@Param("pagenum") int pagenum, @Param("type") String type) {
@@ -203,6 +216,12 @@ public class GoodController extends BaseController<goods> {
         if (list == null & list.size() <= 0) {
             return goodsService.errorRespMap(respMap, "数据不存在");
         }
+
+        for (goods good : list) {
+            good.setImgurl(goodsImgService.getImgByGoodid(good.getId()));
+            good.setUser(userService.getuserById(good.getUserid()));
+        }
+
         return goodsService.successRespMap(respMap, "存在" + list.size() + "条数据", list);
 
     }
