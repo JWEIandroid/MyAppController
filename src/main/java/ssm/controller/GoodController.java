@@ -182,7 +182,7 @@ public class GoodController extends BaseController<goods> {
         if (!checkParams(good)) {
             return goodsService.errorRespMap(respMap, "params not illegal");
         }
-        PageHelper.startPage(pagenum,2);
+        PageHelper.startPage(pagenum,10);
         List<goods> goods = goodsService.getgoodlikename(good.getName());
 //        if (goods.size() <= 0) {
 //            return goodsService.errorRespMap(respMap, "this good isn't exist in db");
@@ -192,8 +192,13 @@ public class GoodController extends BaseController<goods> {
         if (goods == null) {
             return goodsService.errorRespMap(respMap, "error");
         } else {
+            for (goods good1 : goods) {
+                good1.setImgurl(goodsImgService.getImgByGoodid(good1.getId()));
+                good1.setUser(userService.getuserById(good1.getUserid()));
+            }
             return goodsService.successRespMap(respMap, "success", goods);
         }
+
 
     }
 
