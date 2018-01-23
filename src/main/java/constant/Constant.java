@@ -10,6 +10,8 @@ public class Constant {
 //    public final static String IP = "172.168.5.138";
     public static String IP =null;
 
+
+    //获取本机IP
     static {
         try {
             IP = InetAddress.getLocalHost().getHostAddress();

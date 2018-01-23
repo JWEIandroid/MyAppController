@@ -119,7 +119,8 @@ public class FileController extends BaseController<Object> {
         file.transferTo(dir);
 
         //更新图片地址到数据库
-        user.setHeadimg(Constant.STORE_HOME + "file/download/?filename=" + deal_name + "&type=" + 0);
+//        user.setHeadimg(Constant.STORE_HOME + "file/download/?filename=" + deal_name + "&type=" + 0);
+        user.setHeadimg("file/download/?filename=" + deal_name + "&type=" + 0);
         user.setUpdate_time(now + "");
         userService.update(user);
         return userService.successRespMap(respMap, "success", deal_name);
@@ -129,7 +130,7 @@ public class FileController extends BaseController<Object> {
     /**
      * 多文件上传
      *
-     * @param id 商品id或用户
+     * @param id      商品id或用户
      * @param request
      * @param type    0为用户 1为商品
      * @return
@@ -159,7 +160,8 @@ public class FileController extends BaseController<Object> {
                 if (file_upload.size() > 0) {
 
                     for (String filename : file_upload) {
-                        String url = Constant.STORE_HOME + "file/download/?filename=" + filename + "&type=" + type;
+//                        String url = Constant.STORE_HOME + "file/download/?filename=" + filename + "&type=" + type;
+                        String url = "file/download/?filename=" + filename + "&type=" + type;
                         System.out.println("多文件上传 名字：" + filename);
                         int goodsid = goods.getId();
                         goodimgs goodimgs = new goodimgs();
