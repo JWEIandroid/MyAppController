@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ssm.mapper.ReportRecordMapper">
+
+    <!--插入一条发布记录-->
+    <insert id="save" parameterType="ssm.model.reportrecord">
+        INSERT into reportrecord (userid,goodsid,date) VALUES
+        (#{userid},#{goodsid},#{date})
+    </insert>
+
+    <!--删除一条发布记录-->
+    <delete id="deletewith2id" parameterType="map">
+        DELETE FROM reportrecord WHERE userid = #{userid} AND goodsid = #{goodsid}
+    </delete>
+
+    <!--修改一条发布记录-->
+    <update id="update" parameterType="ssm.model.reportrecord">
+        UPDATE reportrecord set
+        userid = #{userid},
+        goodsid = #{goodsid},
+        date = #{date}
+    </update>
+
+    <!--查询一条发布记录-->
+    <select id="query" parameterType="map" resultType="ssm.model.reportrecord">
+        SELECT * FROM reportrecord where userid = #{userid} AND goodsid = #{goodsid}
+    </select>
+
+</mapper>

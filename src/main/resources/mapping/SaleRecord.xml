@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ssm.mapper.SaleRecordMapper">
+
+    <!--插入一条售出记录-->
+    <insert id="save" parameterType="ssm.model.salerecord">
+        INSERT into salerecord (userid,usersaleid,goodsid,date,shuohuomsg) VALUES
+        (#{userid},#{usersaleid},#{goodsid},#{date},#{shuohuomsg})
+    </insert>
+
+    <!--删除一条售出记录-->
+    <delete id="deletewith2id" parameterType="ssm.model.salerecord">
+        DELETE FROM salerecord WHERE userid = #{userid} AND goodsid = #{goodsid}
+    </delete>
+
+    <!--修改一条售出记录-->
+    <update id="update" parameterType="ssm.model.salerecord">
+        UPDATE salerecord set
+        userid = #{userid},
+        goodsid = #{goodsid},
+        usersaleid = #{usersaleid},
+        date  = #{date},
+        shuohuomsg = #{shuohuomsg}
+    </update>
+
+    <!--查询一条售出记录-->
+    <select id="query" parameterType="map" resultType="ssm.model.salerecord">
+        SELECT * FROM salerecord where userid = #{userid} AND goodid = #{goodsid}
+    </select>
+
+</mapper>

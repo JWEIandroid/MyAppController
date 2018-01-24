@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ssm.mapper.ShuoHuoMsgMapper">
+
+    <!--插入收货信息-->
+    <insert id="save" parameterType="ssm.model.shuohuomsg">
+        INSERT into shouhuomsg (userid,name,tel,adress,goodsid) VALUES
+        (#{userid},#{name},#{tel},#{adress},#{goodsid})
+    </insert>
+
+    <!--删除一条收货信息-->
+    <delete id="deletewith2id" parameterType="map">
+        DELETE FROM shouhuomsg WHERE userid = #{userid} AND goodsid = #{goodsid}
+    </delete>
+
+    <!--修改一条收货信息-->
+    <update id="update" parameterType="ssm.model.shuohuomsg">
+        UPDATE shouhuomsg set
+        userid = #{userid},
+        goodsid = #{goodsid},
+        name = #{id},
+        tel  = #{tel},
+        adress = #{adress}
+    </update>
+
+    <!--查询一条收货信息-->
+     <select id="query" parameterType="map" resultType="ssm.model.shuohuomsg">
+         SELECT * FROM shouhuomsg where userid = #{userid} AND goodsid = #{goodsid}
+     </select>
+
+</mapper>

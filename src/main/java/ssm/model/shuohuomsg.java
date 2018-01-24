@@ -5,10 +5,19 @@ import java.io.Serializable;
 public class shuohuomsg implements Serializable{
     private int id;
     private int userid;
+    private int goodid;
     private  String name;
     private  String tel;
     private  String adress;
 
+
+    public int getGoodid() {
+        return goodid;
+    }
+
+    public void setGoodid(int goodid) {
+        this.goodid = goodid;
+    }
 
     public int getId() {
         return id;

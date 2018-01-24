@@ -6,7 +6,7 @@ public class reportrecord implements Serializable {
 
     private int id;
     private int userid;
-    private int goodid;
+    private int goodsid;
     private String date;
 
 
@@ -26,12 +26,12 @@ public class reportrecord implements Serializable {
         this.userid = userid;
     }
 
-    public int getGoodid() {
-        return goodid;
+    public int getGoodsid() {
+        return goodsid;
     }
 
-    public void setGoodid(int goodid) {
-        this.goodid = goodid;
+    public void setGoodsid(int goodsid) {
+        this.goodsid = goodsid;
     }
 
     public String getDate() {

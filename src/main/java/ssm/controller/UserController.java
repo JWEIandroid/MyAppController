@@ -105,7 +105,7 @@ public class UserController extends BaseController<User> {
         user.setUpdate_time(System.currentTimeMillis() + "");
         user.setHeadimg("http://" + Constant.IP + ":8080/user/download?filename=" + "normal.png");
         userService.save(user);
-        return userService.successRespMap(respMap,"注册成功",user);
+        return userService.successRespMap(respMap, "注册成功", user);
 
     }
 
@@ -217,8 +217,15 @@ public class UserController extends BaseController<User> {
     public Map resetpsd(@Param("oldpsd") String oldpsd, @Param("newpsd") String newpsd, @Param("id") int id) {
 
         User user1 = userService.getuserById(id);
+
+        if (user1==null){
+            return userService.errorRespMap(respMap,"用户不存在");
+        }
+
+
         if (user1 != null & user1.getPassword().equals(oldpsd)) {
             user1.setPassword(newpsd);
+            user1.setUpdate_time(System.currentTimeMillis()+"");
             userService.update(user1);
             user1 = userService.getuserById(id);
             return userService.successRespMap(respMap, "修改成功", user1);
@@ -228,16 +235,14 @@ public class UserController extends BaseController<User> {
     }
 
     @ResponseBody
-    @RequestMapping(value = "QueryUser",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
-    public Map getUserById(@Param("userid")int userid){
+    @RequestMapping(value = "QueryUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getUserById(@Param("userid") int userid) {
         User user = userService.getuserById(userid);
-        if (user ==null){
-            return userService.errorRespMap(respMap,"用户不存在");
+        if (user == null) {
+            return userService.errorRespMap(respMap, "用户不存在");
         }
-        return userService.successRespMap(respMap,"success",user);
+        return userService.successRespMap(respMap, "success", user);
     }
-
-
 
 
     //检查参数是否正确
