@@ -244,7 +244,7 @@ public class GoodController extends BaseController<goods> {
      */
     @ResponseBody
     @RequestMapping("buy")
-    public Map BuyGoods(goods goods, @Param("purchaser") int purchaser) {
+    public Map BuyGoods(goods goods,shuohuomsg msg, @Param("purchaser") int purchaser) {
 
         //判断商品状态
         boolean ISEXIST_GOOD = goodsService.getbyname(goods.getName()) != null;
@@ -253,9 +253,22 @@ public class GoodController extends BaseController<goods> {
             return goodsService.errorRespMap(respMap, "查询不到该商品");
         }
 
+        goods good_query = goodsService.getbyname(goods.getName());
+
         //商品持有者添加一条售出记录
-        User business = userService.getuserById(goods.getUserid());
-        shuohuomsg shuohuomsg = shuoHuoMsgService.query(goods.getId(), business.getId());
+        User business = userService.getuserById(good_query.getUserid());
+
+        //保存收货信息
+        shuohuomsg shuohuomsg1 = new shuohuomsg();
+        shuohuomsg1.setGoodsid(good_query.getId());
+        shuohuomsg1.setUserid(business.getId());
+        shuohuomsg1.setName(msg.getName());
+        shuohuomsg1.setAdress(msg.getAdress());
+        shuohuomsg1.setTel(msg.getTel());
+        shuoHuoMsgService.save(shuohuomsg1);
+
+
+        shuohuomsg shuohuomsg = shuoHuoMsgService.query(good_query.getId(), business.getId());
         salerecord sale_record = new salerecord();
         sale_record.setDate(System.currentTimeMillis() + "");
         sale_record.setUserid(business.getId());
@@ -277,6 +290,7 @@ public class GoodController extends BaseController<goods> {
         buyrecord.setShuohuomsg(shuohuomsg.getId());
         buyrecord.setUserid(purchaser);
         buyrecord.setGoodid(goods.getId());
+        buyRecordService.save(buyrecord);
 
         return goodsService.successRespMap(respMap,"购买成功","success");
 
