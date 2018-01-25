@@ -6,10 +6,10 @@ public class salerecord implements Serializable {
 
     private int id;
     private int userid;
-    private int goodid;
+    private int goodsid;
     private String date;
     private int user_sale_id;
-    private int shuohuomsg;
+    private int shouhuomsg;
 
 
     public int getId() {
@@ -28,12 +28,12 @@ public class salerecord implements Serializable {
         this.userid = userid;
     }
 
-    public int getGoodid() {
-        return goodid;
+    public int getGoodsid() {
+        return goodsid;
     }
 
-    public void setGoodid(int goodid) {
-        this.goodid = goodid;
+    public void setGoodsid(int goodid) {
+        this.goodsid = goodsid;
     }
 
     public String getDate() {
@@ -52,11 +52,11 @@ public class salerecord implements Serializable {
         this.user_sale_id = user_sale_id;
     }
 
-    public int getShuohuomsg() {
-        return shuohuomsg;
+    public int getShouhuomsg() {
+        return shouhuomsg;
     }
 
-    public void setShuohuomsg(int shuohuomsg) {
-        this.shuohuomsg = shuohuomsg;
+    public void setShouhuomsg(int shouhuomsg) {
+        this.shouhuomsg = shouhuomsg;
     }
 }

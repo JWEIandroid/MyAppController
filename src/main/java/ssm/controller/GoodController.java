@@ -273,14 +273,14 @@ public class GoodController extends BaseController<goods> {
         sale_record.setDate(System.currentTimeMillis() + "");
         sale_record.setUserid(business.getId());
         sale_record.setUser_sale_id(purchaser);
-        sale_record.setGoodid(goods.getId());
-        sale_record.setShuohuomsg(shuohuomsg.getId());
+        sale_record.setGoodsid(good_query.getId());
+        sale_record.setShouhuomsg(shuohuomsg.getId());
         saleRecordService.save(sale_record);
 
         //商品持有者删除发布记录,商品状态改变
-        reportRecordService.deletewith2id(goods.getId(), business.getId());
-        goods.setStatus("售出");
-        goodsService.update(goods);
+        reportRecordService.deletewith2id(good_query.getId(), business.getId());
+        good_query.setStatus("售出");
+        goodsService.update(good_query);
 
         //购买者添加一条购买记录
         User pruchaser = userService.getuserById(purchaser);
@@ -289,7 +289,7 @@ public class GoodController extends BaseController<goods> {
         buyrecord.setDate(System.currentTimeMillis() + "");
         buyrecord.setShuohuomsg(shuohuomsg.getId());
         buyrecord.setUserid(purchaser);
-        buyrecord.setGoodid(goods.getId());
+        buyrecord.setGoodsid(goods.getId());
         buyRecordService.save(buyrecord);
 
         return goodsService.successRespMap(respMap,"购买成功","success");

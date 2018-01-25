@@ -8,8 +8,8 @@
     <!--插入一条购买记录-->
     <insert id="save" parameterType="ssm.model.Buyrecord">
 
-    INSERT into buyrecord (id,userid,goodid,shuohuomsg,date) values
-    (#{id},#{userid},#{goodid},#{shuohuomsg},#{date})
+    INSERT into buyrecord (id,userid,goodsid,shouhuomsg,date) values
+    (#{id},#{userid},#{goodsid},#{shouhuomsg},#{date})
 
 </insert>
 

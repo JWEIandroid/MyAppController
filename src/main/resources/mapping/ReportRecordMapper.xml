@@ -14,7 +14,7 @@
 
     <!--删除一条发布记录-->
     <delete id="deletewith2id" parameterType="map">
-        DELETE FROM reportrecord WHERE userid = #{userid} AND goodsid = #{goodsid}
+        DELETE FROM reportrecord WHERE userid = #{0} AND goodsid = #{1}
     </delete>
 
     <!--修改一条发布记录-->
@@ -27,7 +27,7 @@
 
     <!--查询一条发布记录-->
     <select id="query" parameterType="map" resultType="ssm.model.reportrecord">
-        SELECT * FROM reportrecord where userid = #{userid} AND goodsid = #{goodsid}
+        SELECT * FROM reportrecord where userid = #{0} AND goodsid = #{1}
     </select>
 
 </mapper>

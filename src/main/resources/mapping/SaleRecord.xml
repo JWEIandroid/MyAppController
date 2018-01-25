@@ -8,8 +8,8 @@
 
     <!--插入一条售出记录-->
     <insert id="save" parameterType="ssm.model.salerecord">
-        INSERT into salerecord (userid,usersaleid,goodsid,date,shuohuomsg) VALUES
-        (#{userid},#{usersaleid},#{goodsid},#{date},#{shuohuomsg})
+        INSERT into salerecord (userid,user_sale_id,goodsid,date,shouhuomsg) VALUES
+        (#{userid},#{user_sale_id},#{goodsid},#{date},#{shouhuomsg})
     </insert>
 
     <!--删除一条售出记录-->

@@ -10,9 +10,9 @@ public interface ShuoHuoMsgService extends BaseService<shuohuomsg>{
 
     void update(shuohuomsg shuohuomsg);
 
-    void deletewith2id(int goodid,int userid);
+    void deletewith2id(@Param("goodsid") int goodsid,@Param("userid") int userid);
 
-    shuohuomsg query(@Param("goodid") int goodid,@Param("userid") int userid);
+    shuohuomsg query(@Param("goodsid") int goodsid,@Param("userid") int userid);
 
 
 }
