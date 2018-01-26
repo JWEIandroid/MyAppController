@@ -12,9 +12,9 @@ public interface ReportRecordService extends  BaseService<reportrecord>{
 
     void update(reportrecord reportrecord1);
 
-    void deletewith2id(@Param("goodsid") int goodsid,@Param("userid") int userid);
+    void deletewith2id(@Param("userid") int userid,@Param("goodsid") int goodsid);
 
-    reportrecord query(@Param("goodsid") int goodsid,@Param("userid") int userid);
+    reportrecord query(@Param("userid") int userid,@Param("goodsid") int goodsid);
 
 
 

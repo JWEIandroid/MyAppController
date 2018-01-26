@@ -2,6 +2,7 @@ package ssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -193,15 +194,12 @@ public class GoodController extends BaseController<goods> {
         }
         PageHelper.startPage(pagenum, 10);
         List<goods> goods = goodsService.getgoodlikename(good.getName());
-        if (goods == null || goods.size() < 1) {
-            return goodsService.errorRespMap(respMap, "没有数据");
-        } else {
-            for (goods good1 : goods) {
-                good1.setImgurl(goodsImgService.getImgByGoodid(good1.getId()));
-                good1.setUser(userService.getuserById(good1.getUserid()));
-            }
-            return goodsService.successRespMap(respMap, "success", goods);
+        for (goods good1 : goods) {
+            List<String> list = goodsImgService.getImgByGoodid(good1.getId());
+            good1.setImgurl(goodsImgService.getImgByGoodid(good1.getId()));
+            good1.setUser(userService.getuserById(good1.getUserid()));
         }
+        return goodsService.successRespMap(respMap, "success", goods);
 
 
     }
@@ -244,30 +242,35 @@ public class GoodController extends BaseController<goods> {
      */
     @ResponseBody
     @RequestMapping("buy")
-    public Map BuyGoods(goods goods,shuohuomsg msg, @Param("purchaser") int purchaser) {
+    public Map BuyGoods(goods goods, shuohuomsg msg, @Param("purchaser") int purchaser) {
 
+        goods good_query = goodsService.getgoodsByGoodId(goods.getId());
+        if (good_query == null) {
+            return goodsService.errorRespMap(respMap, "商品不存在");
+        }
+        User business = userService.getuserById(good_query.getUserid());
+        if (business == null) {
+            return userService.errorRespMap(respMap, "用户不存在");
+        }
         //判断商品状态
-        boolean ISEXIST_GOOD = goodsService.getbyname(goods.getName()) != null;
-
-        if (!ISEXIST_GOOD) {
+        if (good_query == null) {
             return goodsService.errorRespMap(respMap, "查询不到该商品");
         }
-
-        goods good_query = goodsService.getbyname(goods.getName());
-
-        //商品持有者添加一条售出记录
-        User business = userService.getuserById(good_query.getUserid());
+        String IsSale = good_query.getStatus();
+        if (IsSale.equals("售出")) {
+            return goodsService.errorRespMap(respMap, "商品已经卖出");
+        }
 
         //保存收货信息
         shuohuomsg shuohuomsg1 = new shuohuomsg();
         shuohuomsg1.setGoodsid(good_query.getId());
         shuohuomsg1.setUserid(business.getId());
-        shuohuomsg1.setName(msg.getName());
+        shuohuomsg1.setReceiver(msg.getReceiver());
         shuohuomsg1.setAdress(msg.getAdress());
         shuohuomsg1.setTel(msg.getTel());
         shuoHuoMsgService.save(shuohuomsg1);
 
-
+        //商品持有者添加一条售出记录
         shuohuomsg shuohuomsg = shuoHuoMsgService.query(good_query.getId(), business.getId());
         salerecord sale_record = new salerecord();
         sale_record.setDate(System.currentTimeMillis() + "");
@@ -278,7 +281,7 @@ public class GoodController extends BaseController<goods> {
         saleRecordService.save(sale_record);
 
         //商品持有者删除发布记录,商品状态改变
-        reportRecordService.deletewith2id(good_query.getId(), business.getId());
+        reportRecordService.deletewith2id(business.getId(), good_query.getId());
         good_query.setStatus("售出");
         goodsService.update(good_query);
 
@@ -289,10 +292,10 @@ public class GoodController extends BaseController<goods> {
         buyrecord.setDate(System.currentTimeMillis() + "");
         buyrecord.setShuohuomsg(shuohuomsg.getId());
         buyrecord.setUserid(purchaser);
-        buyrecord.setGoodsid(goods.getId());
+        buyrecord.setGoodsid(good_query.getId());
         buyRecordService.save(buyrecord);
 
-        return goodsService.successRespMap(respMap,"购买成功","success");
+        return goodsService.successRespMap(respMap, "购买成功", "success");
 
     }
 

@@ -39,8 +39,8 @@ public class Buyrecord implements Serializable {
         return shouhuomsg;
     }
 
-    public void setShuohuomsg(int shuohuomsg) {
-        this.shouhuomsg = shuohuomsg;
+    public void setShuohuomsg(int shouhuomsg) {
+        this.shouhuomsg = shouhuomsg;
     }
 
     public String getDate() {

@@ -8,8 +8,8 @@
 
     <!--插入收货信息-->
     <insert id="save" parameterType="ssm.model.shuohuomsg">
-        INSERT into shouhuomsg (userid,name,tel,adress,goodsid) VALUES
-        (#{userid},#{name},#{tel},#{adress},#{goodsid})
+        INSERT into shouhuomsg (userid,receiver,tel,adress,goodsid) VALUES
+        (#{userid},#{receiver},#{tel},#{adress},#{goodsid})
     </insert>
 
     <!--删除一条收货信息-->
@@ -22,7 +22,7 @@
         UPDATE shouhuomsg set
         userid = #{userid},
         goodsid = #{goodsid},
-        name = #{id},
+        receiver = #{receiver},
         tel  = #{tel},
         adress = #{adress}
     </update>

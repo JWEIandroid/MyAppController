@@ -35,8 +35,8 @@
     </update>
 
     <!--查询全部商品-->
-    <select id="list" resultType="ssm.model.goods">
-        select * from  goods order by update_time desc
+    <select id="list" resultType="ssm.model.goods" parameterType="map">
+        select * from  goods where status='在库'  order by update_time desc
     </select>
 
 

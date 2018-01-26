@@ -3,10 +3,11 @@ package ssm.model;
 import java.io.Serializable;
 
 public class shuohuomsg implements Serializable{
+
     private int id;
     private int userid;
     private int goodsid;
-    private  String name;
+    private  String receiver;
     private  String tel;
     private  String adress;
 
@@ -35,12 +36,12 @@ public class shuohuomsg implements Serializable{
         this.userid = userid;
     }
 
-    public String getName() {
-        return name;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public String getTel() {

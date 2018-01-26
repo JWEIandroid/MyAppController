@@ -32,7 +32,7 @@ public class salerecord implements Serializable {
         return goodsid;
     }
 
-    public void setGoodsid(int goodid) {
+    public void setGoodsid(int goodsid) {
         this.goodsid = goodsid;
     }
 

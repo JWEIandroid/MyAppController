@@ -29,7 +29,7 @@
 
     <!--查询一条售出记录-->
     <select id="query" parameterType="map" resultType="ssm.model.salerecord">
-        SELECT * FROM salerecord where userid = #{userid} AND goodid = #{goodsid}
+        SELECT * FROM salerecord where userid = #{userid} AND goodsid = #{goodsid}
     </select>
 
 </mapper>

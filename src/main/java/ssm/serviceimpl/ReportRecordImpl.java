@@ -22,13 +22,13 @@ public class ReportRecordImpl extends BaseServiceImpl<reportrecord> implements R
         reportRecordMapper.update(reportrecord);
     }
 
-    public void deletewith2id(int goodid, int userid) {
+    public void deletewith2id(int userid, int goodsid) {
 
-        reportRecordMapper.deletewith2id(goodid, userid);
+        reportRecordMapper.deletewith2id(userid, goodsid);
 
     }
 
-    public reportrecord query(int goodid, int userid) {
-        return reportRecordMapper.query(goodid, userid);
+    public reportrecord query(int userid, int goodsid) {
+        return reportRecordMapper.query(userid, goodsid);
     }
 }
