@@ -1,5 +1,6 @@
 package ssm.controller;
 
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.Buyrecord;
 import ssm.model.User;
-import ssm.service.BuyRecordService;
-import ssm.service.GoodsService;
-import ssm.service.UserService;
+import ssm.model.reportrecord;
+import ssm.model.salerecord;
+import ssm.service.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,15 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/record")
-public class BuyRecordController extends BaseController<Buyrecord> {
+public class RecordController extends BaseController<Buyrecord> {
 
     @Autowired
     BuyRecordService buyRecordService;
+    @Autowired
+    ReportRecordService reportRecordService;
+    @Autowired
+    SaleRecordService saleRecordService;
+
     @Autowired
     UserService userService;
     @Autowired
@@ -32,21 +38,53 @@ public class BuyRecordController extends BaseController<Buyrecord> {
      * 获取用户全部购买记录
      *
      * @param userid 用户id
-     * @return 购买记录
+     * @param type   查询记录种类   0：购买记录  1：卖出记录  2：发布记录 3：收藏记录
+     * @return 记录
      */
     @ResponseBody
     @RequestMapping("getrecords")
-    public Map getRecordsWithUserid(int userid) {
+    public Map getRecordsWithUserid(int userid, int type, int pagenum) {
 
+        //判断用户是否存在
         User user = userService.getuserById(userid);
         if (user == null) {
-            return buyRecordService.errorRespMap(respMap, "用户不存在");
+            return userService.errorRespMap(respMap, "用户不存在");
         }
-        List<Buyrecord> list = buyRecordService.list_user(userid);
-        if (list.size() <= 0) {
-            return buyRecordService.errorRespMap(respMap, "没有数据");
+        //根据种类查询记录
+        switch (type) {
+
+            case 0:
+                PageHelper.startPage(pagenum, 10);
+                List<Buyrecord> list_buy = buyRecordService.list_user(userid);
+                if (list_buy.size() <= 0) {
+                    return buyRecordService.successRespMap(respMap,"没有数据",list_buy);
+                }
+                return buyRecordService.successRespMap(respMap, "有" + list_buy.size() + "条数据", list_buy);
+            case 1:
+                PageHelper.startPage(pagenum, 10);
+                List<salerecord> list_sale = saleRecordService.list_user(userid);
+                if (list_sale.size() <= 0) {
+                    return buyRecordService.errorRespMap(respMap, "没有数据");
+                }
+                return buyRecordService.successRespMap(respMap, "有" + list_sale.size() + "条数据", list_sale);
+            case 2:
+                PageHelper.startPage(pagenum, 10);
+                List<reportrecord> list_reported = reportRecordService.list_user(userid);
+                if (list_reported.size() <= 0) {
+                    return buyRecordService.errorRespMap(respMap, "没有数据");
+                }
+                return buyRecordService.successRespMap(respMap, "有" + list_reported.size() + "条数据", list_reported);
+            case 3:
+                List<reportrecord> list_fork = reportRecordService.list_user(userid);
+                if (list_fork.size() <= 0) {
+                    return buyRecordService.errorRespMap(respMap, "没有数据");
+                }
+                return buyRecordService.successRespMap(respMap, "有" + list_fork.size() + "条数据", list_fork);
+            default:
+                return buyRecordService.errorRespMap(respMap, "Type Errors");
+
         }
-        return buyRecordService.successRespMap(respMap, "有" + list.size() + "条数据", list);
+
     }
 
 

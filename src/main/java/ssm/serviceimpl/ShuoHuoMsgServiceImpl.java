@@ -29,8 +29,8 @@ public class ShuoHuoMsgServiceImpl extends BaseServiceImpl<shuohuomsg> implement
 
     }
 
-    public shuohuomsg query(int goodid, int userid) {
-        return shuoHuoMsgMapper.query(goodid, userid);
+    public shuohuomsg query(int goodid, int userid,String date) {
+        return shuoHuoMsgMapper.query(goodid, userid,date);
     }
 
 

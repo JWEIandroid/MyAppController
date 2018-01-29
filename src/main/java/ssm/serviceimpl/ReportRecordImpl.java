@@ -6,6 +6,8 @@ import ssm.mapper.ReportRecordMapper;
 import ssm.model.reportrecord;
 import ssm.service.ReportRecordService;
 
+import java.util.List;
+
 @Service
 public class ReportRecordImpl extends BaseServiceImpl<reportrecord> implements ReportRecordService {
 
@@ -30,5 +32,9 @@ public class ReportRecordImpl extends BaseServiceImpl<reportrecord> implements R
 
     public reportrecord query(int userid, int goodsid) {
         return reportRecordMapper.query(userid, goodsid);
+    }
+
+    public List<reportrecord> list_user(int userid) {
+        return reportRecordMapper.list_user(userid);
     }
 }

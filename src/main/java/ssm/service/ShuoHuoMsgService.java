@@ -12,7 +12,7 @@ public interface ShuoHuoMsgService extends BaseService<shuohuomsg>{
 
     void deletewith2id(@Param("goodsid") int goodsid,@Param("userid") int userid);
 
-    shuohuomsg query(@Param("goodsid") int goodsid,@Param("userid") int userid);
+    shuohuomsg query(@Param("goodsid") int goodsid,@Param("userid") int userid,@Param("date")String date);
 
 
 }

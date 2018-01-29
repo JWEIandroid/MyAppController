@@ -159,21 +159,25 @@ public class GoodController extends BaseController<goods> {
         }
         goodsService.save(good);
 
+
+        String time = System.currentTimeMillis() + "";
+
         //添加一条发布记录
         goods good_save = goodsService.getbyname(good.getName());
         if (good_save == null) {
             return goodsService.errorRespMap(respMap, "error");
         } else {
             //更新商品时间
-            good_save.setCreate_time(System.currentTimeMillis() + "");
-            good_save.setUpdate_time(System.currentTimeMillis() + "");
+            good_save.setCreate_time(time);
+            good_save.setUpdate_time(time);
             goodsService.update(good_save);
 
             //更新用户发布记录
             reportrecord reportrecord1 = new reportrecord();
-            reportrecord1.setDate(System.currentTimeMillis() + "");
+            reportrecord1.setDate(time);
             reportrecord1.setGoodsid(good_save.getId());
             reportrecord1.setUserid(good_save.getUserid());
+            reportrecord1.setStatus("售出");
             reportRecordService.save(reportrecord1);
             return goodsService.successRespMap(respMap, "success", good_save);
         }
@@ -245,21 +249,22 @@ public class GoodController extends BaseController<goods> {
     public Map BuyGoods(goods goods, shuohuomsg msg, @Param("purchaser") int purchaser) {
 
         goods good_query = goodsService.getgoodsByGoodId(goods.getId());
+        //确认商品存在
         if (good_query == null) {
             return goodsService.errorRespMap(respMap, "商品不存在");
         }
+        //确认用户存在
         User business = userService.getuserById(good_query.getUserid());
         if (business == null) {
             return userService.errorRespMap(respMap, "用户不存在");
         }
-        //判断商品状态
-        if (good_query == null) {
-            return goodsService.errorRespMap(respMap, "查询不到该商品");
-        }
+        //确认商品在库
         String IsSale = good_query.getStatus();
         if (IsSale.equals("售出")) {
             return goodsService.errorRespMap(respMap, "商品已经卖出");
         }
+
+        String time = System.currentTimeMillis() + "";
 
         //保存收货信息
         shuohuomsg shuohuomsg1 = new shuohuomsg();
@@ -268,26 +273,33 @@ public class GoodController extends BaseController<goods> {
         shuohuomsg1.setReceiver(msg.getReceiver());
         shuohuomsg1.setAdress(msg.getAdress());
         shuohuomsg1.setTel(msg.getTel());
+        shuohuomsg1.setDate(time);
         shuoHuoMsgService.save(shuohuomsg1);
 
         //商品持有者添加一条售出记录
-        shuohuomsg shuohuomsg = shuoHuoMsgService.query(good_query.getId(), business.getId());
+        shuohuomsg shuohuomsg = shuoHuoMsgService.query(good_query.getId(), business.getId(), time);
         salerecord sale_record = new salerecord();
         sale_record.setDate(System.currentTimeMillis() + "");
         sale_record.setUserid(business.getId());
         sale_record.setUser_sale_id(purchaser);
         sale_record.setGoodsid(good_query.getId());
         sale_record.setShouhuomsg(shuohuomsg.getId());
+        sale_record.setDate(time);
         saleRecordService.save(sale_record);
 
-        //商品持有者删除发布记录,商品状态改变
-        reportRecordService.deletewith2id(business.getId(), good_query.getId());
-        good_query.setStatus("售出");
+        //商品持有者更新发布商品状态 ; 售出
+//        reportRecordService.deletewith2id(business.getId(), good_query.getId());
+        reportrecord reportrecord1 = reportRecordService.query(business.getId(), good_query.getId());
+        if (reportrecord1 == null) {
+            return reportRecordService.errorRespMap(respMap, "查询不到这条发布信息");
+        }
+        reportrecord1.setStatus("售出"); //更新发布状态为：售出
+        reportRecordService.update(reportrecord1);
+        good_query.setStatus("售出");  //更新商品信息
         goodsService.update(good_query);
 
         //购买者添加一条购买记录
         User pruchaser = userService.getuserById(purchaser);
-
         Buyrecord buyrecord = new Buyrecord();
         buyrecord.setDate(System.currentTimeMillis() + "");
         buyrecord.setShuohuomsg(shuohuomsg.getId());

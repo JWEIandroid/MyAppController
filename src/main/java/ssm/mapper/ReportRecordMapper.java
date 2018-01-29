@@ -4,6 +4,8 @@ import ssm.model.reportrecord;
 import ssm.model.salerecord;
 import ssm.model.shuohuomsg;
 
+import java.util.List;
+
 public interface ReportRecordMapper extends  BaseMapper<reportrecord>{
 
     void save(salerecord salerecord1);
@@ -13,5 +15,7 @@ public interface ReportRecordMapper extends  BaseMapper<reportrecord>{
     void deletewith2id(int goodsid,int userid);
 
     reportrecord query(int goodsid, int userid);
+
+    List<reportrecord> list_user(int userid);
 
 }

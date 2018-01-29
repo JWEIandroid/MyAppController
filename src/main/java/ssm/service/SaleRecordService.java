@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 import ssm.model.salerecord;
 import ssm.model.shuohuomsg;
 
+import java.util.List;
+
 public interface SaleRecordService extends BaseService<salerecord>{
 
 
@@ -16,5 +18,7 @@ public interface SaleRecordService extends BaseService<salerecord>{
 
     salerecord query(@Param("goodsid") int goodsid, int userid);
 
+
+    List<salerecord> list_user(@Param("userid")int userid);
 
 }

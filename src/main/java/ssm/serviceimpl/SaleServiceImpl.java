@@ -7,6 +7,8 @@ import ssm.model.salerecord;
 import ssm.model.shuohuomsg;
 import ssm.service.SaleRecordService;
 
+import java.util.List;
+
 @Service
 public class SaleServiceImpl extends BaseServiceImpl<salerecord> implements SaleRecordService {
 
@@ -33,4 +35,10 @@ public class SaleServiceImpl extends BaseServiceImpl<salerecord> implements Sale
     public salerecord query(int goodid, int userid) {
         return saleRecordMapper.query(goodid, userid);
     }
+
+    public List<salerecord> list_user(int userid) {
+        return saleRecordMapper.list_user(userid);
+    }
+
+
 }

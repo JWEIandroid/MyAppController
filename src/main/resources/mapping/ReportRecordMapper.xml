@@ -8,8 +8,8 @@
 
     <!--插入一条发布记录-->
     <insert id="save" parameterType="ssm.model.reportrecord">
-        INSERT into reportrecord (userid,goodsid,date) VALUES
-        (#{userid},#{goodsid},#{date})
+        INSERT into reportrecord (userid,goodsid,date,status) VALUES
+        (#{userid},#{goodsid},#{date},#{status})
     </insert>
 
     <!--删除一条发布记录-->
@@ -22,12 +22,21 @@
         UPDATE reportrecord set
         userid = #{userid},
         goodsid = #{goodsid},
-        date = #{date}
+        date = #{date},
+        status = #{status}
     </update>
 
     <!--查询一条发布记录-->
     <select id="query" parameterType="map" resultType="ssm.model.reportrecord">
         SELECT * FROM reportrecord where userid = #{0} AND goodsid = #{1}
+    </select>
+
+
+    <!--查询用户全部发布记录-->
+    <select id="list_user" resultType="ssm.model.reportrecord">
+
+        SELECT  * FROM reportrecord WHERE userid = #{userid}
+
     </select>
 
 </mapper>

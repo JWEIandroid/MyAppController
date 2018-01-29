@@ -10,6 +10,15 @@ public class shuohuomsg implements Serializable{
     private  String receiver;
     private  String tel;
     private  String adress;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 
     public int getGoodsid() {

@@ -3,6 +3,8 @@ package ssm.mapper;
 import ssm.model.salerecord;
 import ssm.model.shuohuomsg;
 
+import java.util.List;
+
 public interface SaleRecordMapper extends  BaseMapper<salerecord>{
 
     void save(salerecord salerecord1);
@@ -12,5 +14,7 @@ public interface SaleRecordMapper extends  BaseMapper<salerecord>{
     void deletewith2id(int goodid,int userid);
 
     salerecord query(int goodid, int userid);
+
+    List<salerecord> list_user(int userid);
 
 }

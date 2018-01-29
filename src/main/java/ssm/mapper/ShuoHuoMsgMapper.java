@@ -15,5 +15,5 @@ public interface ShuoHuoMsgMapper extends BaseMapper<shuohuomsg>{
 
     void deletewith2id(int goodid,int userid);
 
-    shuohuomsg query(@Param("goodsid") int goodsid, @Param("userid") int userid);
+    shuohuomsg query(@Param("goodsid") int goodsid, @Param("userid") int userid,@Param("date")String date);
 }
