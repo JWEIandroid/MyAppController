@@ -89,8 +89,8 @@ public class FileController extends BaseController<Object> {
 
 
     /**
-     * 文件上传功能
-     *
+     * 单文件上传功能
+     * 用于用户上传更新头像
      * @param id
      * @param file
      * @return
@@ -129,7 +129,7 @@ public class FileController extends BaseController<Object> {
 
     /**
      * 多文件上传
-     *
+     * 用于用户发布商品
      * @param id      商品id或用户
      * @param request
      * @param type    0为用户 1为商品

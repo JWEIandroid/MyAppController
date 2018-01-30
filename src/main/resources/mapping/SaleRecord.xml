@@ -34,28 +34,35 @@
 
 
     <!--查询用户全部卖出记录-->
-    <select id="list_user" resultMap="salerecordbean" >
+    <select id="list_user" resultMap="salerecordbean">
            select
-           s.*,
-           sh.*,
-           u.*
-            from salerecord s
-             LEFT  JOIN
-               user u on
-                s.userid=u.id
-                LEFT  JOIN
-                  shouhuomsg sh on
-                   s.shouhuomsg = s.id
-                   where u.id = #{userid}
+           s.id s_id,
+           s.date,
+           s.goodsid s_goodsid,
+           s.user_sale_id s_user_sale_id,
+           sh.id sh_id,
+           sh.userid sh_userid,
+           sh.goodsid sh_goodsid,
+           sh.receiver,
+           sh.tel sh_tel,
+           sh.adress sh_adress,
+           sh.date sh_date,
+           u.id u_id,
+           u.name,
+           u.password,
+           u.tel,u.adress,u.sex,u.token,u.create_time,
+           u.update_time,u.headimg,u.description
+           from salerecord s LEFT  JOIN user u on
+           s.userid =u.id LEFT  JOIN shouhuomsg sh on s.shouhuomsg = sh.id where u.id = #{userid}
     </select>
 
     <!--结果映射-->
     <resultMap id="salerecordbean" type="map">
-        <id column="id" property="id"/>
+        <id column="s_id" property="id"/>
         <result column="date" property="date"/>
-        <result column="goodsid" property="goodsid"/>
-        <result column="user_sale_id" property="user_sale_id"/>
-        <collection property="userid" ofType="ssm.model.User">
+        <result column="s_goodsid" property="goodsid"/>
+        <result column="s_user_sale_id" property="user_sale_id"/>
+        <collection property="user" ofType="ssm.model.User">
             <result column="u_id" property="id"/>
             <result column="name" property="name"/>
             <result column="password" property="password"/>
@@ -68,17 +75,16 @@
             <result column="headimg" property="headimg"/>
             <result column="description" property="description"/>
         </collection>
-        <collection property="shouhuomsg" ofType="ssm.model.shuohuomsg">
+        <collection property="shuohuomsg_data" ofType="ssm.model.shuohuomsg">
             <id column="sh_id" property="id"/>
-            <result column="userid" property="userid"/>
-            <result column="goodsid" property="goodsid"/>
+            <result column="sh_userid" property="userid"/>
+            <result column="sh_goodsid" property="goodsid"/>
             <result column="receiver" property="receiver"/>
-            <result column="tel" property="tel"/>
-            <result column="adress" property="adress"/>
-            <result column="date" property="date"/>
+            <result column="sh_tel" property="tel"/>
+            <result column="sh_adress" property="adress"/>
+            <result column="sh_date" property="date"/>
         </collection>
     </resultMap>
-
 
 
 </mapper>

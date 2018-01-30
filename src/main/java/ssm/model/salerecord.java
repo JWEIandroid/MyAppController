@@ -10,7 +10,25 @@ public class salerecord implements Serializable {
     private String date;
     private int user_sale_id;
     private int shouhuomsg;
+    private User user;
+    private shuohuomsg shuohuomsg_data;
 
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public shuohuomsg getShuohuomsg_data() {
+        return shuohuomsg_data;
+    }
+
+    public void setShuohuomsg_data(shuohuomsg shuohuomsg_data) {
+        this.shuohuomsg_data = shuohuomsg_data;
+    }
 
     public int getId() {
         return id;

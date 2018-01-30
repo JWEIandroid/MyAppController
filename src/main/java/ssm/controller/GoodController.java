@@ -1,5 +1,6 @@
 package ssm.controller;
 
+import com.github.pagehelper.Constant;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
@@ -51,7 +52,17 @@ public class GoodController extends BaseController<goods> {
         System.out.println("总页数：" + pageInfo.getTotal());
 
         for (goods good : cs) {
-            good.setImgurl(goodsImgService.getImgByGoodid(good.getId()));
+
+            //如果商品没有图片，将显示默认图片
+            List<String> goods_imgurl = goodsImgService.getImgByGoodid(good.getId());
+            if (goods_imgurl  == null || goods_imgurl.size() < 1) {
+                goods_imgurl = new ArrayList<String>();
+                goods_imgurl.add("file/download/?filename=normal.png&type=0");
+                good.setImgurl(goods_imgurl);
+            } else {
+                good.setImgurl(goods_imgurl);
+            }
+
             good.setUser(userService.getuserById(good.getUserid()));
         }
 

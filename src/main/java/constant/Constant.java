@@ -27,6 +27,8 @@ public class Constant {
 
     public final static String STORE_HOME = "http://"+IP+":8080/";
 
-
+    public static String getStoreHome(){
+        return  STORE_HOME;
+    }
 
 }
