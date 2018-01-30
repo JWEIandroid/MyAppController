@@ -32,12 +32,52 @@
         SELECT * FROM salerecord where userid = #{userid} AND goodsid = #{goodsid}
     </select>
 
+
     <!--查询用户全部卖出记录-->
-    <select id="list_user" resultType="ssm.model.salerecord">
-
-        SELECT  * FROM salerecord WHERE userid = #{userid}
-
+    <select id="list_user" resultMap="salerecordbean" >
+           select
+           s.*,
+           sh.*,
+           u.*
+            from salerecord s
+             LEFT  JOIN
+               user u on
+                s.userid=u.id
+                LEFT  JOIN
+                  shouhuomsg sh on
+                   s.shouhuomsg = s.id
+                   where u.id = #{userid}
     </select>
+
+    <!--结果映射-->
+    <resultMap id="salerecordbean" type="map">
+        <id column="id" property="id"/>
+        <result column="date" property="date"/>
+        <result column="goodsid" property="goodsid"/>
+        <result column="user_sale_id" property="user_sale_id"/>
+        <collection property="userid" ofType="ssm.model.User">
+            <result column="u_id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="password" property="password"/>
+            <result column="tel" property="tel"/>
+            <result column="adress" property="adress"/>
+            <result column="sex" property="sex"/>
+            <result column="token" property="token"/>
+            <result column="create_time" property="create_time"/>
+            <result column="update_time" property="update_time"/>
+            <result column="headimg" property="headimg"/>
+            <result column="description" property="description"/>
+        </collection>
+        <collection property="shouhuomsg" ofType="ssm.model.shuohuomsg">
+            <id column="sh_id" property="id"/>
+            <result column="userid" property="userid"/>
+            <result column="goodsid" property="goodsid"/>
+            <result column="receiver" property="receiver"/>
+            <result column="tel" property="tel"/>
+            <result column="adress" property="adress"/>
+            <result column="date" property="date"/>
+        </collection>
+    </resultMap>
 
 
 
