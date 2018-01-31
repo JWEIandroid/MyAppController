@@ -27,6 +27,8 @@ public class RecordController extends BaseController<Buyrecord> {
     SaleRecordService saleRecordService;
 
     @Autowired
+    GoodsImgService goodsImgService;
+    @Autowired
     UserService userService;
     @Autowired
     GoodsService goodsService;
@@ -82,8 +84,10 @@ public class RecordController extends BaseController<Buyrecord> {
                 for (salerecord salerecord : list_sale) {
                     User user_shop = userService.getuserById(salerecord.getUserid());
                     User user_sale = userService.getuserById(salerecord.getUser_sale_id());
-                    shouhuomsg shuohuomsg = shouHuoMsgService.getbyid(salerecord.getId());
+                    shouhuomsg shuohuomsg = shouHuoMsgService.getbyid(salerecord.getShouhuomsgid());
                     goods goods = goodsService.getgoodsByGoodId(salerecord.getGoodsid());
+                    goods.setUser(user_shop);
+                    goods.setImgurl(goodsImgService.getImgByGoodid(salerecord.getGoodsid()));
                     if (user_shop != null & user_sale != null & shuohuomsg != null) {
                         salerecord.setUser(user_shop);
                         salerecord.setUser_sale(user_sale);
