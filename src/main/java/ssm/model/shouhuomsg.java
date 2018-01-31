@@ -2,7 +2,7 @@ package ssm.model;
 
 import java.io.Serializable;
 
-public class shuohuomsg implements Serializable{
+public class shouhuomsg implements Serializable{
 
     private int id;
     private int userid;

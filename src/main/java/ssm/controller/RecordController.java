@@ -7,12 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ssm.model.Buyrecord;
-import ssm.model.User;
-import ssm.model.reportrecord;
-import ssm.model.salerecord;
+import ssm.model.*;
 import ssm.service.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +30,8 @@ public class RecordController extends BaseController<Buyrecord> {
     UserService userService;
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    ShouHuoMsgService shouHuoMsgService;
 
 
     /**
@@ -50,36 +50,74 @@ public class RecordController extends BaseController<Buyrecord> {
         if (user == null) {
             return userService.errorRespMap(respMap, "用户不存在");
         }
+        List<RecordResponse> recordResponseList = new ArrayList<RecordResponse>();
+
         //根据种类查询记录
         switch (type) {
 
             case 0:
-                PageHelper.startPage(pagenum, 10);
+                RecordResponse recordResponse = new RecordResponse();
+                PageHelper.startPage(pagenum, 2);
                 List<Buyrecord> list_buy = buyRecordService.list_user(userid);
-                if (list_buy.size() <= 0) {
-                    return buyRecordService.successRespMap(respMap,"没有数据",list_buy);
+
+                if (list_buy.size()<1){
+                    recordResponseList.add(new RecordResponse());
+                    return buyRecordService.successRespMap(respMap, "没有数据", recordResponseList);
                 }
-                return buyRecordService.successRespMap(respMap, "有" + list_buy.size() + "条数据", list_buy);
+                for (Buyrecord buyrecord:list_buy){
+                    RecordResponse recordResponse1 = new RecordResponse();
+                    recordResponse1.setBuyrecord(buyrecord);
+                    recordResponseList.add(recordResponse1);
+                }
+                return buyRecordService.successRespMap(respMap, "有" + list_buy.size() + "条数据", recordResponseList);
+
             case 1:
                 PageHelper.startPage(pagenum, 10);
                 List<salerecord> list_sale = saleRecordService.list_user(userid);
-                if (list_sale.size() <= 0) {
-                    return buyRecordService.errorRespMap(respMap, "没有数据");
+                if (list_sale.size() <= 1) {
+                    recordResponseList.add(new RecordResponse());
+                    return saleRecordService.successRespMap(respMap, "没有数据",recordResponseList);
                 }
-                return buyRecordService.successRespMap(respMap, "有" + list_sale.size() + "条数据", list_sale);
+
+                for (salerecord salerecord : list_sale) {
+                    User user_shop = userService.getuserById(salerecord.getUserid());
+                    User user_sale = userService.getuserById(salerecord.getUser_sale_id());
+                    shouhuomsg shuohuomsg = shouHuoMsgService.getbyid(salerecord.getId());
+                    goods goods = goodsService.getgoodsByGoodId(salerecord.getGoodsid());
+                    if (user_shop != null & user_sale != null & shuohuomsg != null) {
+                        salerecord.setUser(user_shop);
+                        salerecord.setUser_sale(user_sale);
+                        salerecord.setShouhuomsg(shuohuomsg);
+                        salerecord.setGoods(goods);
+                    }
+                    RecordResponse recordResponse2 = new RecordResponse();
+                    recordResponse2.setSalerecord(salerecord);
+                    recordResponseList.add(recordResponse2);
+                }
+                return saleRecordService.successRespMap(respMap, "有" + list_sale.size() + "条数据", recordResponseList);
             case 2:
                 PageHelper.startPage(pagenum, 10);
                 List<reportrecord> list_reported = reportRecordService.list_user(userid);
                 if (list_reported.size() <= 0) {
-                    return buyRecordService.errorRespMap(respMap, "没有数据");
+                    recordResponseList.add(new RecordResponse());
+                    return buyRecordService.successRespMap(respMap, "没有数据",recordResponseList);
                 }
-                return buyRecordService.successRespMap(respMap, "有" + list_reported.size() + "条数据", list_reported);
+
+                for (reportrecord reportrecord:list_reported){
+                    RecordResponse recordResponse1 = new RecordResponse();
+                    recordResponse1.setReportrecord(reportrecord);
+                    recordResponseList.add(recordResponse1);
+                }
+                return buyRecordService.successRespMap(respMap, "有" + list_reported.size() + "条数据", recordResponseList);
             case 3:
                 List<reportrecord> list_fork = reportRecordService.list_user(userid);
                 if (list_fork.size() <= 0) {
-                    return buyRecordService.errorRespMap(respMap, "没有数据");
+                    recordResponseList.add(new RecordResponse());
+                    return buyRecordService.successRespMap(respMap, "没有数据",recordResponseList);
                 }
-                return buyRecordService.successRespMap(respMap, "有" + list_fork.size() + "条数据", list_fork);
+                // TODO: 2018/1/31 接口未完成
+                
+                return buyRecordService.successRespMap(respMap, "有" + list_fork.size() + "条数据", recordResponseList);
             default:
                 return buyRecordService.errorRespMap(respMap, "Type Errors");
 

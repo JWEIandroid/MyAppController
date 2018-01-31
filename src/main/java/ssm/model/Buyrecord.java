@@ -8,7 +8,7 @@ public class Buyrecord implements Serializable {
     private int id;
     private int userid;
     private int goodsid;
-    private int shouhuomsg;
+    private int shouhuomsgid;
     private String date;
 
     public int getId() {
@@ -35,12 +35,12 @@ public class Buyrecord implements Serializable {
         this.goodsid = goodsid;
     }
 
-    public int getShouhuomsg() {
-        return shouhuomsg;
+    public int getShouhuomsgid() {
+        return shouhuomsgid;
     }
 
-    public void setShuohuomsg(int shouhuomsg) {
-        this.shouhuomsg = shouhuomsg;
+    public void setShouhuomsgid(int shouhuomsgid) {
+        this.shouhuomsgid = shouhuomsgid;
     }
 
     public String getDate() {

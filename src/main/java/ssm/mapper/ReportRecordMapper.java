@@ -2,8 +2,6 @@ package ssm.mapper;
 
 import ssm.model.reportrecord;
 import ssm.model.salerecord;
-import ssm.model.shuohuomsg;
-
 import java.util.List;
 
 public interface ReportRecordMapper extends  BaseMapper<reportrecord>{

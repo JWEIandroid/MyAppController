@@ -9,10 +9,28 @@ public class salerecord implements Serializable {
     private int goodsid;
     private String date;
     private int user_sale_id;
-    private int shouhuomsg;
+    private int shouhuomsgid;
+    private goods goods;
     private User user;
-    private shuohuomsg shuohuomsg_data;
+    private shouhuomsg shouhuomsg;
+    private User user_sale;
 
+
+    public ssm.model.goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(ssm.model.goods goods) {
+        this.goods = goods;
+    }
+
+    public User getUser_sale() {
+        return user_sale;
+    }
+
+    public void setUser_sale(User user_sale) {
+        this.user_sale = user_sale;
+    }
 
     public User getUser() {
         return user;
@@ -22,13 +40,6 @@ public class salerecord implements Serializable {
         this.user = user;
     }
 
-    public shuohuomsg getShuohuomsg_data() {
-        return shuohuomsg_data;
-    }
-
-    public void setShuohuomsg_data(shuohuomsg shuohuomsg_data) {
-        this.shuohuomsg_data = shuohuomsg_data;
-    }
 
     public int getId() {
         return id;
@@ -70,11 +81,19 @@ public class salerecord implements Serializable {
         this.user_sale_id = user_sale_id;
     }
 
-    public int getShouhuomsg() {
+    public int getShouhuomsgid() {
+        return shouhuomsgid;
+    }
+
+    public void setShouhuomsgid(int shouhuomsgid) {
+        this.shouhuomsgid = shouhuomsgid;
+    }
+
+    public ssm.model.shouhuomsg getShouhuomsg() {
         return shouhuomsg;
     }
 
-    public void setShouhuomsg(int shouhuomsg) {
+    public void setShouhuomsg(ssm.model.shouhuomsg shouhuomsg) {
         this.shouhuomsg = shouhuomsg;
     }
 }

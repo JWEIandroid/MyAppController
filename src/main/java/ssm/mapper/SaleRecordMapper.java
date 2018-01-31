@@ -1,7 +1,6 @@
 package ssm.mapper;
 
 import ssm.model.salerecord;
-import ssm.model.shuohuomsg;
 
 import java.util.List;
 

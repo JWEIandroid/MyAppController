@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssm.mapper.SaleRecordMapper;
 import ssm.model.salerecord;
-import ssm.model.shuohuomsg;
 import ssm.service.SaleRecordService;
 
 import java.util.List;

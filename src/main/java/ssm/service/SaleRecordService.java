@@ -2,7 +2,6 @@ package ssm.service;
 
 import org.apache.ibatis.annotations.Param;
 import ssm.model.salerecord;
-import ssm.model.shuohuomsg;
 
 import java.util.List;
 

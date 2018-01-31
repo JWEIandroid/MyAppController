@@ -29,7 +29,7 @@ public class GoodController extends BaseController<goods> {
     @Autowired
     UserService userService;
     @Autowired
-    ShuoHuoMsgService shuoHuoMsgService;
+    ShouHuoMsgService shouHuoMsgService;
     @Autowired
     ReportRecordService reportRecordService;
     @Autowired
@@ -257,7 +257,7 @@ public class GoodController extends BaseController<goods> {
      */
     @ResponseBody
     @RequestMapping("buy")
-    public Map BuyGoods(goods goods, shuohuomsg msg, @Param("purchaser") int purchaser) {
+    public Map BuyGoods(goods goods, shouhuomsg msg, @Param("purchaser") int purchaser) {
 
         goods good_query = goodsService.getgoodsByGoodId(goods.getId());
         //确认商品存在
@@ -278,23 +278,23 @@ public class GoodController extends BaseController<goods> {
         String time = System.currentTimeMillis() + "";
 
         //保存收货信息
-        shuohuomsg shuohuomsg1 = new shuohuomsg();
+        shouhuomsg shuohuomsg1 = new shouhuomsg();
         shuohuomsg1.setGoodsid(good_query.getId());
         shuohuomsg1.setUserid(business.getId());
         shuohuomsg1.setReceiver(msg.getReceiver());
         shuohuomsg1.setAdress(msg.getAdress());
         shuohuomsg1.setTel(msg.getTel());
         shuohuomsg1.setDate(time);
-        shuoHuoMsgService.save(shuohuomsg1);
+        shouHuoMsgService.save(shuohuomsg1);
 
         //商品持有者添加一条售出记录
-        shuohuomsg shuohuomsg = shuoHuoMsgService.query(good_query.getId(), business.getId(), time);
+        shouhuomsg shouhuomsg = shouHuoMsgService.query(good_query.getId(), business.getId(), time);
         salerecord sale_record = new salerecord();
         sale_record.setDate(System.currentTimeMillis() + "");
         sale_record.setUserid(business.getId());
         sale_record.setUser_sale_id(purchaser);
         sale_record.setGoodsid(good_query.getId());
-        sale_record.setShouhuomsg(shuohuomsg.getId());
+        sale_record.setShouhuomsgid(shouhuomsg.getId());
         sale_record.setDate(time);
         saleRecordService.save(sale_record);
 
@@ -313,7 +313,7 @@ public class GoodController extends BaseController<goods> {
         User pruchaser = userService.getuserById(purchaser);
         Buyrecord buyrecord = new Buyrecord();
         buyrecord.setDate(System.currentTimeMillis() + "");
-        buyrecord.setShuohuomsg(shuohuomsg.getId());
+        buyrecord.setShouhuomsgid(shouhuomsg.getId());
         buyrecord.setUserid(purchaser);
         buyrecord.setGoodsid(good_query.getId());
         buyRecordService.save(buyrecord);
