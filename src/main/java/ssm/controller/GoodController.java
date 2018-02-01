@@ -188,7 +188,7 @@ public class GoodController extends BaseController<goods> {
             reportrecord1.setDate(time);
             reportrecord1.setGoodsid(good_save.getId());
             reportrecord1.setUserid(good_save.getUserid());
-            reportrecord1.setStatus("售出");
+            reportrecord1.setStatus("在库");
             reportRecordService.save(reportrecord1);
             return goodsService.successRespMap(respMap, "success", good_save);
         }

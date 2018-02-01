@@ -10,6 +10,34 @@ public class Buyrecord implements Serializable {
     private int goodsid;
     private int shouhuomsgid;
     private String date;
+    private User user;
+    private shouhuomsg shouhuomsg;
+    private goods goods;
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ssm.model.shouhuomsg getShouhuomsg() {
+        return shouhuomsg;
+    }
+
+    public void setShouhuomsg(ssm.model.shouhuomsg shouhuomsg) {
+        this.shouhuomsg = shouhuomsg;
+    }
+
+    public ssm.model.goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(ssm.model.goods goods) {
+        this.goods = goods;
+    }
 
     public int getId() {
         return id;
