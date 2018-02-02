@@ -24,6 +24,9 @@
         goodsid = #{goodsid},
         date = #{date},
         status = #{status}
+        WHERE userid = #{userid}
+        AND
+        goodsid = #{goodsid}
     </update>
 
     <!--查询一条发布记录-->

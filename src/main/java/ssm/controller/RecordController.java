@@ -34,6 +34,8 @@ public class RecordController extends BaseController<Buyrecord> {
     GoodsService goodsService;
     @Autowired
     ShouHuoMsgService shouHuoMsgService;
+    @Autowired
+    ForkRecordService forkRecordService;
 
 
     /**
@@ -59,7 +61,7 @@ public class RecordController extends BaseController<Buyrecord> {
 
             case 0:
                 RecordResponse recordResponse = new RecordResponse();
-                PageHelper.startPage(pagenum, 12);
+                PageHelper.startPage(pagenum, 7);
                 List<Buyrecord> list_buy = buyRecordService.list_user(userid);
 
                 if (list_buy.size() < 1) {
@@ -84,7 +86,7 @@ public class RecordController extends BaseController<Buyrecord> {
                 return buyRecordService.successRespMap(respMap, "有" + list_buy.size() + "条数据", recordResponseList);
 
             case 1:
-                PageHelper.startPage(pagenum, 12);
+                PageHelper.startPage(pagenum, 7);
                 List<salerecord> list_sale = saleRecordService.list_user(userid);
                 if (list_sale.size() <= 1) {
                     recordResponseList.add(new RecordResponse());
@@ -109,8 +111,9 @@ public class RecordController extends BaseController<Buyrecord> {
                     recordResponseList.add(recordResponse2);
                 }
                 return saleRecordService.successRespMap(respMap, "有" + list_sale.size() + "条数据", recordResponseList);
+
             case 2:
-                PageHelper.startPage(pagenum, 12);
+                PageHelper.startPage(pagenum, 7);
                 List<reportrecord> list_reported = reportRecordService.list_user(userid);
                 if (list_reported.size() <= 0) {
                     recordResponseList.add(new RecordResponse());
@@ -132,19 +135,32 @@ public class RecordController extends BaseController<Buyrecord> {
                 }
                 return reportRecordService.successRespMap(respMap, "有" + list_reported.size() + "条数据", recordResponseList);
             case 3:
-                List<reportrecord> list_fork = reportRecordService.list_user(userid);
+                PageHelper.startPage(pagenum,7);
+                List<ForkRecord> list_fork = forkRecordService.selectByUserid(userid);
                 if (list_fork.size() <= 0) {
                     recordResponseList.add(new RecordResponse());
-                    return reportRecordService.successRespMap(respMap, "没有数据", recordResponseList);
+                    return forkRecordService.successRespMap(respMap, "没有数据", recordResponseList);
                 }
-                // TODO: 2018/1/31 接口未完成
 
-                return buyRecordService.successRespMap(respMap, "有" + list_fork.size() + "条数据", recordResponseList);
+                for (ForkRecord forkRecord:list_fork){
+                    RecordResponse recordResponse1 = new RecordResponse();
+                    User user_fork = userService.getuserById(forkRecord.getUserid());
+                    goods goods_fork = goodsService.getgoodsByGoodId(forkRecord.getGoodsid());
+                    goods_fork.setUser(user_fork);
+                    goods_fork.setImgurl(goodsImgService.getImgByGoodid(goods_fork.getId()));
+                    if (user_fork!=null &&goods_fork!=null){
+                        forkRecord.setUser(user_fork);
+                        forkRecord.setGoods(goods_fork);
+                    }
+                    recordResponse1.setForkRecord(forkRecord);
+                    recordResponseList.add(recordResponse1);
+                }
+
+                return forkRecordService.successRespMap(respMap, "有" + list_fork.size() + "条数据", recordResponseList);
             default:
-                return buyRecordService.errorRespMap(respMap, "Type Errors");
+                return forkRecordService.errorRespMap(respMap, "Type Errors");
 
         }
-
     }
 
 
@@ -213,7 +229,27 @@ public class RecordController extends BaseController<Buyrecord> {
         }
         buyRecordService.save(buyrecord);
         return buyRecordService.successRespMap(respMap, "success", buyrecord);
+    }
 
+
+
+
+    //收藏记录的操作
+
+    /**
+     * 添加一条收藏记录
+     * @param forkRecord
+     * @return
+     */
+    public Map insertOneForkRecord(ForkRecord forkRecord){
+
+        User user = userService.getuserById(forkRecord.getUserid());
+        goods goods = goodsService.getgoodsByGoodId(forkRecord.getGoodsid());
+        if (user==null||goods==null){
+            return goodsService.errorRespMap(respMap,"insert failed");
+        }
+        forkRecordService.save(forkRecord);
+        return forkRecordService.successRespMap(respMap,"insert success","");
     }
 
 

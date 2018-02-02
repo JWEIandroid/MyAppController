@@ -55,7 +55,7 @@ public class GoodController extends BaseController<goods> {
 
             //如果商品没有图片，将显示默认图片
             List<String> goods_imgurl = goodsImgService.getImgByGoodid(good.getId());
-            if (goods_imgurl  == null || goods_imgurl.size() < 1) {
+            if (goods_imgurl == null || goods_imgurl.size() < 1) {
                 goods_imgurl = new ArrayList<String>();
                 goods_imgurl.add("file/download/?filename=normal.png&type=0");
                 good.setImgurl(goods_imgurl);
@@ -266,7 +266,8 @@ public class GoodController extends BaseController<goods> {
         }
         //确认用户存在
         User business = userService.getuserById(good_query.getUserid());
-        if (business == null) {
+        User user_purchaser = userService.getuserById(purchaser);
+        if (business == null & user_purchaser == null) {
             return userService.errorRespMap(respMap, "用户不存在");
         }
         //确认商品在库

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.ForkRecordMapper">
+
+    <!--插入一条收藏记录-->
+    <insert id="save" parameterType="ssm.model.Buyrecord">
+
+        INSERT into forkrecord (id,userid,goodsid,status,date) values
+        (#{id},#{userid},#{goodsid},#{status},#{date})
+
+    </insert>
+
+    <!--删除一条收藏记录-->
+
+    <delete id="delete" parameterType="ssm.model.Buyrecord">
+
+        DELETE FROM forkrecord WHERE userid = #{userid}
+
+    </delete>
+
+
+    <!--查询一条收藏记录-->
+    <select id="selectone" parameterType="map" resultType="ssm.model.Buyrecord">
+
+        select * FROM forkrecord WHERE userid = #{userid} and goodsid = #{goodsid}
+
+    </select>
+
+    <!--查询用户全部收藏记录-->
+    <select id="selectByUserid" parameterType="map" resultType="ssm.model.ForkRecord">
+      SELECT * from forkrecord where userid = #{userid}
+    </select>
+
+
+    <update id="update" parameterType="ssm.model.ForkRecord">
+        UPDATE FROM  forkrecord
+        SET
+        userid = #{userid},
+        goodsid = #{goodsid}
+    </update>
+
+</mapper>
