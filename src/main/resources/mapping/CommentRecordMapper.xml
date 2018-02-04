@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.CommentRecordMapper">
+
+    <select id="select" parameterType="ssm.model.Comment" resultType="ssm.model.Comment">
+       SELECT * from commentrecord WHERE userid = #{userid} AND receiverid = #{receiverid} AND goodsid = #{goodsid}
+    </select>
+
+    <delete id="delete" parameterType="map">
+      DELETE FROM commentrecord WHERE userid = #{userid} AND receiverid  = #{receiverid} AND goodsid = #{goodsid}
+    </delete>
+
+    <insert id="save" parameterType="ssm.model.Comment">
+        INSERT  INTO commentrecord
+         (id,userid,goodsid,receiverid,date,content,type)
+         VALUES
+         (#{id},#{userid},#{goodsid},#{receiverid},#{date},#{content},#{type})
+    </insert>
+
+</mapper>
