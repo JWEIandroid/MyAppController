@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.model.Comment;
+import ssm.model.MessageBoard;
 import ssm.model.User;
 import ssm.model.goods;
 import ssm.service.CommentRecordService;
+import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
 import ssm.service.UserService;
 
@@ -26,7 +28,16 @@ public class CommentRecordController extends BaseController<Comment> {
     GoodsService goodsService;
     @Autowired
     CommentRecordService commentRecordService;
+    @Autowired
+    GoodsImgService goodsImgService;
 
+
+    /**
+     * 根据用户id，receiverid和商品id查询评论记录
+     *
+     * @param comment
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/select")
     public Map QueryComment(Comment comment) {
@@ -34,31 +45,57 @@ public class CommentRecordController extends BaseController<Comment> {
         User user = userService.getuserById(comment.getUserid());
         goods goods = goodsService.getgoodsByGoodId(comment.getGoodsid());
         User receiver = userService.getuserById(comment.getReceiverid());
-        List<Comment> result = new ArrayList<Comment>();
+        List<Comment> result;
 
         if (user == null || goods == null || receiver == null) {
             return commentRecordService.successRespMap(respMap, "参数错误", new ArrayList<Comment>());
         }
-        switch (comment.getType()) {
-            case 0:
-                 result = commentRecordService.select(comment);
-                break;
-            case 1:
-//                List<Comment> result = commentRecordService.select(comment);
-                break;
-            default:
-                return commentRecordService.successRespMap(respMap, "类型错误", new ArrayList<Comment>());
 
-        }
+        goods.setImgurl(goodsImgService.getImgByGoodid(comment.getGoodsid()));
+        result = commentRecordService.select(comment);
+
         for (Comment comment1 : result) {
             comment1.setUser(user);
             comment1.setGoods(goods);
             comment1.setReceiver(receiver);
         }
-        if (result.size() < 1 || result == null) {
+        if (result.size() < 1) {
             return commentRecordService.successRespMap(respMap, "没有数据", new ArrayList<Comment>());
         }
         return commentRecordService.successRespMap(respMap, "成功", result);
     }
 
+    @ResponseBody
+    @RequestMapping("/deletebyuseridanddate")
+    public Map deleteByUseridandDate(Comment comment) {
+
+        User user1 = userService.getuserById(comment.getUserid());
+        String date = comment.getDate();
+
+        if (user1 == null || date == null) {
+            return commentRecordService.errorRespMap(respMap, "错误");
+        }
+        commentRecordService.deleteByUseridandDate(comment);
+        return commentRecordService.successRespMap(respMap, "成功", result);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("save")
+    public Map save(Comment comment) {
+
+        String time_now = System.currentTimeMillis() + "";
+        User user = userService.getuserById(comment.getUserid());
+        goods goods = goodsService.getgoodsByGoodId(comment.getGoodsid());
+        User receiver = userService.getuserById(comment.getReceiverid());
+
+        if (user == null || receiver == null || goods == null) {
+            return commentRecordService.errorRespMap(respMap, "error");
+        }
+        if (comment.getDate() == null) {
+            comment.setDate(time_now);
+        }
+        commentRecordService.save(comment);
+        return commentRecordService.successRespMap(respMap, "成功", "");
+    }
 }

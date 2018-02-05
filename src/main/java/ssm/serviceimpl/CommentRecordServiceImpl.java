@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssm.mapper.CommentRecordMapper;
 import ssm.model.Comment;
+import ssm.model.MessageBoard;
 import ssm.service.BaseService;
 import ssm.service.CommentRecordService;
 
@@ -28,5 +29,9 @@ public class CommentRecordServiceImpl extends BaseServiceImpl<Comment> implement
 
     public List<Comment> select(Comment comment) {
         return commentRecordMapper.select(comment);
+    }
+
+    public void deleteByUseridandDate(Comment comment) {
+        commentRecordMapper.deleteByUseridandDate(comment);
     }
 }

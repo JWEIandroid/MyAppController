@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.MessageBoardMapper">
+
+    <select id="select" parameterType="ssm.model.MessageBoard" resultType="ssm.model.MessageBoard">
+        SELECT * from messageboard WHERE userid = #{userid} AND receiverid = #{receiverid}
+    </select>
+
+
+    <select id="selectWriter" parameterType="ssm.model.MessageBoard" resultType="java.lang.Integer">
+        SELECT userid from messageboard WHERE receiverid = #{receiverid}
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM messageboard WHERE userid = #{userid} AND receiverid  = #{receiverid}
+    </delete>
+
+    <insert id="save" parameterType="ssm.model.MessageBoard">
+        INSERT  INTO messageboard
+        (id,userid,receiverid,date,content,type)
+        VALUES
+        (#{id},#{userid},#{receiverid},#{date},#{content},#{type})
+    </insert>
+
+</mapper>
