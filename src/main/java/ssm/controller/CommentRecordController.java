@@ -65,6 +65,12 @@ public class CommentRecordController extends BaseController<Comment> {
         return commentRecordService.successRespMap(respMap, "成功", result);
     }
 
+    /**
+     * 删除一条评论
+     *
+     * @param comment
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/deletebyuseridanddate")
     public Map deleteByUseridandDate(Comment comment) {
@@ -79,7 +85,12 @@ public class CommentRecordController extends BaseController<Comment> {
         return commentRecordService.successRespMap(respMap, "成功", result);
     }
 
-
+    /**
+     * 保存一条评论
+     *
+     * @param comment
+     * @return
+     */
     @ResponseBody
     @RequestMapping("save")
     public Map save(Comment comment) {
@@ -98,4 +109,34 @@ public class CommentRecordController extends BaseController<Comment> {
         commentRecordService.save(comment);
         return commentRecordService.successRespMap(respMap, "成功", "");
     }
+
+    /**
+     * 查看一个商品的全部评论
+     *
+     * @param comment
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("getcommmentByGoodsId")
+    public Map selectByGoodsId(Comment comment) {
+
+        goods goods = goodsService.getgoodsByGoodId(comment.getGoodsid());
+        if (goods == null) {
+            return goodsService.successRespMap(respMap, "good is null", new ArrayList<Comment>());
+        }
+        List<Comment> result = commentRecordService.selectByGoodsId(comment);
+        for (Comment comment1:result){
+            User user = userService.getuserById(comment1.getUserid());
+            if (user!=null){
+                comment1.setUser(user);
+            }
+        }
+        if (result == null || result.size() < 1) {
+            return commentRecordService.successRespMap(respMap, "error--cause by result is null or no data", new ArrayList<Comment>());
+        }
+        return goodsService.successRespMap(respMap, "success", result);
+
+    }
+
+
 }

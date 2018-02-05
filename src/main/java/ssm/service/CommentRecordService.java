@@ -13,6 +13,8 @@ public interface CommentRecordService extends BaseService<Comment> {
 
     List<Comment> select(Comment comment);
 
+    List<Comment> selectByGoodsId(Comment comment);
+
     void deleteByUseridandDate(Comment comment);
 
 

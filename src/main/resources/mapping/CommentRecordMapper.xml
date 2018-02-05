@@ -9,6 +9,10 @@
        SELECT * from commentrecord WHERE userid = #{userid} AND receiverid = #{receiverid} AND goodsid = #{goodsid}
     </select>
 
+    <select id="selectByGoodsId" parameterType="ssm.model.Comment" resultType="ssm.model.Comment">
+        SELECT * from commentrecord WHERE goodsid = #{goodsid}
+    </select>
+
     <delete id="delete" parameterType="map">
       DELETE FROM commentrecord WHERE userid = #{userid} AND receiverid  = #{receiverid} AND goodsid = #{goodsid}
     </delete>

@@ -9,6 +9,8 @@ public interface CommentRecordMapper extends BaseMapper<Comment> {
 
     List<Comment> select(Comment comment);
 
+    List<Comment> selectByGoodsId(Comment comment);
+
     void save(Comment comment);
 
     void delete(Comment comment);

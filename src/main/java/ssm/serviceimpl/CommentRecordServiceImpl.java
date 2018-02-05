@@ -31,6 +31,10 @@ public class CommentRecordServiceImpl extends BaseServiceImpl<Comment> implement
         return commentRecordMapper.select(comment);
     }
 
+    public List<Comment> selectByGoodsId(Comment comment) {
+        return commentRecordMapper.selectByGoodsId(comment);
+    }
+
     public void deleteByUseridandDate(Comment comment) {
         commentRecordMapper.deleteByUseridandDate(comment);
     }
