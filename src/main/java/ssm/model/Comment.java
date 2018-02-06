@@ -12,7 +12,15 @@ public class Comment {
     private User user;
     private User Receiver;
     private goods Goods;
+    private int like;
 
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
 
     public User getUser() {
         return user;
