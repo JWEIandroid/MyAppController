@@ -36,6 +36,8 @@ public class GoodController extends BaseController<goods> {
     SaleRecordService saleRecordService;
     @Autowired
     BuyRecordService buyRecordService;
+    @Autowired
+    ForkRecordService forkRecordService;
 
     /**
      * 查询所有商品
@@ -320,6 +322,33 @@ public class GoodController extends BaseController<goods> {
         buyRecordService.save(buyrecord);
 
         return goodsService.successRespMap(respMap, "购买成功", "success");
+
+    }
+
+    /**
+     * 查看某商品是否被某用户收藏
+     * @param goodsid
+     * @param userid
+     * @return   存在返回"1",不存在返回"0",参数错误返回-1
+     */
+    @ResponseBody
+    @RequestMapping("/checkGoodsForked")
+    public Map CheckIsFork(@Param("goodsid")int goodsid,@Param("userid") int userid){
+
+        goods goods1 = goodsService.getgoodsByGoodId(goodsid);
+        User user = userService.getuserById(userid);
+        if (goods1 ==null ||user ==null){
+            return goodsService.errorRespMap(respMap,"-1");
+        }
+        ForkRecord data = new ForkRecord();
+        data.setGoodsid(goods1.getId());
+        data.setUserid(user.getId());
+        ForkRecord forkRecord_result = forkRecordService.selectone(data);
+
+        if (forkRecord_result==null){
+            return forkRecordService.errorRespMap(respMap,"0");
+        }
+        return forkRecordService.successRespMap(respMap,"success","1");
 
     }
 

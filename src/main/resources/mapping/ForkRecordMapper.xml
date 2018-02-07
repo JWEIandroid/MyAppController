@@ -6,7 +6,7 @@
 <mapper namespace="ssm.mapper.ForkRecordMapper">
 
     <!--插入一条收藏记录-->
-    <insert id="save" parameterType="ssm.model.Buyrecord">
+    <insert id="save" parameterType="ssm.model.ForkRecord">
 
         INSERT into forkrecord (id,userid,goodsid,status,date) values
         (#{id},#{userid},#{goodsid},#{status},#{date})
@@ -15,7 +15,7 @@
 
     <!--删除一条收藏记录-->
 
-    <delete id="delete" parameterType="ssm.model.Buyrecord">
+    <delete id="delete" parameterType="ssm.model.ForkRecord">
 
         DELETE FROM forkrecord WHERE userid = #{userid}
 
@@ -23,7 +23,7 @@
 
 
     <!--查询一条收藏记录-->
-    <select id="selectone" parameterType="map" resultType="ssm.model.Buyrecord">
+    <select id="selectone" parameterType="map" resultType="ssm.model.ForkRecord">
 
         select * FROM forkrecord WHERE userid = #{userid} and goodsid = #{goodsid}
 
@@ -39,7 +39,8 @@
         UPDATE FROM  forkrecord
         SET
         userid = #{userid},
-        goodsid = #{goodsid}
+        goodsid = #{goodsid},
+        status = #{status}
     </update>
 
 </mapper>
