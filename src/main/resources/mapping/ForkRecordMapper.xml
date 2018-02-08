@@ -8,16 +8,16 @@
     <!--插入一条收藏记录-->
     <insert id="save" parameterType="ssm.model.ForkRecord">
 
-        INSERT into forkrecord (id,userid,goodsid,status,date) values
-        (#{id},#{userid},#{goodsid},#{status},#{date})
+        INSERT into forkrecord (id,userid,goodsid,date) values
+        (#{id},#{userid},#{goodsid},#{date})
 
     </insert>
 
-    <!--删除一条收藏记录-->
+    <!--删除一个用户的收藏记录-->
 
     <delete id="delete" parameterType="ssm.model.ForkRecord">
 
-        DELETE FROM forkrecord WHERE userid = #{userid}
+        DELETE FROM forkrecord WHERE userid = #{userid} and goodsid = #{goodsid}
 
     </delete>
 
@@ -39,8 +39,7 @@
         UPDATE FROM  forkrecord
         SET
         userid = #{userid},
-        goodsid = #{goodsid},
-        status = #{status}
+        goodsid = #{goodsid}
     </update>
 
 </mapper>

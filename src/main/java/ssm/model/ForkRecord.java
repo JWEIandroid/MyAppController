@@ -7,6 +7,15 @@ public class ForkRecord {
     private int goodsid;
     private User user;
     private goods goods;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public User getUser() {
         return user;
