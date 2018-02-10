@@ -6,7 +6,7 @@
 <mapper namespace="ssm.mapper.MessageBoardMapper">
 
     <select id="select" parameterType="ssm.model.MessageBoard" resultType="ssm.model.MessageBoard">
-        SELECT * from messageboard WHERE userid = #{userid} AND receiverid = #{receiverid}
+        SELECT * from messageboard WHERE userid = #{userid} AND receiverid = #{receiverid} ORDER BY date DESC
     </select>
 
 
@@ -15,7 +15,7 @@
     </select>
 
     <delete id="delete" parameterType="map">
-        DELETE FROM messageboard WHERE userid = #{userid} AND receiverid  = #{receiverid}
+        DELETE FROM messageboard WHERE userid = #{userid} AND receiverid  = #{receiverid} OR  userid  =#{receiverid} AND receiverid = #{userid}
     </delete>
 
     <insert id="save" parameterType="ssm.model.MessageBoard">

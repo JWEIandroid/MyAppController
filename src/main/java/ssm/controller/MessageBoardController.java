@@ -62,7 +62,7 @@ public class MessageBoardController extends BaseController<MessageBoard> {
                 user_data.add(user);
             }
         }
-        return messageBoardService.successRespMap(respMap, "success", user_data);
+        return messageBoardService.successRespMap(respMap, "共"+user_data.size()+"条数据", user_data);
 
     }
 
