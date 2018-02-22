@@ -88,7 +88,7 @@ public class RecordController extends BaseController<Buyrecord> {
             case 1:
                 PageHelper.startPage(pagenum, 7);
                 List<salerecord> list_sale = saleRecordService.list_user(userid);
-                if (list_sale.size() <= 1) {
+                if (list_sale.size() < 1) {
                     recordResponseList.add(new RecordResponse());
                     return saleRecordService.successRespMap(respMap, "没有数据", recordResponseList);
                 }

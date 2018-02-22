@@ -18,4 +18,7 @@ public interface CommentRecordMapper extends BaseMapper<Comment> {
     void deleteByUseridandDate(Comment comment);
 
 
+    List<Integer> selectGoodsIdByReceiverId(int receiverid);
+
+
 }

@@ -1,5 +1,6 @@
 package ssm.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,6 +111,22 @@ public class CommentRecordController extends BaseController<Comment> {
         return commentRecordService.successRespMap(respMap, "成功", "");
     }
 
+
+    @ResponseBody
+    @RequestMapping("/selectGoodsIdByReceiverId")
+    public Map selectGoodsIdByReceiverId(@Param("receiverid") int receiverid) {
+
+
+        List<Integer> goodsid_list = commentRecordService.selectGoodsIdByReceiverId(receiverid);
+
+        if (goodsid_list == null || goodsid_list.size() <= 0) {
+            return commentRecordService.successRespMap(respMap, "error", new ArrayList<Integer>());
+        }
+        return commentRecordService.successRespMap(respMap,"success",goodsid_list);
+
+    }
+
+
     /**
      * 查看一个商品的全部评论
      *
@@ -125,10 +142,14 @@ public class CommentRecordController extends BaseController<Comment> {
             return goodsService.successRespMap(respMap, "good is null", new ArrayList<Comment>());
         }
         List<Comment> result = commentRecordService.selectByGoodsId(comment);
-        for (Comment comment1:result){
+        for (Comment comment1 : result) {
             User user = userService.getuserById(comment1.getUserid());
-            if (user!=null){
+            User receiver = userService.getuserById(comment1.getReceiverid());
+            goods goods1 = goodsService.getgoodsByGoodId(comment1.getGoodsid());
+            if (user != null) {
                 comment1.setUser(user);
+                comment1.setReceiver(receiver);
+                comment1.setGoods(goods1);
             }
         }
         if (result == null || result.size() < 1) {

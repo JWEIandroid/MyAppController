@@ -17,5 +17,8 @@ public interface CommentRecordService extends BaseService<Comment> {
 
     void deleteByUseridandDate(Comment comment);
 
+    List<Integer> selectGoodsIdByReceiverId(int receiverid);
+
+
 
 }

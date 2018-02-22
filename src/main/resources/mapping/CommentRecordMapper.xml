@@ -13,6 +13,10 @@
         SELECT * from commentrecord WHERE goodsid = #{goodsid}
     </select>
 
+    <select id="selectGoodsIdByReceiverId" parameterType="_int" resultType="_int">
+        SELECT goodsid from commentrecord WHERE receiverid = #{receiverid}
+    </select>
+
     <delete id="delete" parameterType="map">
       DELETE FROM commentrecord WHERE userid = #{userid} AND receiverid  = #{receiverid} AND goodsid = #{goodsid}
     </delete>
@@ -20,6 +24,9 @@
     <delete id="deleteByUseridandDate" parameterType="ssm.model.Comment">
       DELETE FROM commentrecord WHERE userid = #{userid} AND date  = #{date}
     </delete>
+
+
+
 
     <insert id="save" parameterType="ssm.model.Comment">
         INSERT  INTO commentrecord

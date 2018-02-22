@@ -38,4 +38,8 @@ public class CommentRecordServiceImpl extends BaseServiceImpl<Comment> implement
     public void deleteByUseridandDate(Comment comment) {
         commentRecordMapper.deleteByUseridandDate(comment);
     }
+
+    public List<Integer> selectGoodsIdByReceiverId(int receiverid) {
+        return commentRecordMapper.selectGoodsIdByReceiverId(receiverid);
+    }
 }
