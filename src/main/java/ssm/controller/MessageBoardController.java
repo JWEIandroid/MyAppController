@@ -36,7 +36,7 @@ public class MessageBoardController extends BaseController<MessageBoard> {
             return messageBoardService.successRespMap(respMap, "参数错误", new ArrayList<MessageBoard>());
         }
         result = messageBoardService.select(messageBoard);
-        for (MessageBoard messageBoard1:result){
+        for (MessageBoard messageBoard1 : result) {
             messageBoard1.setUser(user);
             messageBoard1.setReceiver(receiver);
         }
@@ -53,16 +53,30 @@ public class MessageBoardController extends BaseController<MessageBoard> {
 
         List<User> user_data = new ArrayList<User>();
         List<Integer> usersid = messageBoardService.selectWriter(messageBoard);
+        List<User> temporary_list = new ArrayList<User>();
         if (usersid == null || usersid.size() < 1) {
             return messageBoardService.successRespMap(respMap, "没有数据", new ArrayList<MessageBoard>());
         }
         for (int userid : usersid) {
             User user = userService.getuserById(userid);
             if (user != null) {
+                temporary_list.add(user);
                 user_data.add(user);
             }
         }
-        return messageBoardService.successRespMap(respMap, "共"+user_data.size()+"条数据", user_data);
+
+
+        for (int i = 0; i < user_data.size(); i++) {
+            if (i == user_data.size()-1) {
+                break;
+            }
+            if (user_data.get(i).getName().equals(user_data.get(i + 1).getName())) {
+                user_data.remove(i);
+                i--;
+            }
+        }
+        //遍历第二次看是否存在相同用户信息
+        return messageBoardService.successRespMap(respMap, "共" + user_data.size() + "条数据", user_data);
 
     }
 
@@ -76,8 +90,8 @@ public class MessageBoardController extends BaseController<MessageBoard> {
         if (user1 == null || receiver == null) {
             return messageBoardService.errorRespMap(respMap, "error---user or receiver is null");
         }
-        if (messageBoard.getDate()==null){
-            messageBoard.setDate(System.currentTimeMillis()+"");
+        if (messageBoard.getDate() == null) {
+            messageBoard.setDate(System.currentTimeMillis() + "");
         }
         messageBoardService.save(messageBoard);
         return messageBoardService.successRespMap(respMap, "success", "");
