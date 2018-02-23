@@ -292,6 +292,7 @@ public class RecordController extends BaseController<Buyrecord> {
                     Bill bill = new Bill();
                     bill.setPercent(percent_pay);
                     bill.setType(type);
+                    bill.setCount(pay_type_all);
                     billList.add(bill);
                 }
                 return buyRecordService.successRespMap(respMap, "共" + billList.size() + "条数据", billList);
@@ -325,6 +326,7 @@ public class RecordController extends BaseController<Buyrecord> {
                     Bill bill = new Bill();
                     bill.setPercent(percent_pay);
                     bill.setType(type);
+                    bill.setCount(income_type_all);
                     billList_sale.add(bill);
                 }
                 return buyRecordService.successRespMap(respMap, "共" + billList_sale.size() + "条数据", billList_sale);

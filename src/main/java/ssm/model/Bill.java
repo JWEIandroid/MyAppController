@@ -5,6 +5,15 @@ public class Bill {
     private int id;
     private String type;
     private float percent;
+    private float count;
+
+    public float getCount() {
+        return count;
+    }
+
+    public void setCount(float count) {
+        this.count = count;
+    }
 
     public int getId() {
         return id;
