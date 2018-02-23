@@ -37,4 +37,25 @@
     </select>
 
 
+    <!--查询一个用户购买记录的全部商品种类-->
+    <select id="selecttype" parameterType="_int" resultType="java.lang.String">
+         SELECT type FROM goods,buyrecord WHERE
+        buyrecord.userid = #{userid}
+   AND buyrecord.goodsid = goods.id
+    </select>
+    <!--查询某个种类的购买金额总额-->
+    <select id="selectpaywithtype" parameterType="map" resultType="java.lang.Float">
+    SELECT IFNULL(sum(price_sale),0) FROM goods,buyrecord WHERE goods.type = #{type}
+    AND
+     buyrecord.userid = #{userid}
+    AND
+     buyrecord.goodsid = goods.id
+    </select>
+    <!--查询用户购买记录总额-->
+    <select id="selectAll" parameterType="_int" resultType="java.lang.Float">
+        SELECT IFNULL(sum(price_sale),0) FROM goods,buyrecord WHERE
+            buyrecord.userid = #{userid}
+        AND
+            buyrecord.goodsid = goods.id
+    </select>
 </mapper>

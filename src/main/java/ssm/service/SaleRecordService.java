@@ -20,4 +20,10 @@ public interface SaleRecordService extends BaseService<salerecord>{
 
     List<salerecord> list_user(@Param("userid")int userid);
 
+    List<String> selecttype(int userid);
+
+    float selectIncomewithtype(@Param("type") String type, @Param("userid") int userid);
+
+    float selectAll(@Param("userid") int userid);
+
 }

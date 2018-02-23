@@ -39,5 +39,17 @@ public class SaleServiceImpl extends BaseServiceImpl<salerecord> implements Sale
         return saleRecordMapper.list_user(userid);
     }
 
+    public List<String> selecttype(int userid) {
+        return saleRecordMapper.selecttype(userid);
+    }
+
+    public float selectIncomewithtype(String type, int userid) {
+        return saleRecordMapper.selectIncomewithtype(type, userid);
+    }
+
+    public float selectAll(int userid) {
+        return saleRecordMapper.selectAll(userid);
+    }
+
 
 }

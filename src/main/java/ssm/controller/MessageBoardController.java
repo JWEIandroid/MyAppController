@@ -9,9 +9,7 @@ import ssm.model.User;
 import ssm.service.MessageBoardService;
 import ssm.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -65,18 +63,25 @@ public class MessageBoardController extends BaseController<MessageBoard> {
             }
         }
 
-
-        for (int i = 0; i < user_data.size(); i++) {
-            if (i == user_data.size()-1) {
-                break;
-            }
-            if (user_data.get(i).getName().equals(user_data.get(i + 1).getName())) {
-                user_data.remove(i);
-                i--;
+        Set set = new HashSet();
+        List<User> userList = new ArrayList<User>();
+        for (User user1 : user_data) {
+            if (set.add(user1.getName())) {
+                userList.add(user1);
             }
         }
+
+//        for (int i = 0; i < user_data.size(); i++) {
+//            if (i == user_data.size() - 1) {
+//                break;
+//            }
+//            if (user_data.get(i).getName().equals(user_data.get(i + 1).getName())) {
+//                user_data.remove(i);
+//                i--;
+//            }
+//        }
         //遍历第二次看是否存在相同用户信息
-        return messageBoardService.successRespMap(respMap, "共" + user_data.size() + "条数据", user_data);
+        return messageBoardService.successRespMap(respMap, "共" + userList.size() + "条数据", userList);
 
     }
 

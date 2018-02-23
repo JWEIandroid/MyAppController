@@ -22,5 +22,11 @@ public interface BuyRecordMapper extends BaseMapper<Buyrecord>{
 
     Buyrecord selectone(@Param("userid") int userid, @Param("date") String date);
 
+    List<String> selecttype(int userid);
+
+    float selectpaywithtype(@Param("type") String type,@Param("userid") int userid);
+
+    float selectAll(@Param("userid") int userid);
+
 
 }

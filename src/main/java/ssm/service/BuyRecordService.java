@@ -1,12 +1,12 @@
 package ssm.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import ssm.model.Buyrecord;
 
 import java.util.List;
 
-public interface BuyRecordService extends BaseService<Buyrecord>{
-
+public interface BuyRecordService extends BaseService<Buyrecord> {
 
 
     void save(Buyrecord buyrecord);
@@ -17,5 +17,12 @@ public interface BuyRecordService extends BaseService<Buyrecord>{
 
     List<Buyrecord> list();
 
-    Buyrecord selectone(int userid,String date);
+    Buyrecord selectone(int userid, String date);
+
+    List<String> selecttype(int userid);
+
+    float selectpaywithtype(@Param("type") String type, @Param("userid") int userid);
+
+    float selectAll(@Param("userid") int userid);
+
 }

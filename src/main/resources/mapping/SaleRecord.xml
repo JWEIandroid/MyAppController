@@ -91,5 +91,27 @@
         <!--</collection>-->
     <!--</resultMap>-->
 
+    <!--查询一个用户卖出记录的全部商品种类-->
+    <select id="selecttype" parameterType="_int" resultType="java.lang.String">
+        SELECT type FROM goods,salerecord WHERE
+        salerecord.userid = #{userid}
+        AND salerecord.goodsid = goods.id
+    </select>
+    <!--查询某个种类的收入金额总额-->
+    <select id="selectIncomewithtype" parameterType="map" resultType="java.lang.Float">
+        SELECT IFNULL(sum(price_sale),0) FROM goods,salerecord WHERE goods.type = #{type}
+        AND
+        salerecord.userid = #{userid}
+        AND
+        salerecord.goodsid = goods.id
+    </select>
+    <!--查询用户收入记录总额-->
+    <select id="selectAll" parameterType="_int" resultType="java.lang.Float">
+        SELECT IFNULL(sum(price_sale),0) FROM goods,salerecord WHERE
+        salerecord.userid = #{userid}
+        AND
+        salerecord.goodsid = goods.id
+    </select>
+
 
 </mapper>

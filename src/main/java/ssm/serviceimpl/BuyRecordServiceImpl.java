@@ -32,4 +32,16 @@ public class BuyRecordServiceImpl extends BaseServiceImpl<Buyrecord> implements 
     public Buyrecord selectone(int userid,String date) {
         return buyRecordMapper.selectone(userid,date);
     }
+
+    public List<String> selecttype(int userid) {
+        return buyRecordMapper.selecttype(userid);
+    }
+
+    public float selectpaywithtype(String type,int userid) {
+        return buyRecordMapper.selectpaywithtype(type,userid);
+    }
+
+    public float selectAll(int userid) {
+        return buyRecordMapper.selectAll(userid);
+    }
 }
