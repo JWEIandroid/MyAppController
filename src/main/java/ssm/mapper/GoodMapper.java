@@ -26,5 +26,7 @@ public interface GoodMapper extends BaseMapper<goods> {
 
     goods  getgoodsByGoodId(int id);
 
+    List<goods> list_discovery();
+
 }
 

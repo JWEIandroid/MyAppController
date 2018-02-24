@@ -78,6 +78,39 @@ public class GoodController extends BaseController<goods> {
 
 
     /**
+     * 查询热门商品
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/discover_goods", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getDiscoveryGoods(@Param("pagenum") int pagenum) {
+
+        PageHelper.startPage(pagenum, 10);
+        List<goods> result = goodsService.list_discovery();
+        if (result == null) {
+            return goodsService.errorRespMap(respMap, "error");
+        }
+        PageInfo<goods> pageInfo = new PageInfo<goods>(result);
+        System.out.println("总页数：" + pageInfo.getTotal());
+
+        for (goods good : result) {
+            //如果商品没有图片，将显示默认图片
+            List<String> goods_imgurl = goodsImgService.getImgByGoodid(good.getId());
+            if (goods_imgurl == null || goods_imgurl.size() < 1) {
+                goods_imgurl = new ArrayList<String>();
+                goods_imgurl.add("file/download/?filename=normal.png&type=0");
+                good.setImgurl(goods_imgurl);
+            } else {
+                good.setImgurl(goods_imgurl);
+            }
+            good.setUser(userService.getuserById(good.getUserid()));
+        }
+            return goodsService.successRespMap(respMap, "success", result);
+    }
+
+
+    /**
      * 根据用户id获取用户发布的全部商品
      *
      * @param userid
@@ -327,75 +360,73 @@ public class GoodController extends BaseController<goods> {
 
     /**
      * 查看某商品是否被某用户收藏
+     *
      * @param goodsid
      * @param userid
-     * @return   存在返回"1",不存在返回"0",参数错误返回-1
+     * @return 存在返回"1",不存在返回"0",参数错误返回-1
      */
     @ResponseBody
     @RequestMapping("/checkGoodsForked")
-    public Map CheckIsFork(@Param("goodsid")int goodsid,@Param("userid") int userid){
+    public Map CheckIsFork(@Param("goodsid") int goodsid, @Param("userid") int userid) {
 
         goods goods1 = goodsService.getgoodsByGoodId(goodsid);
         User user = userService.getuserById(userid);
-        if (goods1 ==null ||user ==null){
-            return goodsService.errorRespMap(respMap,"-1");
+        if (goods1 == null || user == null) {
+            return goodsService.errorRespMap(respMap, "-1");
         }
         ForkRecord data = new ForkRecord();
         data.setGoodsid(goods1.getId());
         data.setUserid(user.getId());
         ForkRecord forkRecord_result = forkRecordService.selectone(data);
 
-        if (forkRecord_result==null){
-            return forkRecordService.errorRespMap(respMap,"0");
+        if (forkRecord_result == null) {
+            return forkRecordService.errorRespMap(respMap, "0");
         }
-        return forkRecordService.successRespMap(respMap,"success","1");
+        return forkRecordService.successRespMap(respMap, "success", "1");
     }
 
     /**
      * 用户取消收藏商品
+     *
      * @param forkRecord
-     * @return   存在返回"1",不存在返回"0",参数错误返回-1
+     * @return 存在返回"1",不存在返回"0",参数错误返回-1
      */
     @ResponseBody
     @RequestMapping("/cancelFroked")
-    public Map CancelForked(ForkRecord forkRecord){
+    public Map CancelForked(ForkRecord forkRecord) {
 
         goods goods1 = goodsService.getgoodsByGoodId(forkRecord.getGoodsid());
         User user = userService.getuserById(forkRecord.getUserid());
-        if (goods1 ==null ||user ==null){
-            return goodsService.errorRespMap(respMap,"-1");
+        if (goods1 == null || user == null) {
+            return goodsService.errorRespMap(respMap, "-1");
         }
         forkRecordService.delete(forkRecord);
-        return forkRecordService.successRespMap(respMap,"success","1");
+        return forkRecordService.successRespMap(respMap, "success", "1");
     }
 
 
     /**
      * 用户收藏某商品
-     * @param forkRecord
-     * 返回-1 表示参数错误  -2 表示已经存在数据   1表示成功
-     * @return   存在返回"1",不存在返回"0",参数错误返回-1
+     *
+     * @param forkRecord 返回-1 表示参数错误  -2 表示已经存在数据   1表示成功
+     * @return 存在返回"1",不存在返回"0",参数错误返回-1
      */
     @ResponseBody
     @RequestMapping("/saveChecked")
-    public Map saveChecked(ForkRecord forkRecord){
+    public Map saveChecked(ForkRecord forkRecord) {
 
         goods goods1 = goodsService.getgoodsByGoodId(forkRecord.getGoodsid());
         User user = userService.getuserById(forkRecord.getUserid());
-        if (goods1 ==null ||user ==null){
-            return goodsService.errorRespMap(respMap,"-1");
+        if (goods1 == null || user == null) {
+            return goodsService.errorRespMap(respMap, "-1");
         }
         ForkRecord forkRecord_result = forkRecordService.selectone(forkRecord);
-        if (forkRecord_result!=null){
-            return forkRecordService.errorRespMap(respMap,"-2");
+        if (forkRecord_result != null) {
+            return forkRecordService.errorRespMap(respMap, "-2");
         }
         forkRecordService.save(forkRecord);
-        return forkRecordService.successRespMap(respMap,"success","1");
+        return forkRecordService.successRespMap(respMap, "success", "1");
     }
-
-
-
-
 
 
     private boolean checkParams(goods good) {

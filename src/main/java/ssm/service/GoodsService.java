@@ -28,6 +28,9 @@ public interface GoodsService extends BaseService<goods>{
 
     List<goods> getgoodsByUserid(int userid);
 
+    List<goods> list_discovery();
+
+
 
 
 

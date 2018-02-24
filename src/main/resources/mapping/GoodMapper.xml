@@ -66,4 +66,10 @@
                select * from  goods  where type= #{type}
 </select>
 
+
+    <!--查询全部商品-->
+    <select id="list_discovery" resultType="ssm.model.goods" parameterType="map">
+        select * from  goods,hotgoods where hotgoods.goodid=goods.id  order by goods.update_time desc
+    </select>
+
 </mapper>

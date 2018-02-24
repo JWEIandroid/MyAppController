@@ -56,8 +56,14 @@ public class GoodsServiceImpl extends BaseServiceImpl<goods> implements GoodsSer
         return goodMapper.getgoodsByUserid(userid);
     }
 
+    public List<goods> list_discovery() {
+        return goodMapper.list_discovery();
+    }
+
     public goods getgoodsByGoodId(int id) {
         return goodMapper.getgoodsByGoodId(id);
     }
+
+
 
 }
