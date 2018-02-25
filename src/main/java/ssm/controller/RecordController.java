@@ -290,7 +290,7 @@ public class RecordController extends BaseController<Buyrecord> {
                     float percent_pay = Float.parseFloat(result);
                     System.out.println(type + "类占比：" + percent_pay);
                     Bill bill = new Bill();
-                    bill.setPercent(percent_pay);
+                    bill.setPercent(percent_pay);i
                     bill.setType(type);
                     bill.setCount(pay_type_all);
                     billList.add(bill);

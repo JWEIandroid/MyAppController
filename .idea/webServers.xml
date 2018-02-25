@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e851082f-7449-4791-934a-f7bf7eeef9b9" name="new" url="http://123.207.26.152:8080/">
+        <fileTransfer host="123.207.26.152" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="b61d544e-266c-4134-8760-0ff04a0e684e" name="weij" url="http://123.207.26.152:8080/">
+        <fileTransfer host="123.207.26.152" port="14147">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="14147" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
