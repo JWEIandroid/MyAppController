@@ -110,7 +110,7 @@
         </init-param>
         <init-param>
             <param-name>cors.maxAge</param-name>
-            <param-value>3600</param-value><!--单位秒-->
+            <param-value>36000</param-value><!--单位秒-->
         </init-param>
         <init-param>
             <param-name>cors.exposedHeaders</param-name>
