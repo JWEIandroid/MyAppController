@@ -1,0 +1,120 @@
+﻿body {
+
+    /*background-image:url(C:/Users/Administrator/Desktop/AppSystem/Swap/Butterfly_files/empty.png);*/
+    /*background-color: darkseagreen;*/
+    background-color: cornflowerblue;
+
+}
+
+.login {
+    display: block;
+    /*background-image:url(../images/llogo.png);*/
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 332px;
+    height: 403px;
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+
+    /*
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-175px 0 0 -135px
+    */
+}
+
+#logoimg {
+
+    width: 128px;
+    height: 100px;
+    display: block;
+    margin-left: 100px;
+    padding-top: 50px;
+    clear: both;
+
+}
+
+#input1 {
+
+    width: 293px;
+    height: 40px;
+    display: block;
+    /*background-image:url(../images/empty.png);*/
+    margin-top: 37px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 40px;
+    border-radius: 1px;
+    clear: both;
+}
+
+#input2 {
+
+    width: 293px;
+    height: 40px;
+    display: block;
+    /*background-image:url(../images/empty.png);*/
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 40px;
+    border-radius: 1px;
+    clear: both;
+}
+
+.login span {
+    font-family: 微软雅黑;
+    color: white;
+    letter-spacing: 1px;
+    font-size: 13px;
+    display: block;
+    margin-left: 15px;
+    float: left;
+
+}
+
+.login input {
+    display: block;
+    width: 175px;
+    height: 25px;
+    float: left;
+    margin-left: 5px;
+    line-height: 25px;
+    font-family: 微软雅黑;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+#e1, #e2 {
+    display: block;
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+
+}
+
+#dlogin {
+    display: block;
+    width: 290px;
+    height: 51px;
+    line-height: 51px;
+    text-align: center;
+    background-color: lightblue;
+    color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#dlogin:hover {
+    /*background-image:url(/images/loginc2.png);*/
+    background-color: indianred;
+}

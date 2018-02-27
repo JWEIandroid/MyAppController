@@ -53,6 +53,14 @@
     </bean>
 
     <!--读取静态资源-->
-    <mvc:resources location="/imgs/" mapping="/images/**"/>
-
+    <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+    <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+    <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+    <mvc:resources location="/WEB-INF/assets/js/" mapping="/assets/js/**"/>
+    <mvc:resources location="/WEB-INF/assets/js/" mapping="/js/userjs/**"/>
+    <mvc:resources location="/WEB-INF/assets/img/" mapping="/assets/img/**"/>
+    <mvc:resources location="/WEB-INF/assets/css/" mapping="/assets/css/**"/>
+    <!--<mvc:resources location="/jsp/User/" mapping="/jsp/User/**"/>-->
+    <!--<mvc:resources location="/jsp/Goods/" mapping="/jsp/Goods/**"/>-->
+    <!--<mvc:resources location="/jsp/normal/" mapping="/jsp/normal/**"/>-->
 </beans>
