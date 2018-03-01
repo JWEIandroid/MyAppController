@@ -7,13 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String Password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
-    String Name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-    String Tel = new String(request.getParameter("tel").getBytes("iso-8859-1"), "utf-8");
-    String Adress = new String(request.getParameter("adress").getBytes("iso-8859-1"), "utf-8");
-    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
-    String Id = new String(request.getParameter("id").getBytes("iso-8859-1"), "utf-8");
 
+    //Manager Data
+    String Id_Manager = new String(request.getParameter("id_manager").getBytes("iso-8859-1"), "utf-8");
+    String Account = new String(request.getParameter("account").getBytes("iso-8859-1"), "utf-8");
+    String Password_Manager = new String(request.getParameter("password_manager").getBytes("iso-8859-1"), "utf-8");
 
 
 %>
@@ -60,34 +58,35 @@
 
         <tr>
             <td width="10%" class="tableleft">id</td>
-            <td><input  id="id" type="text" name="id" value="<%= Id%>"/></td>
+
+            <td><input  id="id" type="text" name="id" value="<%= Id_Manager%>"/></td>
         </tr>
         <tr>
             <td width="10%" class="tableleft">登录名</td>
-            <td><input  id="tel" type="text" name="tel" value="<%= Tel%>"/></td>
+            <td><input  id="tel" type="text" name="tel" value="<%= Account%>"/></td>
         </tr>
         <tr>
             <td class="tableleft">密码</td>
-            <td><input id="password" type="password" name="密码" value="<%= Password%>"/></td>
+            <td><input id="password" type="password" name="密码" value="<%= Password_Manager%>"/></td>
         </tr>
-        <tr>
-            <td class="tableleft">真实姓名</td>
-            <td><input id="realname" type="text" name="realname" value="<%= Name%>"/></td>
-        </tr>
-        <tr>
-            <td class="tableleft">地址</td>
-            <td><input id="adress" type="text" name="adress" value="<%= Adress%>"/></td>
-        </tr>
-        <tr>
-            <td class="tableleft">性别</td>
-            <td><input id="sex" type="text" name="sex" value="<%= Sex%>"/></td>
-        </tr>
-        <tr>
+        <%--<tr>--%>
+            <%--<td class="tableleft">真实姓名</td>--%>
+            <%--<td><input id="realname" type="text" name="realname" value=""/></td>--%>
+        <%--</tr>--%>
+        <%--<tr>--%>
+            <%--<td class="tableleft">地址</td>--%>
+            <%--<td><input id="adress" type="text" name="adress" value=""></td>--%>
+        <%--</tr>--%>
+        <%--<tr>--%>
+            <%--<td class="tableleft">性别</td>--%>
+            <%--<td><input id="sex" type="text" name="sex" value=""/></td>--%>
+        <%--</tr>--%>
+        <%--<tr>--%>
             <td class="tableleft"></td>
             <td>
-                <button type="button" class="btn btn-primary" onclick="updateUserData()">保存</button> &nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" onclick="updateManagerData()">保存</button> &nbsp;&nbsp;
                 <button type="button" class="btn btn-success" name="backid" id="backid" onclick="custom_close()">返回列表
-            </button>
+                </button>
             </td>
         </tr>
     </table>

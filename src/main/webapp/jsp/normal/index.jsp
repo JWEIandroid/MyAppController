@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String Username = new String(request.getParameter("loginname").getBytes("iso-8859-1"), "utf-8");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -16,7 +19,7 @@
         <!--<img src="/chinapost/Public/assets/img/top.png">-->
     </div>
 
-    <div class="dl-log">欢迎您，<span class="dl-log-user">root</span><a href="/chinapost/index.php?m=Public&a=logout"
+    <div class="dl-log">欢迎您，<span class="dl-log-user" id="dl-log-user"><%= Username%></span><a href="/jsp/normal/Login.jsp"
                                                                     title="退出系统" class="dl-log-quit">[退出]</a>
     </div>
 </div>
@@ -42,6 +45,8 @@
 <script type="text/javascript" src="/assets/js/bui-min.js"></script>
 <script type="text/javascript" src="/assets/js/common/main-min.js"></script>
 <script type="text/javascript" src="/assets/js/config-min.js"></script>
+<script type="text/javascript" src="/js/mLogin.js"></script>
+
 <script>
     BUI.use('common/main', function () {
         var config = [
@@ -49,9 +54,8 @@
                 id: '1', menu: [{
                     text: '用户管理',
                     items: [
-                        {id: '12', text: '用户管理', href: '/jsp/User/User_manager.jsp'},
-                        {id: '3', text: '管理员管理', href: '/jsp/User/User_manager.jsp'},
-                        {id: '4', text: '修改密码', href: '/jsp/User/Update_psd.jsp'}]
+                        {id: '12', text: '用户管理', href: '/jsp/User/User_manager.jsp?type=0'},
+                        {id: '3', text: '管理员管理', href: '/jsp/User/User_manager.jsp?type=1'}]
                 }]
             },
             {

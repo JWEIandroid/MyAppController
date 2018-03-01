@@ -10,6 +10,8 @@ import constant.Constant;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import ssm.model.User;
+import ssm.model.manager;
+import ssm.service.ManagerService;
 import ssm.service.UserService;
 import utils.FileUploadUtil;
 
@@ -19,10 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -145,14 +144,46 @@ public class UserController extends BaseController<User> {
      */
     @ResponseBody
     @RequestMapping(value = "updateuser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public Map update(@ModelAttribute User user) {
+    public Map update(User user) {
 
         User user1 = userService.getuserById(user.getId());
         if (user1 == null) {
             return userService.errorRespMap(respMap, "user not exist in db");
         }
-        userService.update(user);
-        return userService.successRespMap(respMap, "success", user);
+
+        String new_name = user.getName();
+        String new_password = user.getPassword();
+        String new_adress = user.getAdress();
+        String new_sex = user.getSex();
+        String new_desc = user.getDescription();
+        String new_tel = user.getTel();
+        int new_id = user.getId();
+
+
+        if (new_name != null) {
+            user1.setName(new_name);
+        }
+        if (new_password != null) {
+            user1.setPassword(new_password);
+        }
+        if (new_adress != null) {
+            user1.setAdress(new_adress);
+        }
+        if (new_desc != null) {
+            user1.setDescription(new_desc);
+        }
+        if (new_sex != null) {
+            user1.setSex(new_sex);
+        }
+        if (new_id != 0) {
+            user1.setId(new_id);
+        }
+        if (new_tel != null) {
+            user1.setTel(new_tel);
+        }
+
+        userService.update(user1);
+        return userService.successRespMap(respMap, "success", user1);
 
     }
 
@@ -218,14 +249,14 @@ public class UserController extends BaseController<User> {
 
         User user1 = userService.getuserById(id);
 
-        if (user1==null){
-            return userService.errorRespMap(respMap,"用户不存在");
+        if (user1 == null) {
+            return userService.errorRespMap(respMap, "用户不存在");
         }
 
 
         if (user1 != null & user1.getPassword().equals(oldpsd)) {
             user1.setPassword(newpsd);
-            user1.setUpdate_time(System.currentTimeMillis()+"");
+            user1.setUpdate_time(System.currentTimeMillis() + "");
             userService.update(user1);
             user1 = userService.getuserById(id);
             return userService.successRespMap(respMap, "修改成功", user1);
@@ -263,6 +294,79 @@ public class UserController extends BaseController<User> {
         return res;
 
     }
+
+
+    @Autowired
+    ManagerService managerServicel;
+
+    //===========================================管理员的增删改查=========================================
+    @ResponseBody
+    @RequestMapping(value = "saveManager", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map saveManager(manager manager) {
+
+        if (manager.getAccount() != null && manager.getPassword() != null) {
+            managerServicel.save(manager);
+            return managerServicel.successRespMap(respMap, "保存成功", "");
+        }
+        return managerServicel.errorRespMap(respMap, "保存失败");
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "delManager", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map delManager(int id) {
+
+        manager manager = managerServicel.get(id);
+        if (manager != null) {
+            managerServicel.delete(id);
+            return managerServicel.successRespMap(respMap, "删除成功", "");
+        }
+        return managerServicel.errorRespMap(respMap, "删除失败 管理员不存在");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "ListManager", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map ListManager() {
+
+        List<manager> result = managerServicel.list();
+        if (result != null && result.size() > 0) {
+            return managerServicel.successRespMap(respMap, "success", result);
+        }
+        result = new ArrayList<manager>();
+        return managerServicel.successRespMap(respMap, "failed", result);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "UpdateManager", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map UpdateManager(manager manager) {
+
+
+        manager manager1 = managerServicel.get(manager.getId());
+        if (manager != null) {
+            if (manager.getAccount()!=null){
+                manager1.setAccount(manager.getAccount());
+            }
+            if (manager.getPassword()!=null){
+                manager1.setPassword(manager.getPassword());
+            }
+            managerServicel.update(manager1);
+            return managerServicel.successRespMap(respMap, "更新成功", "");
+        }else{
+            return managerServicel.errorRespMap(respMap, "更新失败 管理员不存在");
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "QueryManager", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map QueryManager(@Param("userid") int userid) {
+        manager manager = managerServicel.get(userid);
+        if (manager == null) {
+            return managerServicel.errorRespMap(respMap, "用户不存在");
+        }
+        return managerServicel.successRespMap(respMap, "success", manager);
+    }
+
+
 
 
 }

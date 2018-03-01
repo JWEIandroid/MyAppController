@@ -12,7 +12,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     public void delete(int id);
 
-    public User getuser_id(int id);
+    public User getuser_id(@Param("id") int id);
 
     void update(User user);
 

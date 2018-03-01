@@ -36,12 +36,13 @@ function Loginnew()
             console.log(d);
             // alert(d.data.id);
             // 在这里补充登录成功或失败后的操作代码
-            if(d.error_code == "0"){
+            if(d.error_code == 0){
                 alert(d.message);
-                window.location.href = "/jsp/normal/index.jsp";
-                return;
+                window.location.href = "/jsp/normal/index.jsp?loginname="+UserName;
             }
-            alert(d.message);
+            else {
+                alert(d.message);
+            }
         },
         error: function (d) {
             alert("Http Status :" + d.status + ",Msg:" + d.statusText);                    

@@ -6,13 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String Type = new String(request.getParameter("type").getBytes("iso-8859-1"), "utf-8");
+%>
 <!DOCTYPE html>
 <html>
 <body>
-<form class="form-inline definewidth m20" action="index.html" method="get">
+<form class="form-inline definewidth m20" >
     用户名称：
     <input type="text" name="username" id="username"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
-    <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增用户</button>
+    <button type="button" class="btn btn-primary" onclick="QueryUser(<%= Type%>)">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增用户</button>
 </form>
 <table class="table table-bordered table-hover definewidth m10"
        id="table_user"
@@ -26,15 +29,16 @@
         <th>操作</th>
     </tr>
     </thead>
-    <tr>
-        <td>2</td>
-        <td>admin</td>
-        <td>管理员</td>
-        <td></td>
-        <td>
-            <a href="edit.html">编辑</a>
-        </td>
-    </tr>
+    <%--<tr>--%>
+        <%--<td>2</td>--%>
+        <%--<td>admin</td>--%>
+        <%--<td>管理员</td>--%>
+        <%--<td></td>--%>
+        <%--<td>--%>
+            <%--<a href="edit.html">编辑</a>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
+    <tbody  id="User_tbody"></tbody>
 </table>
 </body>
 <head>
@@ -74,6 +78,12 @@
 </html>
 <script>
     $(function () {
+
+        if(<%= Type.equals("0")%>){
+            loadUserData();
+        }else if (<%= Type.equals("1")%>){
+            loadManagerData();
+        }
 
 
         $('#addnew').click(function(){

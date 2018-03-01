@@ -29,7 +29,7 @@
 
     <!--查询全部用户-->
     <select id="list" resultType="ssm.model.User">
-                select * from  user order by update_time DESC
+                select * from  user
         </select>
 
 

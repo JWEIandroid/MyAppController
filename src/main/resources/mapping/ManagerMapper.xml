@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssm.mapper.ManagerMapper">
+
+    <!--根据id删除管理员-->
+    <delete id="delete" parameterType="ssm.model.manager">
+        delete from manager where id= #{id}
+    </delete>
+
+    <!--根据id获取管理员-->
+    <select id="get" parameterType="_int" resultType="ssm.model.manager">
+        select * from   manager  where id= #{id}
+    </select>
+
+    <!--更新管理员-->
+    <update id="update" parameterType="ssm.model.manager">
+        update manager set
+        password=#{password},
+        account = #{account}
+        where id= #{id}
+    </update>
+
+
+    <!--查询全部用户-->
+    <select id="list" resultType="ssm.model.manager">
+        select * from  manager
+    </select>
+
+
+    <!--新增管理员-->
+    <insert id="save" parameterType="ssm.model.manager">
+        insert into manager(id,account,password)
+        values (#{id},#{account},#{password})
+    </insert>
+
+
+</mapper>
