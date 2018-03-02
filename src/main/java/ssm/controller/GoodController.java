@@ -57,7 +57,42 @@ public class GoodController extends BaseController<goods> {
 
             //如果商品没有图片，将显示默认图片
             List<String> goods_imgurl = goodsImgService.getImgByGoodid(good.getId());
-            if (goods_imgurl == null || goods_imgurl.size() < 1) {
+            if (goods_imgurl == null || goods_imgurl.size() <= 0) {
+                goods_imgurl = new ArrayList<String>();
+                goods_imgurl.add("file/download/?filename=normal.png&type=0");
+                good.setImgurl(goods_imgurl);
+            } else {
+                good.setImgurl(goods_imgurl);
+            }
+
+            good.setUser(userService.getuserById(good.getUserid()));
+        }
+
+
+        if (cs == null) {
+            return goodsService.errorRespMap(respMap, "error");
+        } else {
+            return goodsService.successRespMap(respMap, "success", cs);
+        }
+    }
+
+
+    /**
+     * 查询所有商品 没有分页
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getAllGoodsWithOutPageNum", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getAllGoodsWithOutPageNum() {
+
+        List<goods> cs = goodsService.list_withoutstatus();
+
+        for (goods good : cs) {
+
+            //如果商品没有图片，将显示默认图片
+            List<String> goods_imgurl = goodsImgService.getImgByGoodid(good.getId());
+            if (goods_imgurl == null || goods_imgurl.size() <= 0) {
                 goods_imgurl = new ArrayList<String>();
                 goods_imgurl.add("file/download/?filename=normal.png&type=0");
                 good.setImgurl(goods_imgurl);
@@ -106,7 +141,7 @@ public class GoodController extends BaseController<goods> {
             }
             good.setUser(userService.getuserById(good.getUserid()));
         }
-            return goodsService.successRespMap(respMap, "success", result);
+        return goodsService.successRespMap(respMap, "success", result);
     }
 
 
@@ -174,12 +209,49 @@ public class GoodController extends BaseController<goods> {
     @RequestMapping(value = "updategood", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Map updategoods(goods good) {
 
+
         goods good1 = goodsService.getgoodsByGoodId(good.getId());
+
         if (good1 == null) {
             return goodsService.errorRespMap(respMap, "goods not exist in db");
         }
-        goodsService.update(good);
-        return goodsService.successRespMap(respMap, "success", good);
+        if (good.getName() != null) {
+            good1.setName(good.getName());
+        }
+        if (good.getType() != null) {
+            good1.setType(good.getType());
+        }
+        if (good.getPrice_before() != 0) {
+            good1.setPrice_before(good.getPrice_before());
+        }
+        if (good.getPrice_sale() != 0) {
+            good1.setPrice_sale(good.getPrice_sale());
+        }
+        if (good.getStatus() != null) {
+            good1.setStatus(good.getStatus());
+        }
+        if (good.getDescription() != null) {
+            good1.setDescription(good.getDescription());
+        }
+        if (good.getStatus() != null) {
+            good1.setStatus(good.getStatus());
+        }
+        if (good.getExpress()!=0){
+            good1.setExpress(good.getExpress());
+        }
+        if (good.getCreate_time()!=null){
+            good1.setCreate_time(good.getCreate_time());
+        }
+        if (good.getUpdate_time()!=null){
+            good1.setUpdate_time(good.getUpdate_time());
+        }
+        if (userService.getuserById(good.getUserid())!=null){
+            good1.setUser(userService.getuserById(good.getUserid()));
+            good1.setUserid(good.getUserid());
+        }
+
+        goodsService.update(good1);
+        return goodsService.successRespMap(respMap, "商品更新成功", good1);
 
     }
 
@@ -244,6 +316,35 @@ public class GoodController extends BaseController<goods> {
         }
         PageHelper.startPage(pagenum, 10);
         List<goods> goods = goodsService.getgoodlikename(good.getName());
+        for (goods good1 : goods) {
+            List<String> list = goodsImgService.getImgByGoodid(good1.getId());
+            good1.setImgurl(goodsImgService.getImgByGoodid(good1.getId()));
+            good1.setUser(userService.getuserById(good1.getUserid()));
+        }
+        return goodsService.successRespMap(respMap, "success", goods);
+
+
+    }
+
+
+    /**
+     * （模糊查询）查询商品   不分页
+     *
+     * @param good
+     * @return
+     */
+
+    @ResponseBody
+    @RequestMapping(value = "getgoodBynameWithOutPageNum", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public Map getgoodBynameWithOutPageNum(goods good) {
+//        if (!checkParams(good)) {
+//            return goodsService.errorRespMap(respMap, "params not illegal");
+//        }
+        List<goods> goods = goodsService.getgoodlikename(good.getName());
+
+        if (goods == null || goods.size() <= 0) {
+            return goodsService.errorRespMap(respMap, "没有数据");
+        }
         for (goods good1 : goods) {
             List<String> list = goodsImgService.getImgByGoodid(good1.getId());
             good1.setImgurl(goodsImgService.getImgByGoodid(good1.getId()));

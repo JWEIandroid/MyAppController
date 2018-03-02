@@ -58,6 +58,7 @@
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <mvc:resources location="/WEB-INF/assets/js/" mapping="/assets/js/**"/>
     <mvc:resources location="/WEB-INF/assets/js/" mapping="/js/userjs/**"/>
+    <mvc:resources location="/WEB-INF/js/goodjs/" mapping="/js/goodjs/**"/>
     <mvc:resources location="/WEB-INF/assets/img/" mapping="/assets/img/**"/>
     <mvc:resources location="/WEB-INF/assets/css/" mapping="/assets/css/**"/>
     <!--<mvc:resources location="/jsp/User/" mapping="/jsp/User/**"/>-->

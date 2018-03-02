@@ -20,5 +20,5 @@ public interface CommentRecordMapper extends BaseMapper<Comment> {
 
     List<Integer> selectGoodsIdByReceiverId(int receiverid);
 
-
+    List<Comment> list();
 }

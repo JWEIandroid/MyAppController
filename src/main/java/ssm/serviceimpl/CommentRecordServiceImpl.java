@@ -42,4 +42,9 @@ public class CommentRecordServiceImpl extends BaseServiceImpl<Comment> implement
     public List<Integer> selectGoodsIdByReceiverId(int receiverid) {
         return commentRecordMapper.selectGoodsIdByReceiverId(receiverid);
     }
+
+    @Override
+    public List<Comment> list() {
+        return commentRecordMapper.list();
+    }
 }

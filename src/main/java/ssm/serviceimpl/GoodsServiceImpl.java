@@ -60,10 +60,13 @@ public class GoodsServiceImpl extends BaseServiceImpl<goods> implements GoodsSer
         return goodMapper.list_discovery();
     }
 
+    public List<goods> list_withoutstatus() {
+        return goodMapper.list_withoutstatus();
+    }
+
     public goods getgoodsByGoodId(int id) {
         return goodMapper.getgoodsByGoodId(id);
     }
-
 
 
 }

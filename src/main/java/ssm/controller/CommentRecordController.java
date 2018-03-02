@@ -13,6 +13,7 @@ import ssm.service.CommentRecordService;
 import ssm.service.GoodsImgService;
 import ssm.service.GoodsService;
 import ssm.service.UserService;
+import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,26 @@ public class CommentRecordController extends BaseController<Comment> {
         return commentRecordService.successRespMap(respMap, "成功", result);
     }
 
+
+    /**
+     * 删除一条评论
+     *
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deleteById")
+    public Map deleteById(int id) {
+
+        Comment comment = commentRecordService.get(id);
+        if (comment == null){
+            return commentRecordService.errorRespMap(respMap, "评论不存在");
+        }
+        commentRecordService.delete(id);
+        return commentRecordService.successRespMap(respMap, "成功", result);
+    }
+
+
     /**
      * 保存一条评论
      *
@@ -122,7 +143,7 @@ public class CommentRecordController extends BaseController<Comment> {
         if (goodsid_list == null || goodsid_list.size() <= 0) {
             return commentRecordService.successRespMap(respMap, "error", new ArrayList<Integer>());
         }
-        return commentRecordService.successRespMap(respMap,"success",goodsid_list);
+        return commentRecordService.successRespMap(respMap, "success", goodsid_list);
 
     }
 
@@ -156,6 +177,42 @@ public class CommentRecordController extends BaseController<Comment> {
             return commentRecordService.successRespMap(respMap, "error--cause by result is null or no data", new ArrayList<Comment>());
         }
         return goodsService.successRespMap(respMap, "success", result);
+
+    }
+
+    //查看全部评论
+    @ResponseBody
+    @RequestMapping("getAllComment")
+    public Map selectAllComment() {
+
+        List<Comment> result = commentRecordService.list();
+
+        if (result == null || result.size() <= 0) {
+            return commentRecordService.errorRespMap(respMap, "没有数据");
+        }
+//
+        for (Comment comment : result) {
+            if (comment.getUserid() != 0) {
+                User user1 = userService.getuserById(comment.getUserid());
+                if (user1 != null) {
+                    comment.setUser(user1);
+                }
+            }
+            if (comment.getReceiverid() != 0) {
+                User receiver = userService.getuserById(comment.getReceiverid());
+                if (receiver != null) {
+                    comment.setReceiver(receiver);
+                }
+            }
+            if (comment.getGoodsid() != 0) {
+                goods goods = goodsService.getgoodsByGoodId(comment.getGoodsid());
+                if (goods != null) {
+                    comment.setGoods(goods);
+                }
+            }
+        }
+
+        return commentRecordService.successRespMap(respMap, "success", result);
 
     }
 

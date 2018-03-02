@@ -39,6 +39,11 @@
         select * from  goods where status='在库'  order by update_time desc
     </select>
 
+    <!--查询全部商品-->
+    <select id="list_withoutstatus" resultType="ssm.model.goods" parameterType="map">
+        select * from goods   order by update_time desc
+    </select>
+
 
     <!--查询一个用户全部商品-->
     <select id="getgoodsByUserid" parameterType="_int" resultType="ssm.model.goods">

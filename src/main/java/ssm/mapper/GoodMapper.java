@@ -28,5 +28,10 @@ public interface GoodMapper extends BaseMapper<goods> {
 
     List<goods> list_discovery();
 
+
+    List<goods> list_withoutstatus();
+
+
+
 }
 

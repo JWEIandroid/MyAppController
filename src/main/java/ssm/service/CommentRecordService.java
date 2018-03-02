@@ -19,6 +19,5 @@ public interface CommentRecordService extends BaseService<Comment> {
 
     List<Integer> selectGoodsIdByReceiverId(int receiverid);
 
-
-
+    List<Comment> list();
 }
