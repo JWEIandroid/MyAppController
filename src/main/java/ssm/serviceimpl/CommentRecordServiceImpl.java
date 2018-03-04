@@ -47,4 +47,24 @@ public class CommentRecordServiceImpl extends BaseServiceImpl<Comment> implement
     public List<Comment> list() {
         return commentRecordMapper.list();
     }
+
+    public List<Comment> QueryByContent(String content) {
+        return commentRecordMapper.QueryByContent(content);
+    }
+
+    public void deleteWithId(int id) {
+        commentRecordMapper.deleteWithId(id);
+    }
+
+    @Override
+    public void update(Comment comment) {
+        commentRecordMapper.update(comment);
+    }
+
+    @Override
+    public Comment get(int id) {
+        return commentRecordMapper.get(id);
+    }
+
+
 }

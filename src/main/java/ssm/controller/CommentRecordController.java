@@ -96,13 +96,31 @@ public class CommentRecordController extends BaseController<Comment> {
      */
     @ResponseBody
     @RequestMapping("/deleteById")
-    public Map deleteById(int id) {
+    public Map deleteById(@Param("id") int id) {
 
         Comment comment = commentRecordService.get(id);
-        if (comment == null){
+        if (comment == null) {
             return commentRecordService.errorRespMap(respMap, "评论不存在");
         }
         commentRecordService.delete(id);
+        return commentRecordService.successRespMap(respMap, "成功", result);
+    }
+
+    /**
+     * 删除一条评论
+     *
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/deleteByIds")
+    public Map deleteByIds(@Param("id") int id) {
+
+        Comment comment = commentRecordService.get(id);
+        if (comment == null) {
+            return commentRecordService.errorRespMap(respMap, "评论不存在");
+        }
+        commentRecordService.deleteWithId(id);
         return commentRecordService.successRespMap(respMap, "成功", result);
     }
 
@@ -214,6 +232,87 @@ public class CommentRecordController extends BaseController<Comment> {
 
         return commentRecordService.successRespMap(respMap, "success", result);
 
+    }
+
+
+    /**
+     * 更新一条评论
+     *
+     * @param comment
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("UpdateOneComment")
+    public Map UpdateOneComment(Comment comment) {
+
+        if (comment.getId() == 0) {
+            return commentRecordService.errorRespMap(respMap, "评论Id为0");
+        }
+        Comment comment1 = commentRecordService.get(comment.getId());
+        if (comment1 == null) {
+            return commentRecordService.errorRespMap(respMap, "评论不存在");
+        }
+
+        if (comment.getType() != 0) {
+            comment1.setType(comment.getType());
+        }
+        if (comment.getGoodsid() != 0) {
+            comment1.setGoodsid(comment.getGoodsid());
+        }
+        if (comment.getUserid() != 0) {
+            comment1.setUserid(comment.getUserid());
+        }
+        if (comment.getContent() != null) {
+            comment1.setContent(comment.getContent());
+        }
+        if (comment.getDate() != null) {
+            comment1.setDate(comment.getDate());
+        }
+        if (comment.getLike() != 0) {
+            comment1.setLike(comment.getLike());
+        }
+        commentRecordService.update(comment1);
+        return commentRecordService.successRespMap(respMap, "更新成功", "");
+
+    }
+
+    /**
+     * 根据内容查询一条评论
+     *
+     * @param content
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("Query")
+    public Map QueryOneCommentByContent(String content) {
+        if (content == null) {
+            return commentRecordService.errorRespMap(respMap, "评论内容为空");
+        }
+        List<Comment> comment1 = commentRecordService.QueryByContent(content);
+        if (comment1 == null || comment1.size() <= 0) {
+            comment1 = new ArrayList<Comment>();
+            return commentRecordService.successRespMap(respMap, "没有数据", comment1);
+        }
+
+        for (Comment comment : comment1) {
+            if (comment.getGoodsid() == 0) {
+                break;
+            }
+            goods good = goodsService.getgoodsByGoodId(comment.getGoodsid());
+            if (good != null) {
+                comment.setGoods(good);
+            }
+            if (comment.getUserid()!=0){
+                User user = userService.getuserById(comment.getUserid());
+                comment.setUser(user);
+            }
+            if (comment.getReceiverid()!=0){
+                User receiver = userService.getuserById(comment.getReceiverid());
+                comment.setReceiver(receiver);
+            }
+        }
+
+        return commentRecordService.successRespMap(respMap, "查询评论成功", comment1);
     }
 
 

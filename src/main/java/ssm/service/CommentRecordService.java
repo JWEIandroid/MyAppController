@@ -20,4 +20,11 @@ public interface CommentRecordService extends BaseService<Comment> {
     List<Integer> selectGoodsIdByReceiverId(int receiverid);
 
     List<Comment> list();
+
+    void update(Comment comment);
+
+    List<Comment> QueryByContent(String content);
+
+    void deleteWithId(int id);
+
 }

@@ -6,16 +6,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
-    String Password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
-    String Name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-    String Tel = new String(request.getParameter("tel").getBytes("iso-8859-1"), "utf-8");
-    String Adress = new String(request.getParameter("adress").getBytes("iso-8859-1"), "utf-8");
-    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
-    String Id = new String(request.getParameter("id").getBytes("iso-8859-1"), "utf-8");
-
-
-
+    String Name = request.getParameter("name");
+    String Adress = request.getParameter("adress");
+    String Sex = request.getParameter("sex");
+    String Password = request.getParameter("password");
+    String Tel = request.getParameter("tel");
+    String Id = request.getParameter("id");
+    //    String Password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
+//    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
+    //    String Name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+//    String Adress = new String(request.getParameter("adress").getBytes("iso-8859-1"), "utf-8");
+//    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
+//    String Tel = new String(request.getParameter("tel").getBytes("iso-8859-1"), "utf-8");
+//    String Id = new String(request.getParameter("id").getBytes("iso-8859-1"), "utf-8");
 %>
 
 <!DOCTYPE html>
@@ -28,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/js/userjs/user.js"></script>
+    <script type="text/javascript" src="/js/userjs/user.js" charset="UTF-8"></script>
 
 
     <style type="text/css">
@@ -60,11 +65,11 @@
 
         <tr>
             <td width="10%" class="tableleft">id</td>
-            <td><input  id="id" type="text" name="id" value="<%= Id%>"/></td>
+            <td><input id="id" type="text" name="id" value="<%= Id%>"/></td>
         </tr>
         <tr>
             <td width="10%" class="tableleft">登录名</td>
-            <td><input  id="tel" type="text" name="tel" value="<%= Tel%>"/></td>
+            <td><input id="tel" type="text" name="tel" value="<%= Tel%>"/></td>
         </tr>
         <tr>
             <td class="tableleft">密码</td>
@@ -87,7 +92,7 @@
             <td>
                 <button type="button" class="btn btn-primary" onclick="updateUserData()">保存</button> &nbsp;&nbsp;
                 <button type="button" class="btn btn-success" name="backid" id="backid" onclick="custom_close()">返回列表
-            </button>
+                </button>
             </td>
         </tr>
     </table>

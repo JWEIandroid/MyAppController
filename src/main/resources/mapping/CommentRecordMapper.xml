@@ -29,6 +29,10 @@
       DELETE FROM commentrecord WHERE userid = #{userid} AND date  = #{date}
     </delete>
 
+    <delete id="deleteWithId" parameterType="map">
+        DELETE FROM commentrecord WHERE id = #{id}
+    </delete>
+
 
 
 
@@ -38,5 +42,27 @@
          VALUES
          (#{id},#{userid},#{goodsid},#{receiverid},#{date},#{content},#{type})
     </insert>
+
+    <update id="update" parameterType="ssm.model.Comment">
+        update commentrecord set id=#{id},
+        userid= #{userid},
+        goodsid= #{goodsid},
+        receiverid= #{receiverid},
+        content= #{content},
+        type= #{type},
+        date = #{date}
+        where id= #{id}
+    </update>
+
+    <select id="QueryByContent" parameterType="map" resultType="ssm.model.Comment">
+        SELECT * from commentrecord WHERE content  LIKE CONCAT(CONCAT('%', #{content}), '%')
+    </select>
+
+
+    <select id="get" parameterType="map" resultType="ssm.model.Comment">
+        SELECT * from commentrecord WHERE id = #{id}
+    </select>
+
+
 
 </mapper>

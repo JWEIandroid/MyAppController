@@ -9,11 +9,17 @@
 <%
 
     //Manager Data
-    String Good_Id = new String(request.getParameter("goodid").getBytes("iso-8859-1"), "utf-8");
-    String Good_Name = new String(request.getParameter("goodname").getBytes("iso-8859-1"), "utf-8");
-    String Good_Price = new String(request.getParameter("goodprice").getBytes("iso-8859-1"), "utf-8");
-    String Good_Createtime_ = new String(request.getParameter("good_createtime").getBytes("iso-8859-1"), "utf-8");
-    String Good_Status = new String(request.getParameter("goodstatus").getBytes("iso-8859-1"), "utf-8");
+//    String Good_Id = new String(request.getParameter("goodid").getBytes("iso-8859-1"), "utf-8");
+//    String Good_Name = new String(request.getParameter("goodname").getBytes("iso-8859-1"), "utf-8");
+//    String Good_Price = new String(request.getParameter("goodprice").getBytes("iso-8859-1"), "utf-8");
+//    String Good_Createtime_ = new String(request.getParameter("good_createtime").getBytes("iso-8859-1"), "utf-8");
+//    String Good_Status = new String(request.getParameter("goodstatus").getBytes("iso-8859-1"), "utf-8");
+    String Good_Id =request.getParameter("goodid");
+    String Good_Name = request.getParameter("goodname");
+    String Good_Price = request.getParameter("goodprice");
+    String Good_Createtime_ = request.getParameter("good_createtime");
+    String Good_Status =request.getParameter("goodstatus");
+
 
 
 %>

@@ -21,14 +21,11 @@ function loadUserData() {
                 var result = d.data;
                 con = "";
                 $.each(result, function (index, item) {
-                    // con += "<li>姓名：" + item.name + "</li>";
-                    // con += "<li>电话：" + item.tel + "</li>";
                     con = "<tr>"
                         + "<td>" + item.id + "</td>"
-                        + "<td>" + item.name + "</td>"
                         + "<td>" + item.tel + "</td>"
+                        + "<td>" + item.name + "</td>"
                         + "<td>" + item.update_time + "</td>"
-                        // + "<td><a href='/jsp/User/user_edit.jsp?id=<%= item.id>+'>编辑</a></td>"
                         + "<td><a href =\"" +
                         "/jsp/User/user_edit.jsp?" +
                         "id=" + item.id +
@@ -36,8 +33,8 @@ function loadUserData() {
                         "&name=" + item.name +
                         "&tel=" + item.tel +
                         "&adress=" + item.adress +
-                        "&sex=" + item.sex +
-                        "\">编辑</a>" +
+                        "&sex=" + item.sex + "\">" +
+                        "编辑</a>" +
                         "<a onclick='delete_item(0," + item.id + ")'>删除" + "</a>" +
                         "</td>" + "</tr>";
                     $('#User_tbody').append(con);
@@ -204,7 +201,7 @@ function QueryUser(type) {
                         "&adress=" + d.data.adress +
                         "&sex=" + d.data.sex +
                         "\">编辑</a>" +
-                        "<a onclick='delete_item(0," + d.data.id + ")'>删除" + "</a>" +
+                        "<a onclick='delete_item(0," + d.data.id + ")' >删除" + "</a>" +
                         "</td>" + "</tr>";
                     $('#User_tbody').append(con);
                 } else {
@@ -269,7 +266,11 @@ function custom_close() {
     javascript:history.go(-1);
 };
 
-
+/**
+ * 删除用户/管理员
+ * @param type  0用户  1管理员
+ * @param Id
+ */
 function delete_item(type, Id) {
 
 
@@ -306,7 +307,7 @@ function delete_item(type, Id) {
                 table_user.parent().parent().remove();
             },
             error: function () {
-                // alert("error");
+                alert("服务器出错啦，cause By user.js----Del_item");
             }
         });
 
@@ -316,6 +317,24 @@ function delete_item(type, Id) {
 }
 
 
+//添加用户
+$(".table").on('click','.add',function(){
+    var id = $(this).val();
+    // $.ajax({
+    //     url:"../user/getUserInfo",
+    //     data:{"id":id},
+    //     dataType:'json',
+    //     async:false,
+    //     type:'post',
+    //     success:function(data){
+    //         $('.update-id').val(data.data.id);
+    //         $('.add_username').val(data.data.username);
+    //         $('.password').val(data.data.password);
+    //         $('.name').val(data.data.name);
+    //     }
+    // });
+    $('#modal-table-update').modal('show');
+});
 
 
 
