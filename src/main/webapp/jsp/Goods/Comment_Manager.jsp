@@ -4,10 +4,10 @@
 <html>
 <body>
 <form class="form-inline definewidth m20">
-    留言板：
-    <input type="text" name="message_content" id="message_content" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
-    <button type="button" class="btn btn-primary" onclick="QueryMsg()">查询</button>&nbsp;&nbsp;
-    <button type="button" class="btn btn-success" id="addnew">新增留言</button>
+    评论内容：
+    <input type="text" name="comment_content" id="comment_content" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" onclick="QueryComment()">查询</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-success" id="addnew">新增用户</button>
 </form>
 <table class="table table-bordered table-hover definewidth m10"
        id="table_user"
@@ -15,15 +15,14 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>用户</th>
-        <th>留言人</th>
-        <th>留言内容</th>
-        <th>留言时间</th>
-        <th>操作</th>
+        <th>评论内容</th>
+        <th>评论人</th>
+        <th>商品名字</th>
+        <th>评论时间</th>
     </tr>
     </thead>
 
-    <tbody id="Message_tbody"></tbody>
+    <tbody id="Comment_tbody"></tbody>
 </table>
 </body>
 <head>
@@ -36,7 +35,7 @@
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/ckform.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/userjs/msgboard.js"></script>
+    <script type="text/javascript" src="/js/goodjs/mcomment.js"></script>
 
 
 
@@ -62,16 +61,19 @@
     </style>
 </head>
 </html>
-
-
 <script>
     $(function () {
 
-        LoadAllMsg();
+        LoadAllComment();
+
+
+        $('#addnew').click(function () {
+
+            window.location.href = "add.html";
+        });
+
 
     });
-
-
 
     function del(id) {
 

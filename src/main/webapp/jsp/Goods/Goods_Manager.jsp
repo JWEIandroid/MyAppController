@@ -11,11 +11,22 @@
 <%--%>--%>
 <!DOCTYPE html>
 <html>
+<head>
+</head>
+
+<style>
+    a {
+        color: #0088cc;
+        text-decoration: none;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+</style>
 <body>
 <form class="form-inline definewidth m20" >
     商品名称：
     <input type="text" name="goodname" id="goodname"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
-    <button type="button" class="btn btn-primary" onclick="QueryGoods($('goodname').val())">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增用户</button>
+    <button type="button" class="btn btn-primary" onclick="QueryGoods($('#goodname').val())">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增用户</button>
 </form>
 <table class="table table-bordered table-hover definewidth m10"
        id="table_goods"
@@ -74,10 +85,6 @@
 
         LoadAllGoods();''
 
-        $('#addnew').click(function(){
-
-            window.location.href="add.html";
-        });
 
 
     });

@@ -17,6 +17,10 @@ public interface MessageBoardService extends BaseService<MessageBoard> {
 
     List<Integer> selectWriter(MessageBoard messageBoard);
 
+    List<MessageBoard> list();
+    void update(MessageBoard messageBoard);
+    List<MessageBoard> selectmsgbycontent(String content);
+    void deletebyid(int id);
 
-
+    MessageBoard get(int id);
 }

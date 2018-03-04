@@ -16,6 +16,11 @@ public class MessageBoardServiceImpl extends BaseServiceImpl<MessageBoard> imple
     MessageBoardMapper messageBoardMapper;
 
     @Override
+    public MessageBoard get(int id) {
+        return messageBoardMapper.get(id);
+    }
+
+    @Override
     public void save(MessageBoard messageBoard) {
         messageBoardMapper.save(messageBoard);
 
@@ -31,5 +36,23 @@ public class MessageBoardServiceImpl extends BaseServiceImpl<MessageBoard> imple
 
     public List<Integer> selectWriter(MessageBoard messageBoard) {
         return messageBoardMapper.selectWriter(messageBoard);
+    }
+
+    @Override
+    public List<MessageBoard> list() {
+        return  messageBoardMapper.list();
+    }
+
+    @Override
+    public void update(MessageBoard messageBoard) {
+       messageBoardMapper.update(messageBoard);
+    }
+
+    public List<MessageBoard> selectmsgbycontent(String content) {
+        return messageBoardMapper.selectmsgbycontent(content);
+    }
+
+    public void deletebyid(int id) {
+      messageBoardMapper.deletebyid(id);
     }
 }

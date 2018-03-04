@@ -63,7 +63,7 @@
                     text: '业务管理',
                     items: [
                         {id: '9', text: '商品管理', href: '/jsp/Goods/Goods_Manager.jsp'},
-                        {id: '10', text: '评论管理', href: '/jsp/User/Comment_Manager.jsp'},
+                        {id: '10', text: '评论管理', href: '/jsp/Goods/Comment_Manager.jsp'},
                         {id: '11', text: '留言板管理', href: '/jsp/User/MsgBoard_manager.jsp'},
                         {id: '12', text: '统计业务', href: '/jsp/User/Tongji_manager.jsp'}
                     ]

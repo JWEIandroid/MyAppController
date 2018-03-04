@@ -1,5 +1,6 @@
 package ssm.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import ssm.model.User;
 import ssm.service.MessageBoardService;
 import ssm.service.UserService;
 
+import javax.sound.midi.Receiver;
 import java.util.*;
 
 
@@ -101,6 +103,117 @@ public class MessageBoardController extends BaseController<MessageBoard> {
         messageBoardService.save(messageBoard);
         return messageBoardService.successRespMap(respMap, "success", "");
     }
+
+
+
+
+    /**
+     * 查询全部留言信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("list")
+    public Map List() {
+
+        List<MessageBoard> result = messageBoardService.list();
+        if (result == null || result.size()<=0){
+            result = new ArrayList<MessageBoard>();
+            return messageBoardService.successRespMap(respMap, "success", result);
+        }
+
+        for (MessageBoard messageBoard:result){
+            if (messageBoard.getUserid()!=0){
+                User user = userService.getuserById(messageBoard.getUserid());
+                messageBoard.setUser(user);
+            }
+            if (messageBoard.getReceiverid()!=0){
+                User receiver = userService.getuserById(messageBoard.getReceiverid());
+                messageBoard.setReceiver(receiver);
+             }
+        }
+        return messageBoardService.successRespMap(respMap, "success", result);
+    }
+
+    /**
+     * 更新全部留言信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("update")
+    public Map Update(MessageBoard messageBoard) {
+
+        MessageBoard messageBoard1 = messageBoardService.get(messageBoard.getId());
+        if (messageBoard1 ==null){
+            return messageBoardService.errorRespMap(respMap,"没有数据");
+        }
+//        if (messageBoard.getReceiverid()!=0){
+//            messageBoard.setReceiverid(messageBoard.getReceiverid());
+//        }
+//        if (messageBoard.getUserid()!=0){
+//            messageBoard.setUserid(messageBoard.getUserid());
+//        }
+        if (messageBoard.getContent()!=null){
+            messageBoard1.setContent(messageBoard.getContent());
+        }
+        messageBoardService.update(messageBoard1);
+        return messageBoardService.successRespMap(respMap, "success", "");
+    }
+
+    /**
+     * 根据留言id删除留言记录
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("deletebyid")
+    public Map DeleteById(@Param("id") int id){
+
+        if (id==0){
+            return messageBoardService.errorRespMap(respMap,"id = 0");
+        }
+        MessageBoard messageBoard = messageBoardService.get(id);
+        if (messageBoard ==null){
+            return messageBoardService.errorRespMap(respMap,"查询不到这条数据");
+        }
+        messageBoardService.deletebyid(id);
+        return messageBoardService.successRespMap(respMap,"删除成功","");
+    }
+
+
+
+    /**
+     * 根据留言内容查询留言记录
+     * @param content
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("querybycontent")
+    public Map QueryByContent(@Param("content") String content){
+
+        if (content==null){
+            return messageBoardService.errorRespMap(respMap,"查询内容不能为空");
+        }
+        List<MessageBoard> result = messageBoardService.selectmsgbycontent(content);
+        if (result == null || result.size()<=0){
+            result = new ArrayList<MessageBoard>();
+            return messageBoardService.successRespMap(respMap, "success", result);
+        }
+
+        for (MessageBoard messageBoard:result){
+            if (messageBoard.getUserid()!=0){
+                User user = userService.getuserById(messageBoard.getUserid());
+                messageBoard.setUser(user);
+            }
+            if (messageBoard.getReceiverid()!=0){
+                User receiver = userService.getuserById(messageBoard.getReceiverid());
+                messageBoard.setReceiver(receiver);
+            }
+        }
+        return messageBoardService.successRespMap(respMap, "success", result);
+    }
+
+
+
 
 
 }

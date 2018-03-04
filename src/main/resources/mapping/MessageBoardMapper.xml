@@ -19,11 +19,46 @@
         DELETE FROM messageboard WHERE userid = #{userid} AND receiverid  = #{receiverid} OR  (userid  =#{receiverid} AND receiverid = #{userid})
     </delete>
 
+
+    <!--添加留言-->
     <insert id="save" parameterType="ssm.model.MessageBoard">
         INSERT  INTO messageboard
         (id,userid,receiverid,date,content,type)
         VALUES
         (#{id},#{userid},#{receiverid},#{date},#{content},#{type})
     </insert>
+
+    <!--查询全部留言-->
+    <select id="list"   resultType="ssm.model.MessageBoard">
+        SELECT * from messageboard
+    </select>
+
+    <!--根据留言内容查询留言-->
+    <select id="selectmsgbycontent" parameterType="map" resultType="ssm.model.MessageBoard">
+        SELECT * from messageboard WHERE content  LIKE CONCAT(CONCAT('%', #{content}), '%')
+    </select>
+
+    <!--根据id删除留言-->
+    <delete id="deletebyid" parameterType="_int">
+        DELETE FROM messageboard WHERE id = #{id}
+    </delete>
+
+    <!--根据Id更新留言-->
+    <update id="update" parameterType="map">
+        UPDATE messageboard SET
+        id = #{id},
+        userid = #{userid},
+        receiverid = #{receiverid},
+        date = #{date},
+        content = #{content},
+        type = #{type}
+        WHERE  id = #{id}
+
+    </update>
+
+    <select id="get" parameterType="_int" resultType="ssm.model.MessageBoard">
+        SELECT * from messageboard WHERE id = #{id}
+    </select>
+
 
 </mapper>

@@ -42,11 +42,14 @@ function LoadAllGoods() {
 //查询一条商品信息
 function QueryGoods(name) {
 
+    console.log(name);
 
     $.ajax({
         type: "post",
         url: "http://127.0.0.1:8080/goods/getgoodBynameWithOutPageNum",
         dataType: "json",
+        data:
+        "name="+name,
         success: function (d) {
             $('#Goods_tbody').empty();
             console.log(d);
@@ -116,6 +119,7 @@ function UpdateGoods(id) {
             +"&price_sale="+price_sale,
             success: function (d) {
                 alert(d.message);
+
             },
             error: function () {
                 alert("删除商品----服务器出问题啦");
