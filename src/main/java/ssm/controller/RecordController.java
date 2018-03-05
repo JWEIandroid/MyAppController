@@ -94,6 +94,7 @@ public class RecordController extends BaseController<Buyrecord> {
                 }
 
                 for (salerecord salerecord : list_sale) {
+
                     User user_shop = userService.getuserById(salerecord.getUserid());
                     User user_sale = userService.getuserById(salerecord.getUser_sale_id());
                     shouhuomsg shuohuomsg = shouHuoMsgService.getbyid(salerecord.getShouhuomsgid());

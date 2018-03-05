@@ -102,7 +102,7 @@ public class UserController extends BaseController<User> {
         }
         user.setCreate_time(System.currentTimeMillis() + "");
         user.setUpdate_time(System.currentTimeMillis() + "");
-        user.setHeadimg("http://" + Constant.IP + ":8080/user/download?filename=" + "normal.png");
+        user.setHeadimg("file/download/?filename=normal.png&type=0");
         userService.save(user);
         return userService.successRespMap(respMap, "注册成功", user);
 
