@@ -36,5 +36,9 @@
         values (#{id},#{account},#{password})
     </insert>
 
+    <select id="getByAccountNPassword" parameterType="map" resultType="ssm.model.manager">
+        SELECT * FROM manager WHERE account = #{account} AND password = #{password}
+    </select>
+
 
 </mapper>

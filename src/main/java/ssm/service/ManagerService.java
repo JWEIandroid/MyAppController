@@ -15,4 +15,7 @@ public interface ManagerService extends BaseService<manager>{
     manager get(int id);
 
     List<manager> list();
+
+    manager getByAccountNPassword(String account,String password);
+
 }

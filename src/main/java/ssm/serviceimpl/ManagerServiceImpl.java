@@ -33,12 +33,17 @@ public class ManagerServiceImpl extends BaseServiceImpl<manager> implements Mana
 
     @Override
     public manager get(int id) {
-        return  managerMapper.get(id);
+        return managerMapper.get(id);
 
     }
 
     @Override
     public List<manager> list() {
         return managerMapper.list();
+    }
+
+    //后台登陆接口调用
+    public manager getByAccountNPassword(String account, String password) {
+        return managerMapper.getByAccountNPassword(account, password);
     }
 }

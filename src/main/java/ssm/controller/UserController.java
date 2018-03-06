@@ -343,15 +343,15 @@ public class UserController extends BaseController<User> {
 
         manager manager1 = managerServicel.get(manager.getId());
         if (manager != null) {
-            if (manager.getAccount()!=null){
+            if (manager.getAccount() != null) {
                 manager1.setAccount(manager.getAccount());
             }
-            if (manager.getPassword()!=null){
+            if (manager.getPassword() != null) {
                 manager1.setPassword(manager.getPassword());
             }
             managerServicel.update(manager1);
             return managerServicel.successRespMap(respMap, "更新成功", "");
-        }else{
+        } else {
             return managerServicel.errorRespMap(respMap, "更新失败 管理员不存在");
         }
     }
@@ -367,6 +367,19 @@ public class UserController extends BaseController<User> {
     }
 
 
+    //    ==================================后台系统登陆接口
+    @ResponseBody
+    @RequestMapping("managerlogin")
+    public Map managerlogin(@Param("account") String account, @Param("password") String password) {
+
+        manager manager_result = managerServicel.getByAccountNPassword(account, password);
+        if (manager_result == null) {
+            return managerServicel.errorRespMap(respMap, "管理员不存在");
+        } else {
+            return managerServicel.successRespMap(respMap, "登陆成功", manager_result);
+        }
+
+    }
 
 
 }

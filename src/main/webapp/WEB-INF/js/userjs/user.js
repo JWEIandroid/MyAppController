@@ -131,7 +131,6 @@ function updateUserData() {
 
 //更改管理员数据
 updateManagerData = function () {
-    alert("");
 
     var Id_Manager = $("#id").val();
     var Account = encodeURI($("#tel").val());
@@ -148,10 +147,8 @@ updateManagerData = function () {
         // async: true,
         success: function (result) {
             console.log("服务器响应---");
-            console.log(result);
             // alert(d.data.id);
             if (result.error_code == "0") {
-                alert("修改成功");
                 alert(result.message);
             } else {
                 alert("error message" + result.message);

@@ -27,8 +27,8 @@ function Loginnew()
 
     $.ajax({
         type: "post",
-        data: "tel=" + UserName + "&password=" + Psw,
-        url: "http://127.0.0.1:8080/user/login",
+        data: "account=" + UserName + "&password=" + Psw,
+        url: "http://localhost:8080/user/managerlogin",
         dataType: "json",
         // async: true,
         success: function (d) {
