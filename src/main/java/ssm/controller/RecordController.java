@@ -337,4 +337,26 @@ public class RecordController extends BaseController<Buyrecord> {
 
     }
 
+    @ResponseBody
+    @RequestMapping(value = "getincomeNpay", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public Map queryIncomeNpay() {
+
+        List<MoneyResponse> list = new ArrayList<MoneyResponse>();
+
+        List<User> users = userService.list();
+        if (users == null || users.size() < 0) {
+            return reportRecordService.successRespMap(respMap, "error", list);
+        }
+        for (User user : users) {
+            float pay = buyRecordService.selectAll(user.getId());
+            float income = saleRecordService.selectAll(user.getId());
+            MoneyResponse moneyResponse = new MoneyResponse();
+            moneyResponse.setIncome(income + "");
+            moneyResponse.setPay(pay + "");
+            moneyResponse.setUsername(user.getName());
+            list.add(moneyResponse);
+        }
+        return reportRecordService.successRespMap(respMap, "error", list);
+    }
 }
+

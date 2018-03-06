@@ -105,6 +105,8 @@
         AND
         salerecord.goodsid = goods.id
     </select>
+
+
     <!--查询用户收入记录总额-->
     <select id="selectAll" parameterType="_int" resultType="java.lang.Float">
         SELECT IFNULL(sum(price_sale),0) FROM goods,salerecord WHERE
