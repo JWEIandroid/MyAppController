@@ -148,7 +148,7 @@ public class UserController extends BaseController<User> {
 
         User user1 = userService.getuserById(user.getId());
         if (user1 == null) {
-            return userService.errorRespMap(respMap, "user not exist in db");
+            return userService.successRespMap(respMap, "用户不存在", new User());
         }
 
         String new_name = user.getName();
@@ -157,7 +157,6 @@ public class UserController extends BaseController<User> {
         String new_sex = user.getSex();
         String new_desc = user.getDescription();
         String new_tel = user.getTel();
-        int new_id = user.getId();
 
 
         if (new_name != null) {
@@ -175,9 +174,7 @@ public class UserController extends BaseController<User> {
         if (new_sex != null) {
             user1.setSex(new_sex);
         }
-        if (new_id != 0) {
-            user1.setId(new_id);
-        }
+
         if (new_tel != null) {
             user1.setTel(new_tel);
         }

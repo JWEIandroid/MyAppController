@@ -7,7 +7,7 @@
     评论内容：
     <input type="text" name="comment_content" id="comment_content" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
     <button type="button" class="btn btn-primary" onclick="QueryComment()">查询</button>&nbsp;&nbsp;
-    <button type="button" class="btn btn-success" id="addnew">新增用户</button>
+    <button type="button" class="btn btn-success" id="addnew">新增评论</button>
 </form>
 <table class="table table-bordered table-hover definewidth m10"
        id="table_user"
