@@ -25,7 +25,8 @@
 <form class="table form-inline definewidth m20" >
     用户名称：
     <input type="text" name="username" id="username"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
-    <button type="button" class="btn btn-primary" onclick="QueryUser(<%= Type%>)">查询</button>&nbsp;&nbsp; <button type="button" class="add btn btn-success" id="addnew">新增用户</button>
+    <button type="button" class="btn btn-primary" onclick="QueryUser(<%= Type%>)">查询</button>&nbsp;&nbsp;
+    <%--<button type="button" class="add btn btn-success" id="addnew">新增用户</button>--%>
 </form>
 <table class="table table-bordered table-hover definewidth m10"
        id="table_user"

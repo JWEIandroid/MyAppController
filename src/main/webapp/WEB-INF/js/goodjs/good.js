@@ -7,6 +7,7 @@ function LoadAllGoods() {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/goods/getAllGoodsWithOutPageNum",
         url: "http://127.0.0.1:8080/goods/getAllGoodsWithOutPageNum",
         dataType: "json",
         success: function (d) {
@@ -17,17 +18,17 @@ function LoadAllGoods() {
                 rows += "<td>" + d.data[i].status + "</td>"
                 rows += "<td>" + d.data[i].price_sale + "</td>"
                 rows += "<td>" + d.data[i].user.name + "</td>"
-                rows += "<td>" + d.data[i].create_time + "</td>"
+                rows += "<td>" + ToLocalString(d.data[i].create_time) + "</td>"
                 rows += "<td>" +
                     "<a href =\"" + "/jsp/Goods/Goods_edit.jsp?" +
                     "goodid=" + d.data[i].id +
                     "&goodname=" + d.data[i].name +
                     "&goodprice=" + d.data[i].price_sale +
-                    "&good_createtime=" + d.data[i].create_time +
-                    "&goodstatus=" + d.data[i].status+
+                    "&good_createtime=" + ToLocalString(d.data[i].create_time) +
+                    "&goodstatus=" + d.data[i].status +
                     "\">编辑" +
                     "</a>" +
-                    "<a onclick='DelGoods(" +d.data[i].id + ")'>删除" + "</a>" +
+                    "<a onclick='DelGoods(" + d.data[i].id + ")'>删除" + "</a>" +
                     "</td></tr>"
                 $('#Goods_tbody').append(rows);
             }
@@ -46,10 +47,11 @@ function QueryGoods(name) {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/goods/getgoodBynameWithOutPageNum",
         url: "http://127.0.0.1:8080/goods/getgoodBynameWithOutPageNum",
         dataType: "json",
         data:
-        "name="+name,
+        "name=" + name,
         success: function (d) {
             $('#Goods_tbody').empty();
             console.log(d);
@@ -58,17 +60,18 @@ function QueryGoods(name) {
                 rows += "<td>" + d.data[i].name + "</td>"
                 rows += "<td>" + d.data[i].status + "</td>"
                 rows += "<td>" + d.data[i].price_sale + "</td>"
-                rows += "<td>" + d.data[i].create_time + "</td>"
+                rows += "<td>" + d.data[i].user.name + "</td>"
+                rows += "<td>" + ToLocalString(d.data[i].create_time) + "</td>"
                 rows += "<td>" +
                     "<a href =\"" + "/jsp/Goods/Goods_edit.jsp?" +
                     "goodid=" + d.data[i].id +
                     "&goodname=" + d.data[i].name +
                     "&goodprice=" + d.data[i].price_sale +
-                    "&good_createtime=" + d.data[i].create_time +
+                    "&good_createtime=" + ToLocalString(d.data[i].create_time) +
                     "&goodstatus=" + d.data[i].status +
                     "\">编辑" +
                     "</a>" +
-                    "<a onclick='DelGoods(" +d.data[i].id + ")'>删除" + "</a>" +
+                    "<a onclick='DelGoods(" + d.data[i].id + ")'>删除" + "</a>" +
                     "</td></tr>"
                 $('#Goods_tbody').append(rows);
             }
@@ -86,6 +89,7 @@ function DelGoods(id) {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080:8080/goods/delwithid",
         url: "http://127.0.0.1:8080/goods/delwithid",
         dataType: "json",
         data: "id=" + id,
@@ -107,24 +111,25 @@ function UpdateGoods(id) {
     var create_time = $('#good_time').val();
     var price_sale = $('#good_price').val();
 
-        $.ajax({
-            type: "post",
-            url: "http://127.0.0.1:8080/goods/updategood",
-            dataType: "json",
-            data:
-            "name=" + name
-            +"&id="+id
-            +"&status="+status
-            +"&create_time="+create_time
-            +"&price_sale="+price_sale,
-            success: function (d) {
-                alert(d.message);
+    $.ajax({
+        type: "post",
+        // url: "http://123.207.26.152:8080/goods/updategood",
+        url: "http://127.0.0.1:8080/goods/updategood",
+        dataType: "json",
+        data:
+        "name=" + name
+        + "&id=" + id
+        + "&status=" + status
+        + "&create_time=" + create_time
+        + "&price_sale=" + price_sale,
+        success: function (d) {
+            alert(d.message);
 
-            },
-            error: function () {
-                alert("删除商品----服务器出问题啦");
-            }
-        });
+        },
+        error: function () {
+            alert("删除商品----服务器出问题啦");
+        }
+    });
 
 
 };
@@ -139,3 +144,10 @@ function custom_close() {
     javascript:history.go(-1);
 };
 
+
+function ToLocalString(d) {
+
+
+    return new Date(parseInt(d)).toLocaleString().replace(/:\d{1,2}$/,' ');
+
+}

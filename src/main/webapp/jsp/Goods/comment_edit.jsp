@@ -8,14 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    String Comment_Content = request.getParameter("comment_content");
-    String Comment_Time = request.getParameter("comment_time");
-    String Comment_ID = request.getParameter("commentid");
-//    String Comment_ID = new String(request.getParameter("commentid").getBytes("iso-8859-1"), "utf-8");
+//    String Comment_Content = request.getParameter("comment_content");
+//    String Comment_Time = request.getParameter("comment_time");
+//    String Comment_ID = request.getParameter("commentid");
+    String Comment_ID = new String(request.getParameter("commentid").getBytes("iso-8859-1"), "utf-8");
+    String Comment_Content = new String(request.getParameter("comment_content").getBytes("iso-8859-1"), "utf-8");
+    String Comment_Time  = new String(request.getParameter("comment_time").getBytes("iso-8859-1"), "utf-8");
 //    String Comment_GoodName = new String(request.getParameter("comment_goodname").getBytes("iso-8859-1"), "utf-8");
-//    String Comment_Content = new String(request.getParameter("comment_content").getBytes("iso-8859-1"), "utf-8");
 //    String Comment_UserName = new String(request.getParameter("comment_username").getBytes("iso-8859-1"), "utf-8");
-//    String Comment_Time  = new String(request.getParameter("comment_time").getBytes("iso-8859-1"), "utf-8");
 %>
 
 <!DOCTYPE html>

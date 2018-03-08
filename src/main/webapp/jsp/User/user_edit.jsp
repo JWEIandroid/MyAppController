@@ -8,19 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    String Name = request.getParameter("name");
-    String Adress = request.getParameter("adress");
-    String Sex = request.getParameter("sex");
-    String Password = request.getParameter("password");
-    String Tel = request.getParameter("tel");
-    String Id = request.getParameter("id");
-    //    String Password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
-//    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
-    //    String Name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-//    String Adress = new String(request.getParameter("adress").getBytes("iso-8859-1"), "utf-8");
-//    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
-//    String Tel = new String(request.getParameter("tel").getBytes("iso-8859-1"), "utf-8");
-//    String Id = new String(request.getParameter("id").getBytes("iso-8859-1"), "utf-8");
+//    String Name = request.getParameter("name");
+//    String Adress = request.getParameter("adress");
+//    String Sex = request.getParameter("sex");
+//    String Password = request.getParameter("password");
+//    String Tel = request.getParameter("tel");
+//    String Id = request.getParameter("id");
+    String Password = new String(request.getParameter("password").getBytes("iso-8859-1"), "utf-8");
+    String Name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+    String Adress = new String(request.getParameter("adress").getBytes("iso-8859-1"), "utf-8");
+    String Sex = new String(request.getParameter("sex").getBytes("iso-8859-1"), "utf-8");
+    String Tel = new String(request.getParameter("tel").getBytes("iso-8859-1"), "utf-8");
+    String Id = new String(request.getParameter("id").getBytes("iso-8859-1"), "utf-8");
 %>
 
 <!DOCTYPE html>
@@ -91,7 +90,7 @@
             <td class="tableleft"></td>
             <td>
                 <button type="button" class="btn btn-primary" onclick="updateUserData()">保存</button> &nbsp;&nbsp;
-                <button type="button" class="btn btn-success" name="backid" id="backid" onclick="custom_close()">返回列表
+                <button type="button" class="btn btn-success" name="backid" id="backid" >返回列表
                 </button>
             </td>
         </tr>
@@ -104,7 +103,7 @@
 <script>
     $(function () {
         $('#backid').click(function () {
-            // window.location.href = "{:U('User/index')}";
+            javascript:history.go(-1);
         });
 
     });

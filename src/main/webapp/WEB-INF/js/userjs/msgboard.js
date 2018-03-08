@@ -7,6 +7,7 @@ function LoadAllMsg() {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/message/list",
         url: "http://127.0.0.1:8080/message/list",
         dataType: "json",
         success: function (d) {
@@ -16,7 +17,7 @@ function LoadAllMsg() {
                 rows += "<td>" + d.data[i].user.name + "</td>"
                 rows += "<td>" + d.data[i].receiver.name + "</td>"
                 rows += "<td>" + d.data[i].content + "</td>"
-                rows += "<td>" + d.data[i].date + "</td>"
+                rows += "<td>" + ToLocalString(d.data[i].date) + "</td>"
                 rows += "<td>" +
                     "<a href =\"" + "/jsp/User/Msg_edit.jsp?" +
                     "msgid=" + d.data[i].id +
@@ -41,6 +42,7 @@ function QueryMsg() {
     var content = $('#message_content').val();
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/message/querybycontent",
         url: "http://127.0.0.1:8080/message/querybycontent",
         dataType: "json",
         data: "content=" + content,
@@ -52,7 +54,7 @@ function QueryMsg() {
                 rows += "<td>" + d.data[i].user.name + "</td>"
                 rows += "<td>" + d.data[i].receiver.name + "</td>"
                 rows += "<td>" + d.data[i].content + "</td>"
-                rows += "<td>" + d.data[i].date + "</td>"
+                rows += "<td>" + ToLocalString(d.data[i].date) + "</td>"
                 rows += "<td>" +
                     "<a href =\"" + "/jsp/User/Msg_edit.jsp?" +
                     "msgid=" + d.data[i].id +
@@ -77,6 +79,7 @@ function DelMessage(id) {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/message/deletebyid",
         url: "http://127.0.0.1:8080/message/deletebyid",
         dataType: "json",
         data: "id=" + id,
@@ -97,6 +100,7 @@ function UpdateMessage(id) {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/message/update",
         url: "http://127.0.0.1:8080/message/update",
         dataType: "json",
         data:
@@ -118,4 +122,11 @@ function AddComment() {
 
 };
 
+
+function ToLocalString(d) {
+
+
+    return new Date(parseInt(d)).toLocaleString().replace(/:\d{1,2}$/,' ');
+
+}
 

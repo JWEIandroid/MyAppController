@@ -9,7 +9,8 @@ function loadUserData() {
 
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:8080/user/userlist",
+        url: "http://123.207.26.152:8080/user/userlist",
+        // url: "http://127.0.0.1:8080/user/userlist",
         dataType: "json",
         // async: true,
         success: function (d) {
@@ -25,7 +26,7 @@ function loadUserData() {
                         + "<td>" + item.id + "</td>"
                         + "<td>" + item.tel + "</td>"
                         + "<td>" + item.name + "</td>"
-                        + "<td>" + item.update_time + "</td>"
+                        + "<td>" + ToLocalString(item.update_time) + "</td>"
                         + "<td><a href =\"" +
                         "/jsp/User/user_edit.jsp?" +
                         "id=" + item.id +
@@ -53,7 +54,8 @@ function loadManagerData() {
 
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:8080/user/ListManager",
+        url: "http://123.207.26.152:8080/user/ListManager",
+        // url: "http://127.0.0.1:8080/user/ListManager",
         dataType: "json",
         // async: true,
         success: function (d) {
@@ -103,7 +105,8 @@ function updateUserData() {
 
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:8080/user/updateuser",
+        url: "http://123.207.26.152:8080/user/updateuser",
+        // url: "http://127.0.0.1:8080/user/updateuser",
         data: "tel=" + tel
         + "&id=" + id
         + "&name=" + name
@@ -139,7 +142,8 @@ updateManagerData = function () {
 
     $.ajax({
         type: "post",
-        url: "http://127.0.0.1:8080/user/UpdateManager",
+        url: "http://123.207.26.152:8080/user/UpdateManager",
+        // url: "http://127.0.0.1:8080/user/UpdateManager",
         data: "id=" + Id_Manager
         + "&account=" + Account
         + "&password=" + Password_Manager,
@@ -170,6 +174,7 @@ function QueryUser(type) {
 
         $.ajax({
             type: "post",
+            url: "http://123.207.26.152:8080/user/QueryUser",
             url: "http://127.0.0.1:8080/user/QueryUser",
             data: "userid=" + Id_Query,
             dataType: "json",
@@ -187,7 +192,7 @@ function QueryUser(type) {
                         + "<td>" + d.data.id + "</td>"
                         + "<td>" + d.data.name + "</td>"
                         + "<td>" + d.data.tel + "</td>"
-                        + "<td>" + d.data.update_time + "</td>"
+                        + "<td>" + ToLocalString(d.data.update_time) + "</td>"
                         // + "<td><a href='/jsp/User/user_edit.jsp?id=<%= item.id>+'>编辑</a></td>"
                         + "<td><a href =\"" +
                         "/jsp/User/user_edit.jsp?" +
@@ -215,7 +220,8 @@ function QueryUser(type) {
 
         $.ajax({
             type: "post",
-            url: "http://127.0.0.1:8080/user/QueryManager",
+            url: "http://123.207.26.152:8080/user/QueryManager",
+            // url: "http://127.0.0.1:8080/user/QueryManager",
             data: "userid=" + Id_Query,
             dataType: "json",
             async: true,
@@ -278,6 +284,7 @@ function delete_item(type, Id) {
 
         $.ajax({
             type: "post",
+            // url: "http://123.207.26.152:8080/user/deleteuser",
             url: "http://127.0.0.1:8080/user/deleteuser",
             data: "id=" + Id,
             datatype: "json",
@@ -296,6 +303,7 @@ function delete_item(type, Id) {
 
         $.ajax({
             type: "post",
+            // url: "http://123.207.26.152:8080/user/delManager",
             url: "http://127.0.0.1:8080/user/delManager",
             data: "id=" + Id,
             datatype: "json",
@@ -332,6 +340,15 @@ $(".table").on('click','.add',function(){
     // });
     $('#modal-table-update').modal('show');
 });
+
+
+function ToLocalString(d) {
+
+
+    return new Date(parseInt(d)).toLocaleString().replace(/:\d{1,2}$/,' ');
+
+}
+
 
 
 

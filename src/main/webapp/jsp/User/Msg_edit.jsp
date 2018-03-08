@@ -8,8 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 
-    String Id_Message = request.getParameter("msgid");
-    String content_Message = request.getParameter("comment_content");
+//    String Id_Message = request.getParameter("msgid");
+//    String content_Message = request.getParameter("comment_content");
+    String Id_Message = new String(request.getParameter("msgid").getBytes("iso-8859-1"), "utf-8");
+    String content_Message = new String(request.getParameter("comment_content").getBytes("iso-8859-1"), "utf-8");
+
+
 
 %>
 

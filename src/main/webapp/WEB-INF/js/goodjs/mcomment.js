@@ -7,6 +7,7 @@ function LoadAllComment() {
 
     $.ajax({
         type: "get",
+        // url: "http://123.207.26.152:8080/comment/getAllComment",
         url: "http://127.0.0.1:8080/comment/getAllComment",
         dataType: "json",
         success: function (d) {
@@ -21,14 +22,14 @@ function LoadAllComment() {
                 rows += "<td>" + d.data[i].content + "</td>"
                 rows += "<td>" + d.data[i].user.name + "</td>"
                 rows += "<td>" + d.data[i].goods.name + "</td>"
-                rows += "<td>" + d.data[i].date + "</td>"
+                rows += "<td>" + ToLocalString(d.data[i].date) + "</td>"
                 rows += "<td>" +
                     "<a href =\"" + "/jsp/Goods/comment_edit.jsp?" +
                     "commentid=" + d.data[i].id +
                     // "&comment_goodname=" + d.data[i].goods.name +
                     "&comment_content=" + d.data[i].content +
                     // "&comment_username=" + d.data[i].user.name +
-                    "&comment_time=" + d.data[i].date+
+                    "&comment_time=" + ToLocalString(d.data[i].date)+
                     "\">编辑" +
                     "</a>" +
                     "<a onclick='DelComment(" +d.data[i].id + ")'>删除" + "</a>" +
@@ -49,6 +50,7 @@ function QueryComment() {
     var content = $('#comment_content').val();
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/comment/Query",
         url: "http://127.0.0.1:8080/comment/Query",
         dataType: "json",
         data:"content="+content,
@@ -61,14 +63,14 @@ function QueryComment() {
                 rows += "<td>" + d.data[i].content + "</td>"
                 rows += "<td>" + d.data[i].user.name + "</td>"
                 rows += "<td>" + d.data[i].goods.name + "</td>"
-                rows += "<td>" + d.data[i].date + "</td>"
+                rows += "<td>" + ToLocalString(d.data[i].date) + "</td>"
                 rows += "<td>" +
                     "<a href =\"" + "/jsp/Goods/comment_edit.jsp?" +
                     "commentid=" + d.data[i].id +
                     // "&comment_goodname=" + d.data[i].goods.name +
                     "&comment_content=" + d.data[i].content +
                     // "&comment_username=" + d.data[i].user.name +
-                    "&comment_time=" + d.data[i].date+
+                    "&comment_time=" + ToLocalString(d.data[i].date)+
                     "\">编辑" +
                     "</a>" +
                     "<a onclick='DelComment(" +d.data[i].id + ")'>删除" + "</a>" +
@@ -89,6 +91,7 @@ function DelComment(id) {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/comment/deleteByIds",
         url: "http://127.0.0.1:8080/comment/deleteByIds",
         dataType: "json",
         data: "id=" + id,
@@ -111,6 +114,7 @@ function UpdateComment(id) {
 
     $.ajax({
         type: "post",
+        // url: "http://123.207.26.152:8080/comment/UpdateOneComment",
         url: "http://127.0.0.1:8080/comment/UpdateOneComment",
         dataType: "json",
         data:
@@ -132,5 +136,12 @@ function UpdateComment(id) {
 function AddComment() {
 
 };
+
+function ToLocalString(d) {
+
+
+    return new Date(parseInt(d)).toLocaleString().replace(/:\d{1,2}$/,' ');
+
+}
 
 

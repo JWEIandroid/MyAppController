@@ -7,7 +7,7 @@
     留言板：
     <input type="text" name="message_content" id="message_content" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
     <button type="button" class="btn btn-primary" onclick="QueryMsg()">查询</button>&nbsp;&nbsp;
-    <button type="button" class="btn btn-success" id="addnew">新增留言</button>
+    <%--<button type="button" class="btn btn-success" id="addnew">新增留言</button>--%>
 </form>
 <table class="table table-bordered table-hover definewidth m10"
        id="table_user"

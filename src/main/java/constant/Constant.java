@@ -31,4 +31,9 @@ public class Constant {
         return  STORE_HOME;
     }
 
+
+    public static String remote_IP = "123.207.26.152";
+    public static String BASE = "http://"+remote_IP+":8080/";
+
+
 }

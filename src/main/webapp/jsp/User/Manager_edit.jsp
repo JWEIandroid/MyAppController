@@ -9,12 +9,12 @@
 <%
 
     //Manager Data
-//    String Id_Manager = new String(request.getParameter("id_manager").getBytes("iso-8859-1"), "utf-8");
-//    String Account = new String(request.getParameter("account").getBytes("iso-8859-1"), "utf-8");
-//    String Password_Manager = new String(request.getParameter("password_manager").getBytes("iso-8859-1"), "utf-8");
-    String Id_Manager = request.getParameter("id_manager");
-    String Account = request.getParameter("account");
-    String Password_Manager = request.getParameter("password_manager");
+    String Id_Manager = new String(request.getParameter("id_manager").getBytes("iso-8859-1"), "utf-8");
+    String Account = new String(request.getParameter("account").getBytes("iso-8859-1"), "utf-8");
+    String Password_Manager = new String(request.getParameter("password_manager").getBytes("iso-8859-1"), "utf-8");
+//    String Id_Manager = request.getParameter("id_manager");
+//    String Account = request.getParameter("account");
+//    String Password_Manager = request.getParameter("password_manager");
 
 
 %>

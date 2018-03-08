@@ -3,6 +3,7 @@ function LoadAllUserIncomeNPay() {
 
     $.ajax({
         type: "get",
+        // url: "http://123.207.26.152:8080/record/getincomeNpay",
         url: "http://127.0.0.1:8080/record/getincomeNpay",
         dataType: "json",
         success: function (d) {
