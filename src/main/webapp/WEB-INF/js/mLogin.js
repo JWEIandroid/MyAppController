@@ -2,6 +2,9 @@
 var NowUserId = "";
 
 
+// var BASEURL = "127.0.0.1";
+var BASEURL = "123.207.26.152";
+
 $(function () {
     // Junbo.SetCookie();
     $("#UserName").focus();
@@ -29,7 +32,8 @@ function Loginnew()
         type: "post",
         data: "account=" + UserName + "&password=" + Psw,
         // url: "http://123.207.26.152:8080/user/managerlogin",
-        url: "http://localhost:8080/user/managerlogin",
+        // url: "http://localhost:8080/user/managerlogin",
+        url:  "http://"+BASEURL+":8080/user/managerlogin",
         dataType: "json",
         // async: true,
         success: function (d) {

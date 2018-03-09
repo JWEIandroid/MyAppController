@@ -2,13 +2,17 @@ $(function () {
 
 });
 
+// var BASEURL = "127.0.0.1";
+var BASEURL = "123.207.26.152";
+
 //加载全部商品信息
 function LoadAllGoods() {
 
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/goods/getAllGoodsWithOutPageNum",
-        url: "http://127.0.0.1:8080/goods/getAllGoodsWithOutPageNum",
+        // url: "http://127.0.0.1:8080/goods/getAllGoodsWithOutPageNum",
+        url: "http://"+BASEURL+":8080/goods/getAllGoodsWithOutPageNum",
         dataType: "json",
         success: function (d) {
             console.log(d);
@@ -48,7 +52,8 @@ function QueryGoods(name) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/goods/getgoodBynameWithOutPageNum",
-        url: "http://127.0.0.1:8080/goods/getgoodBynameWithOutPageNum",
+        // url: "http://127.0.0.1:8080/goods/getgoodBynameWithOutPageNum",
+        url: "http://"+BASEURL+":8080/goods/getgoodBynameWithOutPageNum",
         dataType: "json",
         data:
         "name=" + name,
@@ -90,7 +95,8 @@ function DelGoods(id) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080:8080/goods/delwithid",
-        url: "http://127.0.0.1:8080/goods/delwithid",
+        // url: "http://127.0.0.1:8080/goods/delwithid",
+        url: "http://"+BASEURL+":8080/goods/delwithid",
         dataType: "json",
         data: "id=" + id,
         success: function (d) {
@@ -114,7 +120,8 @@ function UpdateGoods(id) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/goods/updategood",
-        url: "http://127.0.0.1:8080/goods/updategood",
+        // url: "http://127.0.0.1:8080/goods/updategood",
+        url: "http://"+BASEURL+":8080/goods/updategood",
         dataType: "json",
         data:
         "name=" + name
@@ -127,7 +134,7 @@ function UpdateGoods(id) {
 
         },
         error: function () {
-            alert("删除商品----服务器出问题啦");
+            alert("更新商品----服务器出问题啦");
         }
     });
 

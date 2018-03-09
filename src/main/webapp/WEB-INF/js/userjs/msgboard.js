@@ -2,13 +2,17 @@ $(function () {
 
 });
 
+// var BASEURL = "127.0.0.1";
+var BASEURL = "123.207.26.152";
+
 //加载全部留言
 function LoadAllMsg() {
 
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/message/list",
-        url: "http://127.0.0.1:8080/message/list",
+        // url: "http://127.0.0.1:8080/message/list",
+        url:  "http://"+BASEURL+":8080/message/list",
         dataType: "json",
         success: function (d) {
             console.log("...." + d);
@@ -43,7 +47,8 @@ function QueryMsg() {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/message/querybycontent",
-        url: "http://127.0.0.1:8080/message/querybycontent",
+        // url: "http://127.0.0.1:8080/message/querybycontent",
+        url:  "http://"+BASEURL+":8080/message/querybycontent",
         dataType: "json",
         data: "content=" + content,
         success: function (d) {
@@ -80,7 +85,8 @@ function DelMessage(id) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/message/deletebyid",
-        url: "http://127.0.0.1:8080/message/deletebyid",
+        // url: "http://127.0.0.1:8080/message/deletebyid",
+        url:  "http://"+BASEURL+":8080/message/deletebyid",
         dataType: "json",
         data: "id=" + id,
         success: function (d) {
@@ -101,7 +107,8 @@ function UpdateMessage(id) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/message/update",
-        url: "http://127.0.0.1:8080/message/update",
+        // url: "http://127.0.0.1:8080/message/update",
+        url:  "http://"+BASEURL+":8080/message/update",
         dataType: "json",
         data:
         "content=" + content

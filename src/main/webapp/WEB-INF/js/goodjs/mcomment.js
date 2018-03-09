@@ -2,13 +2,17 @@ $(function () {
 
 });
 
+// var BASEURL = "127.0.0.1";
+var BASEURL = "123.207.26.152";
+
 //加载全部评论信息
 function LoadAllComment() {
 
     $.ajax({
         type: "get",
         // url: "http://123.207.26.152:8080/comment/getAllComment",
-        url: "http://127.0.0.1:8080/comment/getAllComment",
+        // url: "http://127.0.0.1:8080/comment/getAllComment",
+        url: "http://"+BASEURL+":8080/comment/getAllComment",
         dataType: "json",
         success: function (d) {
             console.log("...."+d);
@@ -51,7 +55,8 @@ function QueryComment() {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/comment/Query",
-        url: "http://127.0.0.1:8080/comment/Query",
+        // url: "http://127.0.0.1:8080/comment/Query",
+        url: "http://"+BASEURL+":8080/comment/Query",
         dataType: "json",
         data:"content="+content,
         success: function (d) {
@@ -92,7 +97,8 @@ function DelComment(id) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/comment/deleteByIds",
-        url: "http://127.0.0.1:8080/comment/deleteByIds",
+        // url: "http://127.0.0.1:8080/comment/deleteByIds",
+        url: "http://"+BASEURL+":8080/comment/deleteByIds",
         dataType: "json",
         data: "id=" + id,
         success: function (d) {
@@ -115,7 +121,8 @@ function UpdateComment(id) {
     $.ajax({
         type: "post",
         // url: "http://123.207.26.152:8080/comment/UpdateOneComment",
-        url: "http://127.0.0.1:8080/comment/UpdateOneComment",
+        // url: "http://127.0.0.1:8080/comment/UpdateOneComment",
+        url: "http://"+BASEURL+":8080/comment/UpdateOneComment",
         dataType: "json",
         data:
         "date="+date

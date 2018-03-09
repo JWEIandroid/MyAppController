@@ -3,13 +3,17 @@ $(function () {
 
 });
 
+// var BASEURL = "127.0.0.1";
+var BASEURL = "123.207.26.152";
+
 
 //读取全部用户数据
 function loadUserData() {
 
     $.ajax({
         type: "get",
-        url: "http://123.207.26.152:8080/user/userlist",
+        url: "http://"+BASEURL+":8080/user/userlist",
+        // url: "http://123.207.26.152:8080/user/userlist",
         // url: "http://127.0.0.1:8080/user/userlist",
         dataType: "json",
         // async: true,
@@ -54,7 +58,8 @@ function loadManagerData() {
 
     $.ajax({
         type: "post",
-        url: "http://123.207.26.152:8080/user/ListManager",
+        url: "http://"+BASEURL+":8080/user/ListManager",
+        // url: "http://123.207.26.152:8080/user/ListManager",
         // url: "http://127.0.0.1:8080/user/ListManager",
         dataType: "json",
         // async: true,
@@ -105,7 +110,8 @@ function updateUserData() {
 
     $.ajax({
         type: "post",
-        url: "http://123.207.26.152:8080/user/updateuser",
+        url: "http://"+BASEURL+":8080/user/updateuser",
+        // url: "http://123.207.26.152:8080/user/updateuser",
         // url: "http://127.0.0.1:8080/user/updateuser",
         data: "tel=" + tel
         + "&id=" + id
@@ -142,7 +148,8 @@ updateManagerData = function () {
 
     $.ajax({
         type: "post",
-        url: "http://123.207.26.152:8080/user/UpdateManager",
+        url: "http://"+BASEURL+":8080/user/UpdateManager",
+        // url: "http://123.207.26.152:8080/user/UpdateManager",
         // url: "http://127.0.0.1:8080/user/UpdateManager",
         data: "id=" + Id_Manager
         + "&account=" + Account
@@ -174,8 +181,9 @@ function QueryUser(type) {
 
         $.ajax({
             type: "post",
-            url: "http://123.207.26.152:8080/user/QueryUser",
-            url: "http://127.0.0.1:8080/user/QueryUser",
+            // url: "http://123.207.26.152:8080/user/QueryUser",
+            // url: "http://127.0.0.1:8080/user/QueryUser",
+            url: "http://"+BASEURL+":8080/user/QueryUser",
             data: "userid=" + Id_Query,
             dataType: "json",
             async: true,
@@ -220,7 +228,8 @@ function QueryUser(type) {
 
         $.ajax({
             type: "post",
-            url: "http://123.207.26.152:8080/user/QueryManager",
+            url: "http://"+BASEURL+":8080/user/QueryManager",
+            // url: "http://123.207.26.152:8080/user/QueryManager",
             // url: "http://127.0.0.1:8080/user/QueryManager",
             data: "userid=" + Id_Query,
             dataType: "json",
@@ -285,7 +294,7 @@ function delete_item(type, Id) {
         $.ajax({
             type: "post",
             // url: "http://123.207.26.152:8080/user/deleteuser",
-            url: "http://127.0.0.1:8080/user/deleteuser",
+            url: "http://"+BASEURL+":8080/user/deleteuser",
             data: "id=" + Id,
             datatype: "json",
             success: function (d) {
@@ -304,7 +313,7 @@ function delete_item(type, Id) {
         $.ajax({
             type: "post",
             // url: "http://123.207.26.152:8080/user/delManager",
-            url: "http://127.0.0.1:8080/user/delManager",
+            url: "http://"+BASEURL+":8080/user/delManager",
             data: "id=" + Id,
             datatype: "json",
             success: function (d) {
